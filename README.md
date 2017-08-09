@@ -1,4 +1,4 @@
-**Praktikum Bachelorarbeit**
+# Praktikum Bachelorarbeit
 
 Thema: "Blockchain: Prüfungspass"
 
