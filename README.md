@@ -2,7 +2,7 @@
 
 Thema: "Blockchain: Prüfungspass"
 
-Nachbildung bzw. Erweiterung des Prüfungspass auf Basis Blockchaintechnologie, Ethereum & Smart-Contracts.
+Nachbildung bzw. Erweiterung des Prüfungspass auf Basis von Blockchaintechnologie, Ethereum & Smart-Contracts.
 
 [Ethereum](https://www.ethereum.org)
 
