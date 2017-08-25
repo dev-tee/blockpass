@@ -1,19 +1,19 @@
 pragma solidity ^0.4.0;
 
-import "./contractmanager.sol";
-import "./data/assessmentdb.sol";
-import "./data/assignmentdb.sol";
-import "./data/coursedb.sol";
-import "./data/studentdb.sol";
-import "./data/submissiondb.sol";
-import "./data/supervisordb.sol";
-import "./data/testdb.sol";
-import "./data/combined/courseparticipationdb.sol";
-import "./data/combined/coursesupervisiondb.sol";
-import "./data/combined/studentsubmissiondb.sol";
-import "./data/combined/supervisorassessmentdb.sol";
-import "./data/combined/testparticipationdb.sol";
-import "./data/combined/testsupervisiondb.sol";
+import "../manager/contractmanager.sol";
+import "../data/assessmentdb.sol";
+import "../data/assignmentdb.sol";
+import "../data/coursedb.sol";
+import "../data/studentdb.sol";
+import "../data/submissiondb.sol";
+import "../data/supervisordb.sol";
+import "../data/testdb.sol";
+import "../data/combined/courseparticipationdb.sol";
+import "../data/combined/coursesupervisiondb.sol";
+import "../data/combined/studentsubmissiondb.sol";
+import "../data/combined/supervisorassessmentdb.sol";
+import "../data/combined/testparticipationdb.sol";
+import "../data/combined/testsupervisiondb.sol";
 
 
 contract UniTester {

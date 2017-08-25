@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-import "../contractmanager.sol";
+import "../manager/contractmanager.sol";
 
 
 contract CourseDB is ManagedContract {

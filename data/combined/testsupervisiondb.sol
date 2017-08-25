@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-import "../../contractmanager.sol";
+import "../../manager/contractmanager.sol";
 import "../supervisordb.sol";
 import "../testdb.sol";
 

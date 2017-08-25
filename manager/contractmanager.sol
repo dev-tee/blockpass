@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-import "./owned.sol";
+import "../utility/owned.sol";
 
 
 //Monax Solidity Tutorials: 1 The Five Types Model
