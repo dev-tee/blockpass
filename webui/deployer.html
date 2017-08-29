@@ -1,17 +1,79 @@
-<html>
-    <head>
-        <title>Deployer</title>
-        <script type="text/javascript" src="./web3.js"></script>
-        <script type="text/javascript">
-            if (typeof web3 !== 'undefined') {
-                web3 = new Web3(web3.currentProvider);
-            } else {
-                // set the provider you want from Web3.providers
-                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-            }
-            console.log(web3);
-        </script>
-    </head>
-    <body>
-    </body>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Deployer</title>
+  <script type="text/javascript" src="./scripts/web3.min.js"></script>
+  <script type="text/javascript">
+    if (typeof web3 !== 'undefined') {
+      web3 = new Web3(web3.currentProvider);
+    } else {
+      web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    }
+    console.log(web3);
+  </script>
+</head>
+<body>
+  <input type="file" id="files" name="files[]" multiple />
+  <output id="list"></output>
+  <hr>
+  <div id="cmc"></div>
+  <script type="text/javascript">
+    function deploy(file) {
+      var src = this.getAttribute('data-src');
+      web3.eth.compile.solidity(src, callback => {console.log(callback)});
+      // someText = someText.replace(/(\r\n|\n|\r)/gm,"");
+      // someText = someText.replace(/(\r?\n|\r)/g, ' ');
+    }
+
+    function read(f) {
+        var reader = new FileReader();
+        return new Promise((resolve, reject) => {
+          reader.onload = event => resolve(event.target.result.replace(/(\r?\n|\r)/g, ' '));
+          reader.onerror = error => reject(error);
+          reader.readAsText(f);
+        });
+    }
+
+    function setSource(target, file) {
+      read(file).then(content => {
+        target.setAttribute('data-src', content);
+      }).catch(error => console.log(error));
+    }
+
+    
+    function selection(evt) {
+      var files = evt.target.files;
+      var output = [];
+      
+      // Write file information (eg. name, type, size, etc.) to output
+      // document.getElementById('cmc').addEventListener(
+      //   'click',
+      //   function() {deploy(fileLoadedEvent.target.result)},
+      //   false
+      // );
+      for (var i = 0, f; f = files[i]; i++) {
+        output.push(
+          '<li>',
+          '<strong>', f.name, '</strong>',
+          ' (', f.type || 'n/a', ') - ',
+          f.size, ' bytes',
+          '<button type="button" id="', f.name, '">Deploy</button>',
+          '</li>'
+        );
+      }
+      document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+      for (var i = files.length - 1; i >= 0; i--) {
+        var button = document.getElementById(files[i].name);
+        if (files[i].name.split(".")[1] == 'sol') {
+          setSource(button, files[i]);
+          button.addEventListener('click', deploy, false);
+        }
+      }
+    }
+    // Add event listener to our input field
+    document.getElementById('files').addEventListener('change', selection, false);
+  </script>
+</body>
 </html>

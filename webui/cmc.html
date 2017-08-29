@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>CMC</title>
+  <script type="text/javascript" src="./scripts/web3.min.js"></script>
+  <script type="text/javascript" src="./scripts/init.js" onload="delay()"></script>
+  <script type="text/javascript">
+    function listContracts() {
+      var output = [];
+      for (var i = contractNames.length - 1; i >= 0; i--) {
+        output.push(
+          '<li>', contractInstances[i].address, ' - ', contractNames[i], '</li>'
+        );
+      }
+      document.getElementById('contracts').innerHTML = '<ul>' + output.join('') + '</ul>';
+      console.log(output);
+      console.log(output.join('yo'));
+    }
+    function registerContracts() {
+      for (var i = contractNames.length - 1; i >= 0; i--) {
+        contractmanagerInstance.addContract(contractNames[i], contractInstances[i].address, (error, result) => {
+          if (error) console.error(error);
+        });
+      }
+    }
+  </script>
+</head>
+<body>
+  <button type="button" onclick="listContracts()">Contracts auflisten</button>
+  <button type="button" onclick="registerContracts()">Registriere Contracts</button>
+  <div id="contracts"></div>
+</body>
+</html>

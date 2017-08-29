@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Course Creator</title>
+  <script type="text/javascript" src="./scripts/web3.js"></script>
+  <script type="text/javascript" src="./scripts/init.js" onload="delay()"></script>
+  <script type="text/javascript">
+    function submit() {
+      console.log("yo");
+      var name = document.getElementById('name');
+      var description = document.getElementById('description');
+      var ectspoints = document.getElementById('ectspoints');
+      coursedbInstance.addCourse(name.value, description.value, ectspoints.value, defaultCallback);
+    }
+
+    function list() {
+      document.getElementById('courses').innerHTML = ''; //wipe first
+      
+      coursedbInstance.getNumCourses((error, result) => {
+        if (!error && !result.isZero()) {
+          for (i = 0; i < result; i++) {
+            coursedbInstance.getCourse(i, (error, result) => {
+              if(!error) {
+                document.getElementById('courses').innerHTML +=
+                  web3.toAscii(result[0]) + ' '
+                  + result[1] + ' '
+                  + result[2].toString()
+                  + '<br>';
+              } else {
+                console.error(error);
+              }
+            });
+          }
+        } else {
+          console.error(error);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <input type="text" name="name" id="name" placeholder="VU Algorithmen und Datenstrukturen">
+  <input type="text" name="description" id="description" placeholder="Aufwandsabschätzungen, Komplexitätsmaße, grundlegende Datenstrukturen, Such- und Sortierverfahren und grundlegende Graph- und Optimierungsalgorithmen">
+  <input type="number" name="ectspoints" id="ectspoints" placeholder="6">
+  <button onclick="submit()">Erstellen</button>
+  <button onclick="list()">Auflisten</button>
+  <div id="courses"></div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Base</title>
+  <script type="text/javascript" src="./scripts/web3.js"></script>
+  <script type="text/javascript" src="./scripts/init.js" onload="delay()"></script>
+  <script type="text/javascript">
+    function disableMatrNrInput(val) {
+      document.getElementById('matrnr').hidden = (val == 'supervisor' ? true : false);
+    }
+    function submit() {
+      var type = document.getElementById('type');
+      var matrnr = document.getElementById('matrnr');
+      var name = document.getElementById('name');
+
+      if (type.value == 'student') {
+        studentdbInstance.addStudent(web3.eth.defaultAccount, name.value, matrnr.value, defaultCallback);
+      } else if (type.value == 'supervisor') {
+        supervisordbInstance.addSupervisor(web3.eth.defaultAccount, name.value, defaultCallback);
+      }
+    }
+  </script>
+</head>
+<body>
+  <select onchange="disableMatrNrInput(this.value)" id="type">
+    <option value="student" select>Student</option>
+    <option value="supervisor">LV-Leiter</option>
+  </select>
+  <input type="text" name="complete-name" id="name" placeholder="Max Mustermann">
+  <input type="number" name="matrnr" id="matrnr" placeholder="1393123">
+  <button type="submit" onclick="submit()">Registrieren</button>
+</body>
+</html>
