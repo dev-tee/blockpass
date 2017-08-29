@@ -39,16 +39,20 @@ contract SubmissionDB is ManagedContract {
             TestDB(testDB).addSubmissionID(referenceID, submissions.length);
         }
 
-        submissions[submissions.length].description = description;
-        submissions[submissions.length].submittedDate = submittedDate;
-        submissions[submissions.length].ref = ref;
-        submissions[submissions.length].referenceID = referenceID;
-        ++submissions.length;
+        Submission storage submission = submissions[submissions.length++];
+        submission.description = description;
+        submission.submittedDate = submittedDate;
+        submission.ref = ref;
+        submission.referenceID = referenceID;
     }
 
     function getSubmission(uint id) public constant returns(string description, uint submittedDate, uint ref, uint referenceID) {
         require(exists(id));
         return(submissions[id].description, submissions[id].submittedDate, submissions[id].ref, submissions[id].referenceID);
+    }
+
+    function getNumSubmissions() public constant returns(uint) {
+        return submissions.length;
     }
 
     function addStudentSubmissionID(uint submissionID, uint id) permission("studentsubmissiondb") {

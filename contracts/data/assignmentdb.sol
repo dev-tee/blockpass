@@ -31,15 +31,19 @@ contract AssignmentDB is ManagedContract {
         address courseDB = ContractProvider(MAN).contracts("coursedb");
         CourseDB(courseDB).addAssignmentID(courseID, assignments.length);
         
-        assignments[assignments.length].description = description;
-        assignments[assignments.length].dueDate = dueDate;
-        assignments[assignments.length].courseID = courseID;
-        ++assignments.length;
+        Assignment storage assignment = assignments[assignments.length++];
+        assignment.description = description;
+        assignment.dueDate = dueDate;
+        assignment.courseID = courseID;
     }
 
     function getAssignment(uint id) public constant returns(string description, uint dueDate, uint courseID) {
         require(exists(id));
         return(assignments[id].description, assignments[id].dueDate, assignments[id].courseID);
+    }
+
+    function getNumAssignments() public constant returns(uint) {
+        return assignments.length;
     }
 
     function addSubmissionID(uint assignmentID, uint id) permission("submissiondb") {

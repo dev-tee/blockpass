@@ -40,15 +40,19 @@ contract TestDB is ManagedContract {
         address courseDB = ContractProvider(MAN).contracts("coursedb");
         CourseDB(courseDB).addTestID(courseID, tests.length);
 
-        tests[tests.length].description = description;
-        tests[tests.length].dueDate = dueDate;
-        tests[tests.length].courseID = courseID;
-        ++tests.length;
+        Test storage test = tests[tests.length++];
+        test.description = description;
+        test.dueDate = dueDate;
+        test.courseID = courseID;
     }
 
     function getTest(uint id) public constant returns(string description, uint dueDate, uint courseID) {
         require(exists(id));
         return(tests[id].description, tests[id].dueDate, tests[id].courseID);
+    }
+
+    function getNumTests() public constant returns(uint) {
+        return tests.length;
     }
 
     function addTestParticipationID(uint testID, uint id) permission("testparticipationdb") {

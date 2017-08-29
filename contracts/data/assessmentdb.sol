@@ -28,16 +28,20 @@ contract AssessmentDB is ManagedContract {
         address submissionDB = ContractProvider(MAN).contracts("submissiondb");
         SubmissionDB(submissionDB).addAssessmentID(submissionID, assessments.length);
 
-        assessments[assessments.length].criteria = criteria;
-        assessments[assessments.length].maxPoints = maxPoints;
-        assessments[assessments.length].obtainedPoints = obtainedPoints;
-        assessments[assessments.length].submissionID = submissionID;
-        ++assessments.length;
+        Assessment storage assessment = assessments[assessments.length++];
+        assessment.criteria = criteria;
+        assessment.maxPoints = maxPoints;
+        assessment.obtainedPoints = obtainedPoints;
+        assessment.submissionID = submissionID;
     }
 
     function getAssessment(uint id) public constant returns(bytes32 criteria, uint maxPoints, uint obtainedPoints, uint submissionID) {
         require(exists(id));
         return(assessments[id].criteria, assessments[id].maxPoints, assessments[id].obtainedPoints, assessments[id].submissionID);
+    }
+
+    function getNumAssessments() public constant returns(uint) {
+        return assessments.length;
     }
 
     function addSupervisorAssessmentID(uint assessmentID, uint id) permission("supervisorassessmentdb") {
