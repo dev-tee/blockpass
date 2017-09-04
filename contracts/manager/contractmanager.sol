@@ -16,37 +16,40 @@ contract ManagedContract {
         _;
     }
 
-    function setContractManagerAddress(address contractManagerAddress) returns (bool result) {
+    function setContractManagerAddress(address contractManagerAddress) returns (bool) {
         // Contract manager address should only be set if it hasn't been set yet.
         // Updateable only by the contract manager itself.
-        if (MAN != 0x0 && MAN != msg.sender) {
+        if (MAN == 0x0 || MAN == msg.sender) {
+            MAN = contractManagerAddress;
+            return true;
+        } else {
             return false;
         }
-
-        MAN = contractManagerAddress;
-
-        return true;
     }
 }
 
 
 // Interface for getting contracts from ContractManager
-contract ContractProvider {
-    function contracts(bytes32 name) returns (address addr);
+interface ContractProvider {
+    function contracts(bytes32 name) public returns (address);
 }
 
 
 contract ContractManager is Owned {
 
-    //dataman
-    //courseman
     mapping (bytes32 => address) public contracts;
 
-    function addContract(bytes32 name, address addr) onlyOwner {
-        contracts[name] = addr;
+    function addContract(bytes32 contractName, address contractAddress) onlyOwner returns (bool) {
+        // Add contract only if we can set the manager on it.
+        if (ManagedContract(contractAddress).setContractManagerAddress(this)) {
+            contracts[contractName] = contractAddress;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    function getContract(bytes32 name) constant returns (address addr) {
+    function getContract(bytes32 name) constant returns (address) {
         return contracts[name];
     }
 }
