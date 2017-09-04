@@ -30,23 +30,37 @@ contract SubmissionDB is ManagedContract {
         return exists(id) && submissions[id].assessmentIDs.length > refIndex;
     }
 
-    function addSubmission(string description, uint submittedDate, uint ref, uint referenceID) public {
+    function addSubmission(
+        string description,
+        uint submittedDate,
+        uint ref,
+        uint referenceID
+    )
+        public
+        returns(uint id)
+    {
+        id = submissions.length++;
+
         if (ref == 0 ) { //ASSIGNMENT
             address assignmentDB = ContractProvider(MAN).contracts("assignmentdb");
-            AssignmentDB(assignmentDB).addSubmissionID(referenceID, submissions.length);
+            AssignmentDB(assignmentDB).addSubmissionID(referenceID, id);
         } else if (ref == 1) { //TEST
             address testDB = ContractProvider(MAN).contracts("testdb");
-            TestDB(testDB).addSubmissionID(referenceID, submissions.length);
+            TestDB(testDB).addSubmissionID(referenceID, id);
         }
 
-        Submission storage submission = submissions[submissions.length++];
+        Submission storage submission = submissions[id];
         submission.description = description;
         submission.submittedDate = submittedDate;
         submission.ref = ref;
         submission.referenceID = referenceID;
     }
 
-    function getSubmission(uint id) public constant returns(string description, uint submittedDate, uint ref, uint referenceID) {
+    function getSubmission(uint id)
+        public
+        constant
+        returns(string description, uint submittedDate, uint ref, uint referenceID)
+    {
         require(exists(id));
         return(submissions[id].description, submissions[id].submittedDate, submissions[id].ref, submissions[id].referenceID);
     }

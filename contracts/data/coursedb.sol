@@ -37,16 +37,18 @@ contract CourseDB is ManagedContract {
         return exists(id) && courses[id].testIDs.length > refIndex;
     }
 
-    function addCourse(bytes32 name, string description, uint ectsPoints) public {
-        Course storage c = courses[courses.length++];
+    function addCourse(bytes32 name, string description, uint ectsPoints) public returns(uint id) {
+        id = courses.length++;
+
+        Course storage c = courses[id];
         c.name = name;
         c.description = description;
         c.ectsPoints = ectsPoints;
     }
 
-    function getCourse(uint id) public constant returns(bytes32 name, string description, uint ectsPoints) {
+    function getCourse(uint id) public constant returns(bytes32 name, bytes description, uint ectsPoints) {
         require(exists(id));
-        return(courses[id].name, courses[id].description, courses[id].ectsPoints);
+        return(courses[id].name, bytes(courses[id].description), courses[id].ectsPoints);
     }
 
     function getNumCourses() public constant returns(uint) {
@@ -78,7 +80,7 @@ contract CourseDB is ManagedContract {
         return(courses[courseID].courseSupervisionIDs[index]);
     }
 
-    function getNumCourseSupervision(uint courseID) public constant returns(uint) {
+    function getNumCourseSupervisions(uint courseID) public constant returns(uint) {
         require(exists(courseID));
         return courses[courseID].courseSupervisionIDs.length;
     }

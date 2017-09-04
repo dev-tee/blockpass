@@ -18,18 +18,17 @@ contract StudentDB is ManagedContract {
     mapping (address => Student) students;
 
     function isStudent(address account) public constant returns(bool) {
-        return indices.length != 0
-            && indices[students[account].index] == account;
+        return indices.length != 0 && indices[students[account].index] == account;
     }
 
     function testParticipationExists(address account, uint refIndex) public constant returns(bool) {
         return isStudent(account) && students[account].testParticipationIDs.length > refIndex;
     }
-    
+
     function courseParticipationExists(address account, uint refIndex) public constant returns(bool) {
         return isStudent(account) && students[account].courseParticipationIDs.length > refIndex;
     }
-    
+
     function studentSubmissionExists(address account, uint refIndex) public constant returns(bool) {
         return isStudent(account) && students[account].studentSubmissionIDs.length > refIndex;
     }

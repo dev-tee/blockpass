@@ -7,8 +7,7 @@ import "./submissiondb.sol";
 contract AssessmentDB is ManagedContract {
 
     struct Assessment {
-        bytes32 criteria;
-        uint maxPoints;
+        string comment;
         uint obtainedPoints;
         uint submissionID;
         uint[] supervisorAssessmentIDs;
@@ -24,20 +23,21 @@ contract AssessmentDB is ManagedContract {
         return exists(id) && assessments[id].supervisorAssessmentIDs.length > refIndex;
     }
 
-    function addAssessment(bytes32 criteria, uint maxPoints, uint obtainedPoints, uint submissionID) public {
-        address submissionDB = ContractProvider(MAN).contracts("submissiondb");
-        SubmissionDB(submissionDB).addAssessmentID(submissionID, assessments.length);
+    function addAssessment(string comment, uint obtainedPoints, uint submissionID) public returns(uint id) {
+        id = assessments.length++;
 
-        Assessment storage assessment = assessments[assessments.length++];
-        assessment.criteria = criteria;
-        assessment.maxPoints = maxPoints;
+        address submissionDB = ContractProvider(MAN).contracts("submissiondb");
+        SubmissionDB(submissionDB).addAssessmentID(submissionID, id);
+
+        Assessment storage assessment = assessments[id];
+        assessment.comment = comment;
         assessment.obtainedPoints = obtainedPoints;
         assessment.submissionID = submissionID;
     }
 
-    function getAssessment(uint id) public constant returns(bytes32 criteria, uint maxPoints, uint obtainedPoints, uint submissionID) {
+    function getAssessment(uint id) public constant returns(string comment, uint obtainedPoints, uint submissionID) {
         require(exists(id));
-        return(assessments[id].criteria, assessments[id].maxPoints, assessments[id].obtainedPoints, assessments[id].submissionID);
+        return(assessments[id].comment, assessments[id].obtainedPoints, assessments[id].submissionID);
     }
 
     function getNumAssessments() public constant returns(uint) {

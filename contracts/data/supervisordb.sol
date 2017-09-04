@@ -17,8 +17,7 @@ contract SupervisorDB is ManagedContract {
     mapping (address => Supervisor) supervisors;
 
     function isSupervisor(address account) public constant returns(bool) {
-        return indices.length != 0
-            && indices[supervisors[account].index] == account;
+        return indices.length != 0 && indices[supervisors[account].index] == account;
     }
 
     function courseSupervisionExists(address account, uint refIndex) public constant returns(bool) {

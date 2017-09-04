@@ -9,6 +9,7 @@ contract TestDB is ManagedContract {
     struct Test {
         string description;
         uint dueDate;
+        uint maxPoints;
         uint courseID;
         uint[] submissionIDs;
         uint[] testParticipationIDs;
@@ -36,19 +37,30 @@ contract TestDB is ManagedContract {
         return exists(id) && tests[id].submissionIDs[tests[id].submissionIDs.length - 1] >= refIndex;
     }
 
-    function addTest(string description, uint dueDate, uint courseID) public {
-        address courseDB = ContractProvider(MAN).contracts("coursedb");
-        CourseDB(courseDB).addTestID(courseID, tests.length);
+    function addTest(
+        string description,
+        uint dueDate,
+        uint maxPoints,
+        uint courseID
+    )
+        public
+        returns(uint id)
+    {
+        id = tests.length++;
 
-        Test storage test = tests[tests.length++];
+        address courseDB = ContractProvider(MAN).contracts("coursedb");
+        CourseDB(courseDB).addTestID(courseID, id);
+
+        Test storage test = tests[id];
         test.description = description;
         test.dueDate = dueDate;
+        test.maxPoints = maxPoints;
         test.courseID = courseID;
     }
 
-    function getTest(uint id) public constant returns(string description, uint dueDate, uint courseID) {
+    function getTest(uint id) public constant returns(string description, uint dueDate, uint maxPoints, uint courseID) {
         require(exists(id));
-        return(tests[id].description, tests[id].dueDate, tests[id].courseID);
+        return(tests[id].description, tests[id].dueDate, tests[id].maxPoints, tests[id].courseID);
     }
 
     function getNumTests() public constant returns(uint) {

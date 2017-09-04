@@ -9,6 +9,7 @@ contract AssignmentDB is ManagedContract {
     struct Assignment {
         string description;
         uint dueDate;
+        uint maxPoints;
         uint courseID;
         uint[] submissionIDs;
     }
@@ -21,25 +22,40 @@ contract AssignmentDB is ManagedContract {
 
     // Since a submission can reference a test or assignment
     // submissionIDs for either one are not continous.
+    // However, they are sorted in increasing order.
     // Therefore check validity against last element.
     function submissionExists(uint id, uint refIndex) public constant returns(bool) {
-        return exists(id)
-            && assignments[id].submissionIDs[assignments[id].submissionIDs.length - 1] >= refIndex;
+        return exists(id) && assignments[id].submissionIDs[assignments[id].submissionIDs.length - 1] >= refIndex;
     }
 
-    function addAssignment(string description, uint dueDate, uint courseID) public {
+    function addAssignment(
+        string description,
+        uint dueDate,
+        uint maxPoints,
+        uint courseID
+    )
+        public
+        returns(uint id)
+    {
+        id = assignments.length++;
+
         address courseDB = ContractProvider(MAN).contracts("coursedb");
-        CourseDB(courseDB).addAssignmentID(courseID, assignments.length);
-        
-        Assignment storage assignment = assignments[assignments.length++];
+        CourseDB(courseDB).addAssignmentID(courseID, id);
+
+        Assignment storage assignment = assignments[id];
         assignment.description = description;
         assignment.dueDate = dueDate;
+        assignment.maxPoints = maxPoints;
         assignment.courseID = courseID;
     }
 
-    function getAssignment(uint id) public constant returns(string description, uint dueDate, uint courseID) {
+    function getAssignment(uint id)
+        public
+        constant
+        returns(string description, uint dueDate, uint maxPoints, uint courseID)
+    {
         require(exists(id));
-        return(assignments[id].description, assignments[id].dueDate, assignments[id].courseID);
+        return(assignments[id].description, assignments[id].dueDate, assignments[id].maxPoints, assignments[id].courseID);
     }
 
     function getNumAssignments() public constant returns(uint) {
