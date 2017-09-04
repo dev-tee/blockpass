@@ -46,9 +46,9 @@ contract CourseDB is ManagedContract {
         c.ectsPoints = ectsPoints;
     }
 
-    function getCourse(uint id) public constant returns(bytes32 name, bytes description, uint ectsPoints) {
+    function getCourse(uint id) public constant returns(bytes32 name, string description, uint ectsPoints) {
         require(exists(id));
-        return(courses[id].name, bytes(courses[id].description), courses[id].ectsPoints);
+        return(courses[id].name, courses[id].description, courses[id].ectsPoints);
     }
 
     function getNumCourses() public constant returns(uint) {
