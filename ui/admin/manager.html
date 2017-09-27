@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Contract Manager</title>
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/api.js" onload="delay()"></script>
+  <script type="text/javascript">
+    function listContracts() {
+      var output = [];
+      for (var i = contractNames.length - 1; i >= 0; i--) {
+        output.push(
+          '<li>', contractInstances[i].address, ' - ', contractNames[i], '</li>'
+        );
+      }
+      document.getElementById('contracts').innerHTML = '<ul>' + output.join('') + '</ul>';
+    }
+
+    function registerContracts() {
+      for (var i = contractNames.length - 1; i >= 0; i--) {
+        if (contractNames[i] == 'contractprovider' || contractNames[i] == 'contractmanager') {
+          continue;
+        }
+        var data = contractmanagerInstance.addContract.getData(contractNames[i], contractInstances[i].address);
+        console.log("Registering: " + contractNames[i] + " at " + contractInstances[i].address);
+        send(data);
+      }
+    }
+
+    function send(data) {
+      var tx = {
+        "from": document.getElementById('account').value,
+        "to": contractmanagerInstance.address,
+        "data": data
+      };
+      tx.gas = web3.eth.estimateGas(tx);
+      console.log("Estimated gas cost: " + tx.gas);
+      web3.personal.sendTransaction(tx, document.getElementById('password').value);
+    }
+  </script>
+</head>
+<body>
+  <input id="account" type="text" value="0x0014AC39eaa845B123FfC3522A295615F5f4A9a6">
+  <input id="password" type="password" value="">
+  <button type="button" onclick="registerContracts()">Registriere Contracts</button>
+  <div id="contracts"></div>
+  <script type="text/javascript">
+    document.addEventListener('init', event => {
+      listContracts();
+    });
+  </script>
+</body>
+</html>

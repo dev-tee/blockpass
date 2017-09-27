@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Deployer</title>
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/init3.js" onload="init3()"></script>
+  <script type="text/javascript">
+    function getAPIjs(content) {
+      var api = "function delay() {\n"
+      + "setTimeout(init, 500);\n"
+      + "}\n"
+      + "function init() {\n"
+      + "if (typeof web3 !== \'undefined\') {\n"
+      + "web3 = new Web3(web3.currentProvider);\n"
+      + "} else {\n"
+      + "web3 = new Web3(new Web3.providers.HttpProvider(\"http://localhost:8545\"));\n"
+      + "}\n"
+      + "defaultCallback = (error, result) => {\n"
+      + "if (!error) console.log(result);\n"
+      + "else console.error(error);\n"
+      + "};\n"
+      + "web3.eth.getAccounts(defaultCallback);\n"
+      + "contractInstances = [];\n"
+      + "contractNames = [];\n";
+      
+      for (var variable in content.contracts) {
+        if (content.contracts.hasOwnProperty(variable)) {
+          var name = variable.toString().split(':')[1];
+          if (name == "Owned" || name == "ManagedContract") {
+            continue;
+          }
+
+          contract = content.contracts[variable];
+          var tx = {
+            "from": document.getElementById('account').value,
+            "data": '0x' + contract.bin
+          };
+          tx.gas = web3.eth.estimateGas(tx);
+          transactionHash = web3.personal.sendTransaction(tx, document.getElementById('password').value);
+          contractAddress = web3.eth.getTransactionReceipt(transactionHash).contractAddress;
+          contractName = name.toLowerCase();
+
+          api += '\n'
+              + 'var ' + contractName + 'ABI = ' + contract.abi + ';' + '\n'
+              + 'var ' + contractName + 'Address = "' + contractAddress + '";' + '\n'
+              + contractName + 'Instance = web3.eth.contract(' + contractName + 'ABI).at(' + contractName + 'Address)' + ';' + '\n'
+              + 'contractInstances.push(' + contractName + 'Instance)' + ';' + '\n'
+              + 'contractNames.push("' + contractName + '")' + ';' + '\n';
+        }
+      }
+
+      api += "\n"
+      + "document.dispatchEvent(new Event('init'));\n"
+      + "}\n";
+      return api;
+    }
+
+    function parse(event) {
+
+      var reader = new FileReader();
+      reader.onload = (event) => {
+        var json = JSON.parse(event.target.result);
+        var APIjs = getAPIjs(json);
+
+        downloadElement = document.createElement('a');
+        downloadElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(APIjs));
+        downloadElement.setAttribute('download', 'api.js');
+        downloadElement.style.display = 'none';
+      };
+      reader.readAsText(event.target.files[0]);
+
+      event.srcElement.disabled = true;
+      document.getElementById('download').hidden = false;
+    }
+
+    function download() {
+      document.body.appendChild(downloadElement);
+      downloadElement.click();
+      document.body.removeChild(downloadElement);
+    }
+  </script>
+</head>
+<body>
+  <input id="account" type="text" value="0x0014AC39eaa845B123FfC3522A295615F5f4A9a6">
+  <input id="password" type="password" value="">
+  <input id="combinedjson" type="file">
+  <button id="download" hidden="true">Lade api.js</button>
+  <script type="text/javascript">
+    document.getElementById('combinedjson').addEventListener('change', parse);
+    document.getElementById('download').addEventListener('click', download);
+  </script>
+</body>
+</html>
