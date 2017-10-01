@@ -8,8 +8,8 @@ contract TestDB is ManagedContract {
 
     struct Test {
         string description;
-        uint dueDate;
         uint maxPoints;
+        uint dueDate;
         uint courseID;
         uint[] submissionIDs;
         uint[] testParticipationIDs;
@@ -39,8 +39,8 @@ contract TestDB is ManagedContract {
 
     function addTest(
         string description,
-        uint dueDate,
         uint maxPoints,
+        uint dueDate,
         uint courseID
     )
         public
@@ -53,14 +53,14 @@ contract TestDB is ManagedContract {
 
         Test storage test = tests[id];
         test.description = description;
-        test.dueDate = dueDate;
         test.maxPoints = maxPoints;
+        test.dueDate = dueDate;
         test.courseID = courseID;
     }
 
-    function getTest(uint id) public constant returns(string description, uint dueDate, uint maxPoints, uint courseID) {
+    function getTest(uint id) public constant returns(string description, uint maxPoints, uint dueDate, uint courseID) {
         require(exists(id));
-        return(tests[id].description, tests[id].dueDate, tests[id].maxPoints, tests[id].courseID);
+        return(tests[id].description, tests[id].maxPoints, tests[id].dueDate, tests[id].courseID);
     }
 
     function getNumTests() public constant returns(uint) {

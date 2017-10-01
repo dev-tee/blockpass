@@ -6,9 +6,9 @@ import "../manager/contractmanager.sol";
 contract CourseDB is ManagedContract {
 
     struct Course {
-        bytes32 name;
         string description;
         uint ectsPoints;
+        bytes32 name;
         uint[] assignmentIDs;
         uint[] testIDs;
         uint[] courseParticipationIDs;
@@ -37,18 +37,18 @@ contract CourseDB is ManagedContract {
         return exists(id) && courses[id].testIDs.length > refIndex;
     }
 
-    function addCourse(bytes32 name, string description, uint ectsPoints) public returns(uint id) {
+    function addCourse(string description, bytes32 name, uint ectsPoints) public returns(uint id) {
         id = courses.length++;
 
         Course storage c = courses[id];
-        c.name = name;
         c.description = description;
+        c.name = name;
         c.ectsPoints = ectsPoints;
     }
 
-    function getCourse(uint id) public constant returns(bytes32 name, string description, uint ectsPoints) {
+    function getCourse(uint id) public constant returns(string description, bytes32 name, uint ectsPoints) {
         require(exists(id));
-        return(courses[id].name, courses[id].description, courses[id].ectsPoints);
+        return(courses[id].description, courses[id].name, courses[id].ectsPoints);
     }
 
     function getNumCourses() public constant returns(uint) {

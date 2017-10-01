@@ -61,15 +61,15 @@ contract SupervisorManager is ManagedContract {
 
     /// Create a new course named $(courseName) with a description, a number and a worth of $(courseECTSPoints) ECTS.
     function createCourse(
-        bytes32 name,
         string description,
+        bytes32 name,
         uint ectsPoints,
         address[] supervisors
     )
         onlySupervisor
     {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
-        uint courseID = CourseDB(coursedb).addCourse(name, description, ectsPoints);
+        uint courseID = CourseDB(coursedb).addCourse(description, name, ectsPoints);
 
         address supervisordb = ContractProvider(MAN).contracts("supervisordb");
         address coursesupervisiondb = ContractProvider(MAN).contracts("coursesupervisiondb");
@@ -95,8 +95,8 @@ contract SupervisorManager is ManagedContract {
 
     function createTest(
         string description,
-        uint dueDate,
         uint maxPoints,
+        uint dueDate,
         uint courseID,
         address[] supervisors
     )
@@ -104,7 +104,7 @@ contract SupervisorManager is ManagedContract {
         isOwnCourse(courseID)
     {
         /*address testdb = ContractProvider(MAN).contracts("testdb");*/
-        uint testID = TestDB(ContractProvider(MAN).contracts("testdb")).addTest(description, dueDate, maxPoints, courseID);
+        uint testID = TestDB(ContractProvider(MAN).contracts("testdb")).addTest(description, maxPoints, dueDate, courseID);
 
         address supervisordb = ContractProvider(MAN).contracts("supervisordb");
         address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");

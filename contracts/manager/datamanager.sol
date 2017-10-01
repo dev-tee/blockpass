@@ -21,7 +21,7 @@ contract DataManager is ManagedContract {
         ectsPoints = new uint[](numCourses);
 
         for (uint i = 0; i < numCourses; ++i) {
-            var (courseName, courseDescription, courseECTSPoints) = CourseDB(coursedb).getCourse(i);
+            var (, courseName, courseECTSPoints) = CourseDB(coursedb).getCourse(i);
 
             ids[i] = i;
             names[i] = courseName;
@@ -39,8 +39,8 @@ contract DataManager is ManagedContract {
         dueDates = new uint[](numTests);
 
         for (uint i = 0; i < numTests; ++i) {
-            var (testDescription, testDueDate, testMaxPoints, testCourseID) = TestDB(testdb).getTest(i);
-            var (courseName, courseDescription, courseECTSPoints) = CourseDB(coursedb).getCourse(testCourseID);
+            var (, testDueDate, testCourseID) = TestDB(testdb).getTest(i);
+            var (, courseName,) = CourseDB(coursedb).getCourse(testCourseID);
 
             ids[i] = i;
             courseNames[i] = courseName;
@@ -59,7 +59,7 @@ contract DataManager is ManagedContract {
 
         for (uint i = 0; i < numAssignments; ++i) {
             uint assignmentID = CourseDB(coursedb).getAssignmentAt(courseID, i);
-            var (assignmentDescription, assignmentDueDate, assignmentMaxPoints, assignmentCourseID) = AssignmentDB(assignmentdb).getAssignment(assignmentID);
+            var (, assignmentDueDate, assignmentMaxPoints,) = AssignmentDB(assignmentdb).getAssignment(assignmentID);
 
             ids[i] = assignmentID;
             dueDates[i] = assignmentDueDate;
@@ -78,7 +78,7 @@ contract DataManager is ManagedContract {
 
         for (uint i = 0; i < numTests; ++i) {
             uint testID = CourseDB(coursedb).getTestAt(courseID, i);
-            var (testDescription, testDueDate, testMaxPoints, testCourseID) = TestDB(testdb).getTest(testID);
+            var (, testMaxPoints, testDueDate,) = TestDB(testdb).getTest(testID);
 
             ids[i] = testID;
             dueDates[i] = testDueDate;
@@ -121,7 +121,7 @@ contract DataManager is ManagedContract {
         ids = new uint[](numCourses);
 
         for (uint k = 0; k < numCourses; ++k) {
-            var (courseName, courseDescription, courseECTSPoints) = CourseDB(ContractProvider(MAN).contracts("coursedb")).getCourse(ids[k]);
+            var (, courseName, courseECTSPoints) = CourseDB(ContractProvider(MAN).contracts("coursedb")).getCourse(ids[k]);
 
             names[k] = courseName;
             ectsPoints[k] = courseECTSPoints;
