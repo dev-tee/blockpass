@@ -30,6 +30,7 @@
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
   <script type="text/javascript" src="../scripts/accounts.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function checkID(event) {
       var id = event.target.id;
@@ -93,6 +94,7 @@
           <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
           <input type="text" id="uaccountid" class="u-full-width" hidden disabled required>
           <button id="register" class="button-primary u-full-width">Registrieren</button>
+          <span id="redirect">Account bereits vorhanden? <a href="index.html">Hier anmelden.</a></span>
         </form>
       </div>
     </div>

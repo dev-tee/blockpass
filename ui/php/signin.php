@@ -6,17 +6,14 @@
   $id = $_GET['id'];
   $password = $_GET['password'];
   $idcolumn;
-  $table;
 
   if ($usertype == 'student') {
     $idcolumn = 'matrikelnr';
-    $table = 'students';
   } else if ($usertype == 'supervisor') {
     $idcolumn = 'uaccountid';
-    $table = 'supervisors';
   }
 
-  $query = "SELECT address FROM {$usertype}s WHERE {$idcolumn} = {$id} AND password = '{$password}'";
+  $query = "SELECT address FROM {$usertype}s WHERE {$idcolumn} = '{$id}' AND password = '{$password}'";
 
   $result = $mysqli->query($query);
 

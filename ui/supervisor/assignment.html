@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Lehrveranstalter</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
+  <script type="text/javascript">
+    function createAssignment() {
+      if (event.preventDefault) event.preventDefault();
+      
+      var courseid = document.getElementById('courseid').value;
+      var maxpoints = document.getElementById('maxpoints').value;
+      var description = document.getElementById('description').value;
+      var duedate = document.getElementById('duedate').value;
+      
+      var data = supervisormanagerInstance.createAssignment.getData(description, duedate, maxpoints, courseid);
+      // signAndSend(data, supervisormanagerInstance.address);
+    }
+
+    function updateTime(event) {
+      var time = new Date();
+      time.setTime(document.getElementById('duedate').getAttribute('data-time'));
+      
+      if(event.target.id == 'day') {
+        time.setDate(event.target.value);
+      } else if(event.target.id == 'month') {
+        time.setMonth(event.target.value - 1); // month is 0 based
+      } else if(event.target.id == 'year') {
+        time.setFullYear(event.target.value);
+      } else if(event.target.id == 'hour') {
+        time.setHours(event.target.value);
+      } else if(event.target.id == 'minute') {
+        time.setMinutes(event.target.value);
+      }
+
+      document.getElementById('duedate').setAttribute('data-time', time.getTime());
+      document.getElementById('duedate').value = time.toString();
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="index.html">Startseite</a></li>
+        <li><a id="logout" class="button u-pull-right" href="index.html">Abmelden</a></li>
+      </ul>
+    </nav>
+    <div class="row">
+      <div class="column">
+        <h4>Lehrveranstalter</h4>
+        <form id="form">
+          <label for="course">Kurs:</label>
+          <input type="text" id="coursename" value="Testkurs" readonly>
+          <input type="text" id="courseid" readonly>
+          <label for="maxpoints">Maximalpunktezahl:</label>
+          <input type="number" id="maxpoints" placeholder="22" required>
+          <label for="duedate">Abgabedatum:</label>
+          <input type="text" id="duedate" data-time="59000" class="u-full-width" disabled>
+          <input type="number" id="day" placeholder="Tag" required>
+          <input type="number" id="month" placeholder="Monat" required>
+          <input type="number" id="year" placeholder="Jahr" required>
+          <input type="number" id="hour" placeholder="Stunde" required>
+          <input type="number" id="minute" placeholder="Minute" required>
+          <label for="description">Beschreibung:</label>
+          <textarea id="description" placeholder="Aufgabenstellung etc." required></textarea>
+          <button>Erstellen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript">
+    document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('form').addEventListener('submit', createTest);
+
+    document.getElementById('day').addEventListener('input', updateTime);
+    document.getElementById('month').addEventListener('input', updateTime);
+    document.getElementById('year').addEventListener('input', updateTime);
+    document.getElementById('hour').addEventListener('input', updateTime);
+    document.getElementById('minute').addEventListener('input', updateTime);
+  </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,17 +1,14 @@
 function init3() {
+  var web3Provider = "http://localhost:8545";
 
-  if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
+  // Use our node provided web3.
+  web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
+
+  if (web3.isConnected()) {
+    document.dispatchEvent(new Event('init3'));
   } else {
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    alert("Fehler beim Verbinden mit Ethereum-Node unter: " + web3Provider);
   }
-
-  defaultCallback = (error, result) => {
-    if (!error) console.log(result);
-    else console.error(error);
-  };
-
-  web3.eth.getAccounts(defaultCallback);
-
-  document.dispatchEvent(new Event('init3'));
 }
+
+init3();

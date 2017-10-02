@@ -17,3 +17,11 @@
 input.invalid {
   background-color: rgba(255, 0, 0, 0.2);
 }
+
+.credentials #redirect {
+  font-size: 1.2rem;
+}
+
+nav ul {
+  list-style-type: none;
+}
