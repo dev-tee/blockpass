@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Anmeldung</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/accounts.js"></script>
+  <script type="text/javascript">
+    function login(argument) {
+      if (event.preventDefault) event.preventDefault();
+
+      var usertype = document.getElementById('usertype').value;
+      var password = document.getElementById('password').value;
+      var id;
+
+      if (usertype == 'student') {
+        id = document.getElementById('matrikelnr').value;
+      } else if (usertype == 'supervisor') {
+        id = document.getElementById('uaccountid').value;
+      }
+      signin(usertype, id, password);
+    }
+  </script>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="one-half column center-column credentials">
+        <h4>Anmelden</h4>
+        <form id="form">
+          <label for="usertype">Benutzertyp:</label>
+          <select id="usertype" class="u-full-width">
+            <option value="student" selected>Student</option>
+            <option value="supervisor">Lehrveranstalter</option>
+          </select>
+          <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
+          <input type="text" id="matrikelnr" class="u-full-width" required>
+          <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
+          <input type="text" id="uaccountid" class="u-full-width" hidden disabled required>
+          <label for="password">Passwort:</label>
+          <input type="password" id="password" class="u-full-width" required>
+          <button id="login" class="button-primary u-full-width">Anmelden</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript">
+    document.getElementById('form').addEventListener('submit', login);
+    document.getElementById('usertype').addEventListener('change', switchID);
+  </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
