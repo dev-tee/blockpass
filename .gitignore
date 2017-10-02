@@ -2,3 +2,5 @@
 .soliumrc.json
 
 helper/out/
+
+api.js

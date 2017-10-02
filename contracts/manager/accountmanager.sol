@@ -5,24 +5,19 @@ import "../data/studentdb.sol";
 import "../data/supervisordb.sol";
 
 
-contract AdminManager is ManagedContract {
-
-    modifier onlyAdmin {
-        require(ContractManager(MAN).owner() == msg.sender);
-        _;
-    }
+contract AccountManager is ManagedContract {
 
     event RegisteredStudent(address, bytes32, uint);
     event RegisteredSupervisor(address, bytes32);
 
-    function registerStudent(address account, bytes32 name, uint matrnr) public onlyAdmin {
+    function registerStudent(address account, bytes32 name, uint matrnr) public {
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         StudentDB(studentDB).addStudent(account, name, matrnr);
 
         RegisteredStudent(account, name, matrnr);
     }
 
-    function registerSupervisor(address account, bytes32 name) public onlyAdmin {
+    function registerSupervisor(address account, bytes32 name) public {
         address supervisorDB = ContractProvider(MAN).contracts("supervisordb");
         SupervisorDB(supervisorDB).addSupervisor(account, name);
 

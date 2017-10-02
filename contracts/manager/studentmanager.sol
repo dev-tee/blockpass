@@ -88,6 +88,7 @@ contract StudentManager is ManagedContract {
                 StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(submitters[i], submissionID);
             }
         }
+        StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(msg.sender, submissionID);
     }
 
     function getSubmissions(uint page, uint referenceType, uint referenceID)

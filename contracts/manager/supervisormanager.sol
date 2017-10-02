@@ -78,6 +78,7 @@ contract SupervisorManager is ManagedContract {
                 CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(supervisors[i], courseID);
             }
         }
+        CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(msg.sender, courseID);
     }
 
     function createAssignment(
@@ -113,9 +114,10 @@ contract SupervisorManager is ManagedContract {
                 TestSupervisionDB(testsupervisiondb).addTestSupervision(supervisors[i], testID);
             }
         }
+        TestSupervisionDB(testsupervisiondb).addTestSupervision(msg.sender, testID);
     }
 
-    // TODO: implement actual check of userType
+
     function assessmentAllowed(uint submissionID) returns (bool supervision) {
 
         address coursedb = ContractProvider(MAN).contracts("coursedb");
@@ -179,7 +181,7 @@ contract SupervisorManager is ManagedContract {
             ids = new uint[](numSubmissions);
             assessed = new bool[](numSubmissions);
             for (uint k = 0; k < numSubmissions; ++k) {
-                submissionID = AssignmentDB(assignmentdb).getSubmissionAt(referenceID, k);
+                submissionID = TestDB(testdb).getSubmissionAt(referenceID, k);
                 numAssessments = SubmissionDB(submissiondb).getNumAssessments(submissionID);
                 ids[k] = submissionID;
                 assessed[k] = numAssessments > 0 ? true : false;
