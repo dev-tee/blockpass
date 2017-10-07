@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 
@@ -7,10 +7,11 @@ contract SupervisorDB is ManagedContract {
 
     struct Supervisor {
         bytes32 name;
+        bytes32 uaccountID;
         uint index;
-        uint[] courseSupervisionIDs;
-        uint[] testSupervisionIDs;
-        uint[] supervisorAssessmentIDs;
+        bytes32[] courseSupervisionIDs;
+        bytes32[] testSupervisionIDs;
+        bytes32[] supervisorAssessmentIDs;
     }
 
     address[] indices;
@@ -32,18 +33,20 @@ contract SupervisorDB is ManagedContract {
         return isSupervisor(account) && supervisors[account].supervisorAssessmentIDs.length > refIndex;
     }
 
-    function addSupervisor(address account, bytes32 name) public {
+    function addSupervisor(address account, bytes32 name, bytes32 uaccountID) public {
+        require(!isSupervisor(account));
         supervisors[account].name = name;
+        supervisors[account].uaccountID = uaccountID;
         supervisors[account].index = indices.length;
         indices.push(account);
     }
 
-    function getSupervisor(address account) public constant returns(bytes32) {
+    function getSupervisor(address account) public constant returns(bytes32, bytes32) {
         require(isSupervisor(account));
-        return(supervisors[account].name);
+        return(supervisors[account].name, supervisors[account].uaccountID);
     }
 
-    function getSupervisorAt(uint index) public constant returns(bytes32) {
+    function getSupervisorAt(uint index) public constant returns(bytes32, bytes32) {
         return getSupervisor(indices[index]);
     }
 
@@ -51,12 +54,12 @@ contract SupervisorDB is ManagedContract {
         return indices.length;
     }
 
-    function addCourseSupervisionID(address account, uint id) permission("coursesupervisiondb") {
+    function addCourseSupervisionID(address account, bytes32 id) permission("coursesupervisiondb") {
         require(isSupervisor(account));
         supervisors[account].courseSupervisionIDs.push(id);
     }
 
-    function getCourseSupervisionAt(address account, uint index) public constant returns(uint) {
+    function getCourseSupervisionIDAt(address account, uint index) public constant returns(bytes32) {
         require(courseSupervisionExists(account, index));
         return(supervisors[account].courseSupervisionIDs[index]);
     }
@@ -66,12 +69,12 @@ contract SupervisorDB is ManagedContract {
         return supervisors[account].courseSupervisionIDs.length;
     }
 
-    function addTestSupervisionID(address account, uint id) permission("testsupervisiondb") {
+    function addTestSupervisionID(address account, bytes32 id) permission("testsupervisiondb") {
         require(isSupervisor(account));
         supervisors[account].testSupervisionIDs.push(id);
     }
 
-    function getTestSupervisionAt(address account, uint index) public constant returns(uint) {
+    function getTestSupervisionIDAt(address account, uint index) public constant returns(bytes32) {
         require(testSupervisionExists(account, index));
         return(supervisors[account].testSupervisionIDs[index]);
     }
@@ -81,12 +84,12 @@ contract SupervisorDB is ManagedContract {
         return supervisors[account].testSupervisionIDs.length;
     }
 
-    function addSupervisorAssessmentID(address account, uint id) permission("supervisorassessmentdb") {
+    function addSupervisorAssessmentID(address account, bytes32 id) permission("supervisorassessmentdb") {
         require(isSupervisor(account));
         supervisors[account].supervisorAssessmentIDs.push(id);
     }
 
-    function getSupervisorAssessmentAt(address account, uint index) public constant returns(uint) {
+    function getSupervisorAssessmentIDAt(address account, uint index) public constant returns(bytes32) {
         require(supervisorAssessmentExists(account, index));
         return(supervisors[account].supervisorAssessmentIDs[index]);
     }

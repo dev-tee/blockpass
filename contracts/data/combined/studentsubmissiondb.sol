@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../../manager/contractmanager.sol";
 import "../studentdb.sol";
@@ -10,26 +10,48 @@ contract StudentSubmissionDB is ManagedContract {
     struct StudentSubmission {
         address studentID;
         uint submissionID;
+        uint IDindex;
     }
 
-    StudentSubmission[] studentSubmissions;
+    bytes32[] IDs;
+    mapping(bytes32 => StudentSubmission) studentSubmissions;
 
-    function exists(uint id) public constant returns(bool) {
-        return studentSubmissions.length > id;
+    function exists(address studentID, uint submissionID) public constant returns(bool) {
+        return exists(keccak256(studentID, submissionID));
+    }
+
+    function exists(bytes32 ID) internal constant returns(bool) {
+        if (IDs.length == 0) {
+            return false;
+        }
+        StudentSubmission memory savedValue = studentSubmissions[ID];
+        uint savedIDindex = savedValue.IDindex;
+        bytes32 savedID = IDs[savedIDindex];
+        return ID == savedID;
     }
 
     function addStudentSubmission(address studentID, uint submissionID) public {
+        bytes32 ID = keccak256(studentID, submissionID);
+        require(!exists(ID));
+
+        studentSubmissions[ID].studentID = studentID;
+        studentSubmissions[ID].submissionID = submissionID;
+        studentSubmissions[ID].IDindex = IDs.length;
+        IDs.push(ID);
+
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         address submissionDB = ContractProvider(MAN).contracts("submissiondb");
         
-        StudentDB(studentDB).addStudentSubmissionID(studentID, studentSubmissions.length);
-        SubmissionDB(submissionDB).addStudentSubmissionID(submissionID, studentSubmissions.length);
-        
-        studentSubmissions.push(StudentSubmission(studentID, submissionID));
+        StudentDB(studentDB).addStudentSubmissionID(studentID, ID);
+        SubmissionDB(submissionDB).addStudentSubmissionID(submissionID, ID);
     }
 
-    function getStudentSubmission(uint id) public constant returns(address studentID, uint submissionID) {
-        require(exists(id));
-        return(studentSubmissions[id].studentID, studentSubmissions[id].submissionID);
+    function getStudentSubmissionAt(uint index) public constant returns(address studentID, uint submissionID) {
+        return getStudentSubmission(IDs[index]);
+    }
+
+    function getStudentSubmission(bytes32 ID) public constant returns(address studentID, uint submissionID) {
+        require(exists(ID));
+        return(studentSubmissions[ID].studentID, studentSubmissions[ID].submissionID);
     }
 }

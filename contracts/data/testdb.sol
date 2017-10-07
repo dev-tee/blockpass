@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 import "./coursedb.sol";
@@ -12,8 +12,8 @@ contract TestDB is ManagedContract {
         uint dueDate;
         uint courseID;
         uint[] submissionIDs;
-        uint[] testParticipationIDs;
-        uint[] testSupervisionIDs;
+        bytes32[] testParticipationIDs;
+        bytes32[] testSupervisionIDs;
     }
 
     Test[] tests;
@@ -67,12 +67,12 @@ contract TestDB is ManagedContract {
         return tests.length;
     }
 
-    function addTestParticipationID(uint testID, uint id) permission("testparticipationdb") {
+    function addTestParticipationID(uint testID, bytes32 id) permission("testparticipationdb") {
         require(exists(testID));
         tests[testID].testParticipationIDs.push(id);
     }
 
-    function getTestParticipationAt(uint testID, uint index) public constant returns(uint) {
+    function getTestParticipationIDAt(uint testID, uint index) public constant returns(bytes32) {
         require(testParticipationExists(testID, index));
         return(tests[testID].testParticipationIDs[index]);
     }
@@ -82,12 +82,12 @@ contract TestDB is ManagedContract {
         return tests[testID].testParticipationIDs.length;
     }
 
-    function addTestSupervisionID(uint testID, uint id) permission("testsupervisiondb") {
+    function addTestSupervisionID(uint testID, bytes32 id) permission("testsupervisiondb") {
         require(exists(testID));
         tests[testID].testSupervisionIDs.push(id);
     }
 
-    function getTestSupervisionAt(uint testID, uint index) public constant returns(uint) {
+    function getTestSupervisionIDAt(uint testID, uint index) public constant returns(bytes32) {
         require(testSupervisionExists(testID, index));
         return(tests[testID].testSupervisionIDs[index]);
     }
@@ -102,7 +102,7 @@ contract TestDB is ManagedContract {
         tests[testID].submissionIDs.push(id);
     }
 
-    function getSubmissionAt(uint testID, uint index) public constant returns(uint) {
+    function getSubmissionIDAt(uint testID, uint index) public constant returns(uint) {
         require(submissionExists(testID, index));
         return(tests[testID].submissionIDs[index]);
     }

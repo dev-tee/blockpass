@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 
@@ -11,8 +11,8 @@ contract CourseDB is ManagedContract {
         bytes32 name;
         uint[] assignmentIDs;
         uint[] testIDs;
-        uint[] courseParticipationIDs;
-        uint[] courseSupervisionIDs;
+        bytes32[] courseParticipationIDs;
+        bytes32[] courseSupervisionIDs;
     }
 
     Course[] courses;
@@ -55,12 +55,12 @@ contract CourseDB is ManagedContract {
         return courses.length;
     }
 
-    function addCourseParticipationID(uint courseID, uint id) permission("courseparticipationdb") {
+    function addCourseParticipationID(uint courseID, bytes32 id) permission("courseparticipationdb") {
         require(exists(courseID));
         courses[courseID].courseParticipationIDs.push(id);
     }
 
-    function getCourseParticipationAt(uint courseID, uint index) public constant returns(uint) {
+    function getCourseParticipationIDAt(uint courseID, uint index) public constant returns(bytes32) {
         require(courseParticipationExists(courseID, index));
         return(courses[courseID].courseParticipationIDs[index]);
     }
@@ -70,12 +70,12 @@ contract CourseDB is ManagedContract {
         return courses[courseID].courseParticipationIDs.length;
     }
 
-    function addCourseSupervisionID(uint courseID, uint id) permission("coursesupervisiondb") {
+    function addCourseSupervisionID(uint courseID, bytes32 id) permission("coursesupervisiondb") {
         require(exists(courseID));
         courses[courseID].courseSupervisionIDs.push(id);
     }
 
-    function getCourseSupervisionAt(uint courseID, uint index) public constant returns(uint) {
+    function getCourseSupervisionIDAt(uint courseID, uint index) public constant returns(bytes32) {
         require(courseSupervisionExists(courseID, index));
         return(courses[courseID].courseSupervisionIDs[index]);
     }
@@ -90,7 +90,7 @@ contract CourseDB is ManagedContract {
         courses[courseID].assignmentIDs.push(id);
     }
 
-    function getAssignmentAt(uint courseID, uint index) public constant returns(uint) {
+    function getAssignmentIDAt(uint courseID, uint index) public constant returns(uint) {
         require(assignmentExists(courseID, index));
         return(courses[courseID].assignmentIDs[index]);
     }
@@ -105,7 +105,7 @@ contract CourseDB is ManagedContract {
         courses[courseID].testIDs.push(id);
     }
 
-    function getTestAt(uint courseID, uint index) public constant returns(uint) {
+    function getTestIDAt(uint courseID, uint index) public constant returns(uint) {
         require(testExists(courseID, index));
         return(courses[courseID].testIDs[index]);
     }

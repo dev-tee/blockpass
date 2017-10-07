@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 import "./assignmentdb.sol";
@@ -13,7 +13,7 @@ contract SubmissionDB is ManagedContract {
         uint ref; //0 - ASSIGNMENT; 1 - TEST
         uint referenceID;
         uint[] assessmentIDs;
-        uint[] studentSubmissionIDs;
+        bytes32[] studentSubmissionIDs;
     }
 
     Submission[] submissions;
@@ -69,12 +69,12 @@ contract SubmissionDB is ManagedContract {
         return submissions.length;
     }
 
-    function addStudentSubmissionID(uint submissionID, uint id) permission("studentsubmissiondb") {
+    function addStudentSubmissionID(uint submissionID, bytes32 id) permission("studentsubmissiondb") {
         require(exists(submissionID));
         submissions[submissionID].studentSubmissionIDs.push(id);
     }
 
-    function getStudentSubmissionAt(uint submissionID, uint index) public constant returns(uint) {
+    function getStudentSubmissionIDAt(uint submissionID, uint index) public constant returns(bytes32) {
         require(studentSubmissionExists(submissionID, index));
         return(submissions[submissionID].studentSubmissionIDs[index]);
     }
@@ -89,7 +89,7 @@ contract SubmissionDB is ManagedContract {
         submissions[submissionID].assessmentIDs.push(id);
     }
 
-    function getAssessmentAt(uint submissionID, uint index) public constant returns(uint) {
+    function getAssessmentIDAt(uint submissionID, uint index) public constant returns(uint) {
         require(assessmentExists(submissionID, index));
         return(submissions[submissionID].assessmentIDs[index]);
     }

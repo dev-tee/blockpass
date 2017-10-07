@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 
@@ -9,9 +9,9 @@ contract StudentDB is ManagedContract {
         bytes32 name;
         uint matrNr;
         uint index;
-        uint[] testParticipationIDs;
-        uint[] courseParticipationIDs;
-        uint[] studentSubmissionIDs;
+        bytes32[] testParticipationIDs;
+        bytes32[] courseParticipationIDs;
+        bytes32[] studentSubmissionIDs;
     }
 
     address[] indices;
@@ -34,6 +34,7 @@ contract StudentDB is ManagedContract {
     }
 
     function addStudent(address account, bytes32 name, uint matrNr) public {
+        require(!isStudent(account));
         students[account].name = name;
         students[account].matrNr = matrNr;
         students[account].index = indices.length;
@@ -53,12 +54,12 @@ contract StudentDB is ManagedContract {
         return indices.length;
     }
 
-    function addTestParticipationID(address account, uint id) permission("testparticipationdb") {
+    function addTestParticipationID(address account, bytes32 id) permission("testparticipationdb") {
         require(isStudent(account));
         students[account].testParticipationIDs.push(id);
     }
 
-    function getTestParticipationAt(address account, uint index) public constant returns(uint) {
+    function getTestParticipationIDAt(address account, uint index) public constant returns(bytes32) {
         require(testParticipationExists(account, index));
         return(students[account].testParticipationIDs[index]);
     }
@@ -68,12 +69,12 @@ contract StudentDB is ManagedContract {
         return students[account].testParticipationIDs.length;
     }
 
-    function addCourseParticipationID(address account, uint id) permission("courseparticipationdb") {
+    function addCourseParticipationID(address account, bytes32 id) permission("courseparticipationdb") {
         require(isStudent(account));
         students[account].courseParticipationIDs.push(id);
     }
 
-    function getCourseParticipationAt(address account, uint index) public constant returns(uint) {
+    function getCourseParticipationIDAt(address account, uint index) public constant returns(bytes32) {
         require(courseParticipationExists(account, index));
         return(students[account].courseParticipationIDs[index]);
     }
@@ -83,12 +84,12 @@ contract StudentDB is ManagedContract {
         return students[account].courseParticipationIDs.length;
     }
 
-    function addStudentSubmissionID(address account, uint id) permission("studentsubmissiondb") {
+    function addStudentSubmissionID(address account, bytes32 id) permission("studentsubmissiondb") {
         require(isStudent(account));
         students[account].studentSubmissionIDs.push(id);
     }
 
-    function getStudentSubmissionAt(address account, uint index) public constant returns(uint) {
+    function getStudentSubmissionIDAt(address account, uint index) public constant returns(bytes32) {
         require(studentSubmissionExists(account, index));
         return(students[account].studentSubmissionIDs[index]);
     }

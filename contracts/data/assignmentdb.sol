@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.3;
 
 import "../manager/contractmanager.sol";
 import "./coursedb.sol";
@@ -67,7 +67,7 @@ contract AssignmentDB is ManagedContract {
         assignments[assignmentID].submissionIDs.push(id);
     }
 
-    function getSubmissionAt(uint assignmentID, uint index) public constant returns(uint) {
+    function getSubmissionIDAt(uint assignmentID, uint index) public constant returns(uint) {
         require(submissionExists(assignmentID, index));
         return(assignments[assignmentID].submissionIDs[index]);
     }
