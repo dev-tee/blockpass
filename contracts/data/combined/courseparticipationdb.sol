@@ -10,48 +10,48 @@ contract CourseParticipationDB is ManagedContract {
     struct CourseParticipation {
         address studentID;
         uint courseID;
-        uint IDindex;
+        uint idIndex;
     }
 
-    bytes32[] IDs;
+    bytes32[] courseParticipationIDs;
     mapping(bytes32 => CourseParticipation) courseParticipations;
 
     function exists(address studentID, uint courseID) public constant returns(bool) {
         return exists(keccak256(studentID, courseID));
     }
 
-    function exists(bytes32 ID) internal constant returns(bool) {
-        if (IDs.length == 0) {
+    function exists(bytes32 id) internal constant returns(bool) {
+        if (courseParticipationIDs.length == 0) {
             return false;
         }
-        CourseParticipation memory savedValue = courseParticipations[ID];
-        uint savedIDindex = savedValue.IDindex;
-        bytes32 savedID = IDs[savedIDindex];
-        return ID == savedID;
+        CourseParticipation memory savedValue = courseParticipations[id];
+        uint savedIDIndex = savedValue.idIndex;
+        bytes32 savedID = courseParticipationIDs[savedIDIndex];
+        return id == savedID;
     }
 
     function addCourseParticipation(address studentID, uint courseID) public {
-        bytes32 ID = keccak256(studentID, courseID);
-        require(!exists(ID));
+        bytes32 id = keccak256(studentID, courseID);
+        require(!exists(id));
 
-        courseParticipations[ID].studentID = studentID;
-        courseParticipations[ID].courseID = courseID;
-        courseParticipations[ID].IDindex = IDs.length;
-        IDs.push(ID);
+        courseParticipations[id].studentID = studentID;
+        courseParticipations[id].courseID = courseID;
+        courseParticipations[id].idIndex = courseParticipationIDs.length;
+        courseParticipationIDs.push(id);
 
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         address courseDB = ContractProvider(MAN).contracts("coursedb");
 
-        StudentDB(studentDB).addCourseParticipationID(studentID, ID);
-        CourseDB(courseDB).addCourseParticipationID(courseID, ID);
+        StudentDB(studentDB).addCourseParticipationID(studentID, id);
+        CourseDB(courseDB).addCourseParticipationID(courseID, id);
     }
 
     function getCourseParticipationAt(uint index) public constant returns(address studentID, uint courseID) {
-        return getCourseParticipation(IDs[index]);
+        return getCourseParticipation(courseParticipationIDs[index]);
     }
 
-    function getCourseParticipation(bytes32 ID) public constant returns(address studentID, uint courseID) {
-        require(exists(ID));
-        return(courseParticipations[ID].studentID, courseParticipations[ID].courseID);
+    function getCourseParticipation(bytes32 id) public constant returns(address studentID, uint courseID) {
+        require(exists(id));
+        return(courseParticipations[id].studentID, courseParticipations[id].courseID);
     }
 }

@@ -8,8 +8,8 @@ contract AssignmentDB is ManagedContract {
 
     struct Assignment {
         string description;
-        uint dueDate;
         uint maxPoints;
+        uint dueDate;
         uint courseID;
         uint[] submissionIDs;
     }
@@ -30,8 +30,8 @@ contract AssignmentDB is ManagedContract {
 
     function addAssignment(
         string description,
-        uint dueDate,
         uint maxPoints,
+        uint dueDate,
         uint courseID
     )
         public
@@ -44,18 +44,18 @@ contract AssignmentDB is ManagedContract {
 
         Assignment storage assignment = assignments[id];
         assignment.description = description;
-        assignment.dueDate = dueDate;
         assignment.maxPoints = maxPoints;
+        assignment.dueDate = dueDate;
         assignment.courseID = courseID;
     }
 
     function getAssignment(uint id)
         public
         constant
-        returns(string description, uint dueDate, uint maxPoints, uint courseID)
+        returns(string description, uint maxPoints, uint dueDate, uint courseID)
     {
         require(exists(id));
-        return(assignments[id].description, assignments[id].dueDate, assignments[id].maxPoints, assignments[id].courseID);
+        return(assignments[id].description, assignments[id].maxPoints, assignments[id].dueDate, assignments[id].courseID);
     }
 
     function getNumAssignments() public constant returns(uint) {

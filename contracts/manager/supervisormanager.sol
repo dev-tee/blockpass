@@ -18,15 +18,24 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
-    modifier courseExists(uint courseID) {
-        require(CourseDB(ContractProvider(MAN).contracts("coursedb"))
-            .exists(courseID));
+    modifier containsOnlySupervisors(address[] accounts) {
+        bool valid = true;
+        address supervisordb = ContractProvider(MAN).contracts("supervisordb");
+
+        for(uint i = 0; i < accounts.length; ++i) {
+            if (!SupervisorDB(supervisordb).isSupervisor(accounts[i])) {
+                valid = false;
+                break;
+            }
+        }
+
+        require(valid);
         _;
     }
 
-    modifier submissionExists(uint submissionID) {
-        require(SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
-            .exists(submissionID));
+    modifier courseExists(uint courseID) {
+        require(CourseDB(ContractProvider(MAN).contracts("coursedb"))
+            .exists(courseID));
         _;
     }
 
@@ -36,18 +45,31 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
-
+    event AssignmentID(uint id);
+    event TestID(uint id);
+    event TestDateCheck(uint duedate, uint current);
+    event AssignmentDateCheck(uint duedate, uint current);
     modifier assessmentAllowed(uint submissionID) {
         var (, submissionReferenceType, submissionReferenceID) = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
-                                                                    .getSubmission(submissionID);
+                                                                                    .getSubmission(submissionID);
         if (submissionReferenceType == 0) {
-            var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+            var (, assignmentDueDate, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
                                             .getAssignment(submissionReferenceID);
+            AssignmentID(assignmentCourseID);
+            require(assignmentDueDate <= now);
+            AssignmentDateCheck(assignmentDueDate, now);
             require(CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
                 .exists(msg.sender, assignmentCourseID));
         } else if (submissionReferenceType == 1) {
+            var (, testDueDate, testCourseID) = TestDB(ContractProvider(MAN).contracts("testdb"))
+                                            .getTest(submissionReferenceID);
+            TestID(testCourseID);
+            require(testDueDate <= now);
+            TestDateCheck(assignmentDueDate, now);
             require(TestSupervisionDB(ContractProvider(MAN).contracts("testsupervisiondb"))
-                .exists(msg.sender, submissionReferenceID));
+                .exists(msg.sender, submissionReferenceID)
+                || CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
+                .exists(msg.sender, testCourseID));
         }
         _;
     }
@@ -70,32 +92,32 @@ contract SupervisorManager is ManagedContract {
         uint ectsPoints,
         address[] helpingSupervisors
     )
+        public
         onlySupervisor
+        containsOnlySupervisors(helpingSupervisors)
     {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         uint courseID = CourseDB(coursedb).addCourse(description, name, ectsPoints);
 
-        address supervisordb = ContractProvider(MAN).contracts("supervisordb");
         address coursesupervisiondb = ContractProvider(MAN).contracts("coursesupervisiondb");
         for (uint i = 0; i < helpingSupervisors.length; ++i) {
-            if (SupervisorDB(supervisordb).isSupervisor(helpingSupervisors[i])) {
-                CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(helpingSupervisors[i], courseID);
-            }
+            CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(helpingSupervisors[i], courseID);
         }
         CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(msg.sender, courseID);
     }
 
     function createAssignment(
         string description,
-        uint dueDate,
         uint maxPoints,
+        uint dueDate,
         uint courseID
     )
+        public
         onlySupervisor
         isOwnCourse(courseID)
     {
-        address assignmentdb = ContractProvider(MAN).contracts("assignmentdb");
-        AssignmentDB(assignmentdb).addAssignment(description, dueDate, maxPoints, courseID);
+        AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+            .addAssignment(description, maxPoints, dueDate, courseID);
     }
 
     function createTest(
@@ -105,23 +127,23 @@ contract SupervisorManager is ManagedContract {
         uint courseID,
         address[] helpingSupervisors
     )
+        public
         onlySupervisor
         isOwnCourse(courseID)
+        containsOnlySupervisors(helpingSupervisors)
     {
         uint testID = TestDB(ContractProvider(MAN).contracts("testdb"))
             .addTest(description, maxPoints, dueDate, courseID);
 
-        address supervisordb = ContractProvider(MAN).contracts("supervisordb");
         address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");
         for (uint i = 0; i < helpingSupervisors.length; ++i) {
-            if (SupervisorDB(supervisordb).isSupervisor(helpingSupervisors[i])) {
-                TestSupervisionDB(testsupervisiondb).addTestSupervision(helpingSupervisors[i], testID);
-            }
+            TestSupervisionDB(testsupervisiondb).addTestSupervision(helpingSupervisors[i], testID);
         }
         TestSupervisionDB(testsupervisiondb).addTestSupervision(msg.sender, testID);
     }
 
     function assess(string description, uint obtainedPoints, uint submissionID)
+        public
         onlySupervisor
         assessmentAllowed(submissionID)
     {
@@ -133,29 +155,31 @@ contract SupervisorManager is ManagedContract {
     }
 
     function getAssignmentSubmissionIDs(uint assignmentID)
+        public
         constant
-        returns (uint[] ids, bool[] assessed)
+        returns (uint numAssignmentSubmissions, uint[] ids, bool[] assessed)
     {
         return getSubmissionIDs(0, assignmentID);
     }
 
-    function getTesttSubmissionIDs(uint testID)
+    function getTestSubmissionIDs(uint testID)
+        public
         constant
-        returns (uint[] ids, bool[] assessed)
+        returns (uint numTestSubmissions, uint[] ids, bool[] assessed)
     {
         return getSubmissionIDs(1, testID);
     }
 
     function getSubmissionIDs(uint referenceType, uint referenceID)
+        internal
         constant
         referenceExists(referenceType, referenceID)
-        returns (uint[] ids, bool[] assessed)
+        returns (uint numSubmissions, uint[] ids, bool[] assessed)
     {
         address testdb = ContractProvider(MAN).contracts("testdb");
         address assignmentdb = ContractProvider(MAN).contracts("assignmentdb");
         address submissiondb = ContractProvider(MAN).contracts("submissiondb");
 
-        uint numSubmissions;
         uint numAssessments;
         uint submissionID;
         if (referenceType == 0) {
@@ -182,6 +206,7 @@ contract SupervisorManager is ManagedContract {
     }
 
     function getPersonalSupervisorCourses()
+        public
         constant
         onlySupervisor
         returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)

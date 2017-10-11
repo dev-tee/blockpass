@@ -19,14 +19,18 @@ contract StudentManager is ManagedContract {
         _;
     }
 
-    modifier referenceExists(uint referenceType, uint referenceID) {
-        if (referenceType == 0) {
-            require(AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
-                .exists(referenceID));
-        } else if (referenceType == 1) {
-            require(TestDB(ContractProvider(MAN).contracts("testdb"))
-                .exists(referenceID));
+    modifier containsOnlyStudents(address[] acnumSubmissionss) {
+        bool valid = true;
+        address studentdb = ContractProvider(MAN).contracts("studentdb");
+
+        for(uint i = 0; i < acnumSubmissionss.length; ++i) {
+            if (!StudentDB(studentdb).isStudent(acnumSubmissionss[i])) {
+                valid = false;
+                break;
+            }
         }
+
+        require(valid);
         _;
     }
 
@@ -64,78 +68,97 @@ contract StudentManager is ManagedContract {
             .addTestParticipation(msg.sender, testID);
     }
 
+    function uploadAssignmentSubmission(
+        string description,
+        uint assignmentID,
+        address[] remainingGroupMembers
+    )
+        public
+        onlyStudent
+        containsOnlyStudents(remainingGroupMembers)
+        assignmentExists(assignmentID)
+    {
+        uint submissionID = uploadSubmission(description, now, 0, assignmentID);
+
+        address studentsubmissiondb = ContractProvider(MAN).contracts("studentsubmissiondb");
+        for (uint i = 0; i < remainingGroupMembers.length; ++i) {
+            StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(remainingGroupMembers[i], submissionID);
+        }
+    }
+
+    function uploadTestSubmission(
+        string description,
+        uint testID
+    )
+        public
+        onlyStudent
+        testExists(testID)
+    {
+        uploadSubmission(description, now, 1, testID);
+    }
+
     function uploadSubmission(
         string description,
         uint submittedDate,
         uint referenceType,
-        uint referenceID,
-        address[] remainingGroupMembers
+        uint referenceID
     )
-        onlyStudent
-        referenceExists(referenceType, referenceID)
+        internal
+        returns(uint submissionID)
     {
-        uint submissionID = SubmissionDB(ContractProvider(MAN).contracts("submissiondb")).addSubmission(
-            description,
-            submittedDate,
-            referenceType,
-            referenceID
-        );
+        submissionID = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
+                        .addSubmission(description, submittedDate, referenceType, referenceID);
 
-        address studentdb = ContractProvider(MAN).contracts("studentdb");
-        address studentsubmissiondb = ContractProvider(MAN).contracts("studentsubmissiondb");
-        for (uint i = 0; i < remainingGroupMembers.length; ++i) {
-            if (StudentDB(studentdb).isStudent(remainingGroupMembers[i])) {
-                StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(remainingGroupMembers[i], submissionID);
-            }
-        }
-        StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(msg.sender, submissionID);
+        StudentSubmissionDB(ContractProvider(MAN).contracts("studentsubmissiondb"))
+            .addStudentSubmission(msg.sender, submissionID);
     }
 
-    function getAssignmentSubmissions(uint assignmentID)
+    function getAssignmentSubmissionIDs(uint assignmentID)
         public
         constant
+        onlyStudent
         assignmentExists(assignmentID)
-        onlyStudent
-        returns (uint count, uint[] assignmentSubmissionIDs)
+        returns (uint numAssignmentSubmissions, uint[] assignmentSubmissionIDs)
     {
-        return getSubmissions(0, assignmentID);
+        return getSubmissionIDs(0, assignmentID);
     }
 
-    function getTestSubmissions(uint testID)
+    function getTestSubmissionIDs(uint testID)
         public
         constant
-        testExists(testID)
         onlyStudent
-        returns (uint count, uint[] testSubmissionIDs)
+        testExists(testID)
+        returns (uint numTestSubmissions, uint[] testSubmissionIDs)
     {
-        return getSubmissions(1, testID);
+        return getSubmissionIDs(1, testID);
     }
 
-    function getSubmissions(uint referenceType, uint referenceID)
+    function getSubmissionIDs(uint referenceType, uint referenceID)
         internal
         constant
-        returns (uint count, uint[] ids)
+        returns (uint numReferencedSubmissions, uint[] ids)
     {
         address submissiondb = ContractProvider(MAN).contracts("submissiondb");
         address studentdb = ContractProvider(MAN).contracts("studentdb");
         address studentsubmissiondb = ContractProvider(MAN).contracts("studentsubmissiondb");
 
-        uint numSubmissions = StudentDB(studentdb).getNumStudentSubmissions(msg.sender);
-        count = 0;
-        ids = new uint[](numSubmissions);
+        uint totalSubmissions = StudentDB(studentdb).getNumStudentSubmissions(msg.sender);
+        ids = new uint[](totalSubmissions);
+        numReferencedSubmissions = 0;
 
-        for (uint i = 0; i < numSubmissions; ++i) {
+        for (uint i = 0; i < totalSubmissions; ++i) {
             bytes32 studentsubmissionID = StudentDB(studentdb).getStudentSubmissionIDAt(msg.sender, i);
             var (, submissionID) = StudentSubmissionDB(studentsubmissiondb).getStudentSubmission(studentsubmissionID);
             var (, submissionReferenceType, submissionReferenceID) = SubmissionDB(submissiondb).getSubmission(submissionID);
             if (submissionReferenceType == referenceType && submissionReferenceID == referenceID) {
-                ids[count] = submissionID;
-                ++count;
+                ids[numReferencedSubmissions] = submissionID;
+                ++numReferencedSubmissions;
             }
         }
     }
 
     function getAssessment(uint submissionID)
+        public
         constant
         onlyStudent
         submissionExists(submissionID)
@@ -146,19 +169,29 @@ contract StudentManager is ManagedContract {
 
         uint numAssessments = SubmissionDB(submissiondb).getNumAssessments(submissionID);
         if (numAssessments > 0) {
-            uint assessmentID = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, numAssessments - 1);
-            var (, assessmentObtainedPoints, assessmentSubmissionID) = AssessmentDB(assessmentdb).getAssessment(assessmentID);
+            id = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, 0);
+            (, obtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(id);
 
-            id = assessmentID;
-            obtainedPoints = assessmentObtainedPoints;
+            for (uint i = 1; i < numAssessments; ++i) {
+                uint assessmentID = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, i);
+                var (, assessmentObtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(assessmentID);
+
+                if (assessmentObtainedPoints > obtainedPoints) {
+                    obtainedPoints = assessmentObtainedPoints;
+                    id = assessmentID;
+                }
+            }
+
             assessed = true;
             numPriorAssessments = numAssessments - 1;
 
+            var (, assessmentSubmissionID) = AssessmentDB(assessmentdb).getAssessment(id);
             assert(assessmentSubmissionID == submissionID);
         }
     }
 
-    function getStudentCourses()
+    function getPersonalStudentCourses()
+        public
         constant
         onlyStudent
         returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)
@@ -172,12 +205,12 @@ contract StudentManager is ManagedContract {
         ids = new uint[](numCourses);
         names = new bytes32[](numCourses);
         ectsPoints = new uint[](numCourses);
-        
+
         for (uint i = 0; i < numCourses; ++i) {
             bytes32 participationID = StudentDB(studentdb).getCourseParticipationIDAt(msg.sender, i);
             var (, participationCourseID) = CourseParticipationDB(courseparticipationdb).getCourseParticipation(participationID);
             var (, courseName, courseECTSPoints) = CourseDB(coursedb).getCourse(participationCourseID);
-            
+
             ids[i] = participationCourseID;
             names[i] = courseName;
             ectsPoints[i] = courseECTSPoints;

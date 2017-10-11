@@ -10,48 +10,48 @@ contract TestParticipationDB is ManagedContract {
     struct TestParticipation {
         address studentID;
         uint testID;
-        uint IDindex;
+        uint idIndex;
     }
 
-    bytes32[] IDs;
+    bytes32[] testParticipationIDs;
     mapping(bytes32 => TestParticipation) testParticipations;
 
     function exists(address studentID, uint testID) public constant returns(bool) {
         return exists(keccak256(studentID, testID));
     }
 
-    function exists(bytes32 ID) internal constant returns(bool) {
-        if (IDs.length == 0) {
+    function exists(bytes32 id) internal constant returns(bool) {
+        if (testParticipationIDs.length == 0) {
             return false;
         }
-        TestParticipation memory savedValue = testParticipations[ID];
-        uint savedIDindex = savedValue.IDindex;
-        bytes32 savedID = IDs[savedIDindex];
-        return ID == savedID;
+        TestParticipation memory savedValue = testParticipations[id];
+        uint savedIDindex = savedValue.idIndex;
+        bytes32 savedID = testParticipationIDs[savedIDindex];
+        return id == savedID;
     }
 
     function addTestParticipation(address studentID, uint testID) public {
-        bytes32 ID = keccak256(studentID, testID);
-        require(!exists(ID));
+        bytes32 id = keccak256(studentID, testID);
+        require(!exists(id));
 
-        testParticipations[ID].studentID = studentID;
-        testParticipations[ID].testID = testID;
-        testParticipations[ID].IDindex = IDs.length;
-        IDs.push(ID);
+        testParticipations[id].studentID = studentID;
+        testParticipations[id].testID = testID;
+        testParticipations[id].idIndex = testParticipationIDs.length;
+        testParticipationIDs.push(id);
 
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         address testDB = ContractProvider(MAN).contracts("testdb");
-        
-        StudentDB(studentDB).addTestParticipationID(studentID, ID);
-        TestDB(testDB).addTestParticipationID(testID, ID);
+
+        StudentDB(studentDB).addTestParticipationID(studentID, id);
+        TestDB(testDB).addTestParticipationID(testID, id);
     }
 
     function getTestParticipationAt(uint index) public constant returns(address studentID, uint testID) {
-        return getTestParticipation(IDs[index]);
+        return getTestParticipation(testParticipationIDs[index]);
     }
 
-    function getTestParticipation(bytes32 ID) internal constant returns(address studentID, uint testID) {
-        require(exists(ID));
-        return(testParticipations[ID].studentID, testParticipations[ID].testID);
+    function getTestParticipation(bytes32 id) internal constant returns(address studentID, uint testID) {
+        require(exists(id));
+        return(testParticipations[id].studentID, testParticipations[id].testID);
     }
 }

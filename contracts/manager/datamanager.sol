@@ -14,7 +14,26 @@ import "../data/combined/coursesupervisiondb.sol";
 
 contract DataManager is ManagedContract {
 
-    function getAllCourses() constant returns (uint numCourses, uint[] ids, bytes32[] courseNames, uint[] ectsPoints) {
+    modifier onlyRegistered() {
+        require(SupervisorDB(ContractProvider(MAN).contracts("supervisordb"))
+            .isSupervisor(msg.sender)
+            || StudentDB(ContractProvider(MAN).contracts("studentdb"))
+            .isStudent(msg.sender)
+        );
+        _;
+    }
+
+    modifier submissionExists(uint submissionID) {
+        require(SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
+            .exists(submissionID));
+        _;
+    }
+
+    function getAllCourses()
+        public
+        constant
+        returns (uint numCourses, uint[] ids, bytes32[] courseNames, uint[] ectsPoints)
+    {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         numCourses = CourseDB(coursedb).getNumCourses();
 
@@ -31,7 +50,11 @@ contract DataManager is ManagedContract {
         }
     }
 
-    function getAllTests() constant returns (uint numTests, uint[] ids, bytes32[] courseNames, uint[] dueDates) {
+    function getAllTests()
+        public
+        constant
+        returns (uint numTests, uint[] ids, bytes32[] courseNames, uint[] dueDates)
+    {
         address testdb = ContractProvider(MAN).contracts("testdb");
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         numTests = TestDB(testdb).getNumTests();
@@ -50,7 +73,11 @@ contract DataManager is ManagedContract {
         }
     }
 
-    function getCourseAssignments(uint courseID) constant returns (uint numAssignments, uint[] ids, uint[] dueDates, uint[] maxPoints) {
+    function getCourseAssignments(uint courseID)
+        public
+        constant
+        returns (uint numAssignments, uint[] ids, uint[] maxPoints, uint[] dueDates)
+    {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         address assignmentdb = ContractProvider(MAN).contracts("assignmentdb");
         numAssignments = CourseDB(coursedb).getNumAssignments(courseID);
@@ -61,15 +88,19 @@ contract DataManager is ManagedContract {
 
         for (uint i = 0; i < numAssignments; ++i) {
             uint assignmentID = CourseDB(coursedb).getAssignmentIDAt(courseID, i);
-            var (, assignmentDueDate, assignmentMaxPoints,) = AssignmentDB(assignmentdb).getAssignment(assignmentID);
+            var (, assignmentMaxPoints, assignmentDueDate,) = AssignmentDB(assignmentdb).getAssignment(assignmentID);
 
             ids[i] = assignmentID;
-            dueDates[i] = assignmentDueDate;
             maxPoints[i] = assignmentMaxPoints;
+            dueDates[i] = assignmentDueDate;
         }
     }
 
-    function getCourseTests(uint courseID) constant returns (uint numTests, uint[] ids, uint[] dueDates, uint[] maxPoints) {
+    function getCourseTests(uint courseID)
+        public
+        constant
+        returns (uint numTests, uint[] ids, uint[] maxPoints, uint[] dueDates)
+    {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         address testdb = ContractProvider(MAN).contracts("testdb");
         numTests = CourseDB(coursedb).getNumTests(courseID);
@@ -83,12 +114,36 @@ contract DataManager is ManagedContract {
             var (, testMaxPoints, testDueDate,) = TestDB(testdb).getTest(testID);
 
             ids[i] = testID;
-            dueDates[i] = testDueDate;
             maxPoints[i] = testMaxPoints;
+            dueDates[i] = testDueDate;
         }
     }
 
-    function getPersonalCourses() constant returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints) {
+    function getSubmissionRelatedInfo(uint submissionID)
+        public
+        constant
+        onlyRegistered
+        submissionExists(submissionID)
+        returns (uint maxPoints, uint submissionDate, uint dueDate)
+    {
+        var (, submittedDate, referenceType, referenceID) = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
+                                                .getSubmission(submissionID);
+        if (referenceType == 0) {
+            (, maxPoints, dueDate,) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb")).
+                                        getAssignment(referenceID);
+        } else if (referenceType == 1) {
+            (, maxPoints, dueDate,) = TestDB(ContractProvider(MAN).contracts("testdb")).
+                                        getTest(referenceID);
+        }
+
+        submissionDate = submittedDate;
+    }
+
+    function getPersonalCourses()
+        public
+        constant
+        returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)
+    {
         address studentdb = ContractProvider(MAN).contracts("studentdb");
         address supervisordb = ContractProvider(MAN).contracts("supervisordb");
         address courseparticipationdb = ContractProvider(MAN).contracts("courseparticipationdb");
