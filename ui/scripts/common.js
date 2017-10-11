@@ -5,6 +5,9 @@ function init3() {
   web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
 
   if (web3.isConnected()) {
+    if (isLoggedIn()) {
+      web3.eth.defaultAccount = localStorage['address'];
+    }
     document.dispatchEvent(new Event('init3'));
   } else {
     alert("Fehler beim Verbinden mit Ethereum-Node unter: " + web3Provider);
@@ -13,43 +16,70 @@ function init3() {
 
 function signAndSend(data, destination) {
   var tx = {
-    "from": sessionStorage['address'],
+    "from": localStorage['address'],
     "to": destination,
     "data": data
   };
-  tx.gas = web3.eth.estimateGas(tx);
-  console.log("Estimated gas cost: " + tx.gas);
-  web3.personal.sendTransaction(tx, sessionStorage['password']);
+  // tx.gas = web3.eth.estimateGas(tx);
+  // console.log("Estimated gas cost: " + tx.gas);
+  web3.personal.sendTransaction(tx, localStorage['password']);
 }
 
 function logout() {
-  sessionStorage.clear();
+  localStorage.clear();
+  web3.eth.defaultAccount = undefined;
+  
   window.location.assign('/index.html');
 }
 
 function isLoggedIn() {
-  return Boolean(sessionStorage['address']) && Boolean(sessionStorage['password']);
+  return Boolean(localStorage['address']) && Boolean(localStorage['password']);
+}
+
+function isStudent() {
+  return localStorage['usertype'] == 'student';
+}
+
+function isSupervisor() {
+  return localStorage['usertype'] == 'supervisor';
 }
 
 function isAccessAllowed() {
   // Format of path name: '/usertype/page.html'.
   var request = window.location.pathname.split('/')[1];
-  return sessionStorage['usertype'] == request;
+  if (request == 'personal') {
+    return true;
+  } else if (request == localStorage['usertype']) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function checkAccess() {
-  var home = '/index.html';
+  var empty = '/';
+  var login = '/index.html';
   var registration = '/register.html';
-  if (!isLoggedIn() && !(window.location.pathname == home || window.location.pathname == registration)) {
-    window.location.assign(home);
+
+  if (!isLoggedIn()
+    && window.location.pathname != empty
+    && window.location.pathname != login
+    && window.location.pathname != registration)
+  {
+    window.location.assign(login);
     return;
   }
 
-  home = '/' + sessionStorage['usertype'] + home;
+  var home = '/personal/index.html';
   if (isLoggedIn() && !isAccessAllowed()) {
     window.location.assign(home);
     return;
   }
+}
+
+function goHome() {
+  var home = isLoggedIn() ? '/personal/index.html' : '/index.html';
+  window.location.assign(home);
 }
 
 // Check whether the user is logged in.

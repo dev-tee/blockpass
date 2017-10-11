@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Registrierung</title>
+  <title>Aufgabe abgeben</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,72 +29,75 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
-  <script type="text/javascript" src="../scripts/accounts.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
-    function checkID(event) {
-      var id = event.target.id;
-      var value = event.target.value;
-
-      if (value != '') {
-        checkAvailability(id, value, (available) => {
-          var className = event.target.className.replace(/\ invalid/g, '');
-          if (available) {
-            event.target.className = className;
-            event.target.setCustomValidity("");
-          } else {
-            event.target.className = className + ' invalid';
-            event.target.setCustomValidity("Bereits vergeben");
-          }
-        });
-      } else {
-        event.target.setCustomValidity("");
+    function showUserDependentUI() {
+      var elements = [];
+      if (isSupervisor()) {
+        elements = document.getElementsByClassName('supervisorfunctions');
+      } else if (isStudent()) {
+        elements = document.getElementsByClassName('studentfunctions');
+      }
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].hidden = false;
       }
     }
 
-    function register(event) {
+    function parseAssignmentID() {
+      assignmentid = (new URLSearchParams(window.location.search)).get('assignmentid');
+      if (assignmentid == null) {
+        alert("Keine Aufgabe ausgewählt.")
+        goHome();
+      } else {
+        document.getElementById('assignmentid').innerHTML = assignmentid;
+        var elements = document.getElementsByClassName('assignmentdependentlink');
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].href += `?assignmentid=${assignmentid}`;
+        }
+      }
+    }
+
+    function submitAssignment(event) {
       if (event.preventDefault) event.preventDefault();
 
-      var usertype = document.getElementById('usertype').value;
-      var name = document.getElementById('name').value;
-      var password = document.getElementById('password').value;
-      var id;
+      var description = document.getElementById('description').value;
+      var remainingMembers = [];
 
-      if (usertype == 'student') {
-        id = document.getElementById('matrikelnr').value;
-      } else if (usertype == 'supervisor') {
-        id = document.getElementById('uaccountid').value;
-      }
+      var data = studentmanagerInstance.uploadAssignmentSubmission.getData(description, assignmentid, remainingMembers);
+      signAndSend(data, studentmanagerInstance.address);
 
-      signup(name, usertype, id, password);
+      window.location.assign(`/personal/assignmentdetails.html?assignmentid=${assignmentid}`);
     }
   </script>
-
 </head>
 <body>
-  <div id="web3ERROR"></div>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <input type="checkbox" id="menutrigger" checked>
+    <label for="menutrigger">Menü</label>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
+
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column center-column credentials">
-        <h4>Registrieren</h4>
+      <div class="column">
+        <span class="inlinetitle">Aufgabe</span>
+        <span id="assignmentid" class="id"></span>
         <form id="form">
-          <label for="name">Name:</label>
-          <input type="text" id="name" class="u-full-width" required>
-          <label for="usertype">Benutzertyp:</label>
-          <select id="usertype" class="u-full-width">
-            <option value="student" selected>Student</option>
-            <option value="supervisor">Lehrveranstalter</option>
-          </select>
-          <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
-          <input type="number" id="matrikelnr" class="u-full-width" required>
-          <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
-          <input type="text" id="uaccountid" class="u-full-width" hidden disabled required>
-          <label for="password">Passwort:</label>
-          <input type="password" id="password" class="u-full-width" required>
-          <button id="register" class="button-primary u-full-width">Registrieren</button>
-          <span id="redirect">Account bereits vorhanden? <a href="index.html">Hier anmelden.</a></span>
+          <label for="helper">Gruppenmitglieder:
+            <span class="info">(leer bei Einzelarbeit)</span>
+          </label>
+          <textarea id="helper" placeholder="0xcc1758ab0530f828ade9a8ea49ddede536e469e2; Ethereumadressen von anderen Lehrveranstaltern"></textarea>
+          <label for="description">Beschreibung:</label>
+          <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
+          <button>Erstellen</button>
         </form>
       </div>
     </div>
@@ -103,10 +106,9 @@
   <!-- Javascript [EventListeners]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
-    document.getElementById('form').addEventListener('submit', register);
-    document.getElementById('usertype').addEventListener('change', switchID);
-    document.getElementById('matrikelnr').addEventListener('input', checkID);
-    document.getElementById('uaccountid').addEventListener('input', checkID);
+    document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('form').addEventListener('submit', submitAssignment);
+    parseAssignmentID();
   </script>
 
   <!-- End Document

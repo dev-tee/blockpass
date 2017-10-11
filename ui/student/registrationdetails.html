@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Lehrveranstalter</title>
+  <title>Anmeldungsdetails</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -30,32 +30,67 @@
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
+  <script type="text/javascript">
+    function parseID() {
+      courseid = (new URLSearchParams(window.location.search)).get('courseid');
+      testid = (new URLSearchParams(window.location.search)).get('testid');
+      if (courseid == null && testid == null) {
+        alert("Nichts ausgewählt.")
+        goHome();
+      } else {
+        if (courseid != null) {
+          type = 'course';
+        } else if (testid != null) {
+          type = 'test';
+        }
+      }
+    }
+
+    function showDetails() {
+      // show number of remaining seats
+      // activate/deactivate registration button
+      if (type == 'course') {
+        document.getElementById('type').innerHTML = 'Kurs'
+        document.getElementById('id').innerHTML = courseid;
+      } else if (type == 'test') {
+        document.getElementById('type').innerHTML = 'Test'
+        document.getElementById('id').innerHTML = testid;
+      }
+      // show description
+    }
+
+    function register(event) {
+      var data;
+      if (type == 'course') {
+        data = studentmanagerInstance.registerForCourse.getData(courseid);
+      } else if (type == 'test') {
+        data = studentmanagerInstance.registerForTest.getData(testid);
+      }
+      signAndSend(data, studentmanagerInstance.address);
+      goHome();
+    }
+  </script>
 </head>
 <body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <nav>
-      <ul>
-        <li><a href="index.html">Startseite</a></li>
-        <li><a id="logout" class="button u-pull-right" href="index.html">Abmelden</a></li>
-      </ul>
-    </nav>
     <div class="row">
       <div class="column">
-        <h4>Lehrveranstalter</h4>
-        <form>
-          <label for="ectspoints">ECTS Punkte:</label>
-          <input type="number" name="ectspoints" id="ectspoints" placeholder="6" required>
-          <label for="name">Bezeichnung:</label>
-          <input type="text" id="name" placeholder="VU Algorithmen und Datenstrukturen" required>
-          <label for="helper">Hilfskräfte:</label>
-          <textarea id="helper" placeholder="0xcc1758ab0530f828ade9a8ea49ddede536e469e2; Ethereumadressen von anderen Lehrveranstaltern"></textarea>
-          <label for="description">Beschreibung:</label>
-          <textarea id="description" class="u-full-width u-max-full-width" placeholder="Aufwandsabschätzungen, Komplexitätsmaße, grundlegende Datenstrukturen, Such- und Sortierverfahren und grundlegende Graph- und Optimierungsalgorithmen" required></textarea>
-          <button>Erstellen</button>
-        </form>
+        <span id="type" class="title"></span>
+        <span id="id" class="id"></span>
+        <p id="description"></p>
+        <button id="register">Verbindlich anmelden</button>
       </div>
     </div>
   </div>
@@ -64,6 +99,10 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('register').addEventListener('click', register);
+
+    parseID();
+    showDetails();
   </script>
 
   <!-- End Document

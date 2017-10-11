@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Kursdetails</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
+  <script type="text/javascript">
+    function showUserDependentUI() {
+      var elements = [];
+      if (isSupervisor()) {
+        elements = document.getElementsByClassName('supervisorfunctions');
+      } else if (isStudent()) {
+        elements = document.getElementsByClassName('studentfunctions');
+      }
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].hidden = false;
+      }
+    }
+
+    function parseCourseID() {
+      courseid = (new URLSearchParams(window.location.search)).get('courseid');
+      if (courseid == null) {
+        alert("Kein Kurs ausgewählt.")
+        goHome();
+      } else {
+        document.getElementById('courseid').value = courseid;
+        var elements = document.getElementsByClassName('coursedependentlink');
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].href += `?courseid=${courseid}`;
+        }
+      }
+    }
+
+    function showDetails() {
+      showAssignments();
+      showTests();
+    }
+
+    function showAssignments() {
+      var assignments = datamanagerInstance.getCourseAssignments(courseid);
+      if (assignments[0] == 0) {
+        return;
+      }
+      
+      var output = [];
+      var line;
+      var extra;
+      output.push(`<span>Aufgaben:</span>`);      
+      output.push(`<ul>`);
+      
+      for (var i = 0; i < assignments[0]; i++) {
+        var id = assignments[1][i];
+        var maxpoints = assignments[2][i];
+        var duedate = new Date(assignments[3][i].toNumber() * 1000);
+
+        output.push(`<li>`);
+        line = `<a href="/personal/assignmentdetails.html?assignmentid=${id}">${duedate.toLocaleString()}</a>`;
+        output.push(line);
+        if (isStudent()) {
+          var submissions = studentmanagerInstance.getAssignmentSubmissionIDs(id);
+          var extra = getStudentSubmissionInfo(submissions, maxpoints);
+        } else if (isSupervisor()) {
+          var submissions = supervisormanagerInstance.getAssignmentSubmissionIDs(id);
+          var extra = getSupervisorSubmissionInfo(submissions, duedate);
+        }
+        output.push(`<span class="extra">${extra}</span>`);
+      }
+      
+      output.push(`</ul>`);
+      document.getElementById('assignments').innerHTML = output.join('');
+    }
+
+    function showTests() {
+      var tests = datamanagerInstance.getCourseTests(courseid);
+      if (tests[0] == 0) {
+        return;
+      }
+      
+      var output = [];
+      var line;
+      output.push(`<span>Tests:</span>`);      
+      output.push(`<ul>`);
+      
+      for (var i = 0; i < tests[0]; i++) {
+        var id = tests[1][i];
+        var maxpoints = tests[2][i];
+        var duedate = new Date(tests[3][i].toNumber() * 1000);
+
+        output.push(`<li>`);
+        line = `<a href="/personal/testdetails.html?testid=${id}">${duedate.toLocaleString()}</a>`;
+        output.push(line);
+        
+        if (isStudent()) {
+          var submissions = studentmanagerInstance.getTestSubmissionIDs(id);
+          extra = getStudentSubmissionInfo(submissions, maxpoints);
+        } else if (isSupervisor()) {
+          var submissions = supervisormanagerInstance.getTestSubmissionIDs(id);
+          var extra = getSupervisorSubmissionInfo(submissions, duedate);
+        }
+        output.push(`<span class="extra">${extra}</span>`);
+      }
+      
+      output.push(`</ul>`);
+      document.getElementById('tests').innerHTML = output.join('');
+    }
+
+    function getStudentSubmissionInfo(submissions, maxpoints) {
+      var extra;
+
+      if (submissions[0] > 0) {
+        for (var i = submissions[1].length - 1; i >= 0; --i) {
+          var assessmentdetails = studentmanagerInstance.getAssessment(submissions[1][i]);
+          if (assessmentdetails[0]) {
+            var obtainedpoints = assessmentdetails[3];
+            extra = `${obtainedpoints}/${maxpoints} Punkten`;
+            break;
+          } else {
+            extra = "Abgegeben (noch keine Benotung)";
+          }
+        }
+      } else {
+        extra = "Keine Abgabe";
+      }
+
+      return extra;
+    }
+
+    function getSupervisorSubmissionInfo(submissions, duedate) {
+      var extra;
+
+      if (duedate > Date.now()) {
+        extra = "Benotung noch nicht möglich";
+      } else if (submissions[0] > 0) {
+        var count = 0;
+        for (var i = submissions[1].length - 1; i >= 0; i--) {
+          if (!submissions[2][i]) {
+            ++count;
+          }
+        }
+        extra = `${count} ausstehende Benotung(en)`;
+      } else {
+        extra = "Noch keine Abgaben"
+        
+      }
+
+      return extra;
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="column">
+        <div class="supervisorfunctions" hidden>
+          <a class="coursedependentlink button" href="/supervisor/createassignment.html">Neue Aufgabe</a>
+          <a class="coursedependentlink button" href="/supervisor/createtest.html">Neuer Test</a>
+        </div>
+        <div id="courseid"></div>
+        <div id="coursedetails">
+          <div id="assignments"></div>
+          <div id="tests"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript">
+    document.getElementById('logout').addEventListener('click', logout);
+    showUserDependentUI();
+    parseCourseID();
+    showDetails();
+  </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

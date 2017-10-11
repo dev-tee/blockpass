@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Benotung</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
+  <script type="text/javascript">
+    function parseSubmissionID() {
+      submissionid = (new URLSearchParams(window.location.search)).get('submissionid');
+      if (submissionid == null) {
+        alert("Keine Aufgabe ausgewählt.")
+        goHome();
+      } else {
+        document.getElementById('submissionid').innerHTML = submissionid;
+        var elements = document.getElementsByClassName('submissiondependentlink');
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].href += `?submissionid=${submissionid}`;
+        }
+      }
+    }
+
+    function showDetails() {
+      var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(submissionid);
+      document.getElementById('maxpoints').value = relatedinfo[0];
+      document.getElementById('submissiondetails').innerHTML = submissiondbInstance.getSubmission(0)[0];
+
+      if (relatedinfo[2] * 1000 > Date.now()) {
+        document.getElementById('submissiondetails').outerHTML += '<span class="info">Benotung noch nicht möglich</span>';
+        document.getElementById('form').hidden = true;
+      }
+    }
+
+    function createAssessment() {
+      if (event.preventDefault) event.preventDefault();
+
+      var description = document.getElementById('description').value;
+      var obtainedpoints = document.getElementById('obtainedpoints').value;
+
+      var data = supervisormanagerInstance.assess.getData(description, obtainedpoints, submissionid);
+      signAndSend(data, supervisormanagerInstance.address);
+
+      window.location.assign(`/supervisor/submissions.html?assignmentid=${assignmentid}`);
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="one-half column center-column">
+        <span class="inlinetitle">Abgabe</span>
+        <span id="submissionid" class="id"></span>
+        <p id="submissiondetails"></p>
+        <form id="form">
+          <label id="label_obtainedpoints" for="obtainedpoints">Erreichte Punktezahl:</label>
+          <input type="number" id="obtainedpoints" class="u-full-width" required>
+          <label id="label_maxpoints" for="maxpoints">Maximale Punktezahl:</label>
+          <input type="number" id="maxpoints" class="u-full-width" disabled>
+          <label for="description">Beschreibung:</label>
+          <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
+          <button>Erstellen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript">
+    document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('form').addEventListener('submit', createAssessment);
+    parseSubmissionID();
+    showDetails();
+
+    var defaultWatcher = (error, result) => {
+      if (error) console.error(error);
+      else console.log(result);
+    }
+    supervisormanagerInstance.AssignmentID({}, { fromBlock: 0, toBlock: 'latest' }).watch(defaultWatcher);
+    supervisormanagerInstance.TestID({}, { fromBlock: 0, toBlock: 'latest' }).watch(defaultWatcher);
+    supervisormanagerInstance.AssignmentDateCheck({}, { fromBlock: 0, toBlock: 'latest' }).watch(defaultWatcher);
+    supervisormanagerInstance.TestDateCheck({}, { fromBlock: 0, toBlock: 'latest' }).watch(defaultWatcher);
+  </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,6 +1,6 @@
 .center-column:only-child {
-	margin: auto;
-	float: none;
+  margin: auto;
+  float: none;
 }
 
 .credentials {
@@ -22,6 +22,124 @@ input.invalid {
   font-size: 1.2rem;
 }
 
+nav
+{
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background-color: rgba(248, 248, 248, 0.975);
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0rem 0rem 2rem rgba(0, 0, 0, 0.2),
+    inset 0rem 0rem 0.3rem rgba(255, 255, 255, 1);
+}
+
+nav ~ .container {
+  top: 10rem;
+  z-index: 0;
+}
+
+nav ul,
+nav ul li {
+  margin: 0rem;
+  padding: 0rem;
+}
+
 nav ul {
   list-style-type: none;
+}
+
+nav ul li a {
+  float: left;
+  padding: 2rem;
+  font-weight: lighter;
+  text-decoration: none;
+  text-transform: lowercase;
+  color: black;
+}
+
+nav ul li a:hover
+{
+  padding-top: 1.5rem;
+  border-top: 0.5rem solid rgba(0, 0, 0, 0.25);
+  color: black;
+}
+
+label[for='menutrigger'] {
+  position: fixed;
+  right: 0rem;
+  top: 0rem;
+  display: none;
+  padding: 2rem;
+  margin-bottom: 0rem;
+}
+
+#menutrigger {
+  display: none;
+}
+
+#logout {
+  float: right;
+  padding: 2rem 3rem;
+  text-decoration: none;
+  letter-spacing: .1rem;
+  text-transform: lowercase;
+  border-left: 0.4rem solid #d8d8d8;
+  background-color: #e8e8e8;
+  color: #888;
+}
+
+#logout:hover {
+  border-left: 0.4rem solid black;
+  background-color: #333;
+  color: #ccc;
+}
+
+.inlinetitle {
+  font-size: 3rem;
+}
+
+.id {
+  color: grey;
+}
+
+.info {
+  color: grey;
+  font-weight: lighter;
+}
+
+.extra {
+  margin-left: 1rem;
+  color: grey;
+  font-weight: lighter;
+}
+
+@media (max-width: 550px) {
+  nav {
+  }
+  nav ul li a {
+    width: 100%;
+    padding-left: 3.4rem;
+    box-sizing: border-box;
+  }
+  label[for='menutrigger'] {
+    display: initial;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  #logout {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+  }
+  #menutrigger:checked + label[for='menutrigger'] {
+    background-color: black;
+  }
+  #menutrigger:checked ~ ul {
+    display: none;
+  }
+  #menutrigger:checked ~ #logout {
+    width: 50%;
+    float: right;
+  }
 }

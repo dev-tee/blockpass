@@ -31,16 +31,36 @@
   <script type="text/javascript" src="../scripts/common.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
+    function parseCourseID() {
+      courseid = (new URLSearchParams(window.location.search)).get('courseid');
+      if (courseid == null) {
+        alert("Kein Kurs ausgewählt.")
+        goHome();
+      } else {
+        document.getElementById('courseid').value = courseid;
+      }
+    }
+
     function createAssignment() {
       if (event.preventDefault) event.preventDefault();
       
       var courseid = document.getElementById('courseid').value;
       var maxpoints = document.getElementById('maxpoints').value;
       var description = document.getElementById('description').value;
-      var duedate = document.getElementById('duedate').value;
+      var duedate = document.getElementById('duedate').getAttribute('data-time');
+
+      if (duedate <= Date.now()) {
+        alert("Abgabedatum muss in der Zukunft liegen.");
+        return;
+      }
       
-      var data = supervisormanagerInstance.createAssignment.getData(description, duedate, maxpoints, courseid);
-      // signAndSend(data, supervisormanagerInstance.address);
+      // Ethereum time counts in seconds
+      // while JavaScript Date has millisecond resolution.
+      duedate = Math.floor(duedate / 1000);
+      var data = supervisormanagerInstance.createAssignment.getData(description, maxpoints, duedate, courseid);
+      signAndSend(data, supervisormanagerInstance.address);
+
+      goHome();
     }
 
     function updateTime(event) {
@@ -66,15 +86,18 @@
 </head>
 <body>
 
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
+
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <nav>
-      <ul>
-        <li><a href="index.html">Startseite</a></li>
-        <li><a id="logout" class="button u-pull-right" href="index.html">Abmelden</a></li>
-      </ul>
-    </nav>
     <div class="row">
       <div class="column">
         <h4>Lehrveranstalter</h4>
@@ -103,13 +126,15 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
-    document.getElementById('form').addEventListener('submit', createTest);
+    document.getElementById('form').addEventListener('submit', createAssignment);
 
     document.getElementById('day').addEventListener('input', updateTime);
     document.getElementById('month').addEventListener('input', updateTime);
     document.getElementById('year').addEventListener('input', updateTime);
     document.getElementById('hour').addEventListener('input', updateTime);
     document.getElementById('minute').addEventListener('input', updateTime);
+
+    parseCourseID();
   </script>
 
   <!-- End Document

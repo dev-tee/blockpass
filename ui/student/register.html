@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Anmeldung</title>
+  <title>Neue Anmeldung</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,48 +29,59 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
-  <script type="text/javascript" src="../scripts/accounts.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
-    function login(event) {
-      if (event.preventDefault) event.preventDefault();
+    function showList(event) {
+      var output = [];
+      var line;
+      if (event.target.value == 'course') {
+        var courses = datamanagerInstance.getAllCourses();
 
-      var usertype = document.getElementById('usertype').value;
-      var password = document.getElementById('password').value;
-      var id;
+        for (var i = 0; i < courses[0]; i++) {
+          var id = courses[1][i];
+          var name = web3.toAscii(courses[2][i]);
+          var ects = courses[3][i];
+          line = `<a href="registrationdetails.html?courseid=${id}">${name}</a> [${ects}]<br>`;
+          output.push(line);
+        }
+      } else if (event.target.value = 'test') {
+        var tests = datamanagerInstance.getAllTests();
 
-      if (usertype == 'student') {
-        id = document.getElementById('matrikelnr').value;
-      } else if (usertype == 'supervisor') {
-        id = document.getElementById('uaccountid').value;
+        for (var i = 0; i < tests[0]; i++) {
+          var id = tests[1][i];
+          var name = web3.toAscii(tests[2][i]);
+          var duedate = new Date(tests[3][i].toNumber() * 1000);
+          line = `<a href="registrationdetails.html?testid=${id}">${name}</a> [${duedate.toLocaleString()}]<br>`;
+          output.push(line);
+        }
       }
-      signin(usertype, id, password);
+
+      document.getElementById('output').innerHTML = output.join('');
     }
   </script>
-
 </head>
 <body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column center-column credentials">
-        <h4>Anmelden</h4>
-        <form id="form">
-          <label for="usertype">Benutzertyp:</label>
-          <select id="usertype" class="u-full-width">
-            <option value="student" selected>Student</option>
-            <option value="supervisor">Lehrveranstalter</option>
-          </select>
-          <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
-          <input type="number" id="matrikelnr" class="u-full-width" required>
-          <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
-          <input type="text" id="uaccountid" class="u-full-width" hidden disabled required>
-          <label for="password">Passwort:</label>
-          <input type="password" id="password" class="u-full-width" required>
-          <button id="login" class="button-primary u-full-width">Anmelden</button>
-          <span id="redirect">Neuen Account erstellen? <a href="register.html">Hier registrieren.</a></span>
-        </form>
+      <div class="one-half column">
+        <select id="requesttype">
+          <option selected hidden disabled>Wähle...</option>
+          <option value="course">Kurs</option>
+          <option value="test">Test</option>
+        </select>
+        <div id="output"></div>
       </div>
     </div>
   </div>
@@ -78,8 +89,9 @@
   <!-- Javascript [EventListeners]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
-    document.getElementById('form').addEventListener('submit', login);
-    document.getElementById('usertype').addEventListener('change', switchID);
+    document.getElementById('logout').addEventListener('click', logout);
+
+    document.getElementById('requesttype').addEventListener('change', showList);
   </script>
 
   <!-- End Document

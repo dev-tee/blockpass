@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Anmeldung</title>
+  <title>Abgaben</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -29,48 +29,64 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
-  <script type="text/javascript" src="../scripts/accounts.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
-    function login(event) {
-      if (event.preventDefault) event.preventDefault();
-
-      var usertype = document.getElementById('usertype').value;
-      var password = document.getElementById('password').value;
-      var id;
-
-      if (usertype == 'student') {
-        id = document.getElementById('matrikelnr').value;
-      } else if (usertype == 'supervisor') {
-        id = document.getElementById('uaccountid').value;
+    function parseAssignmentID() {
+      assignmentid = (new URLSearchParams(window.location.search)).get('assignmentid');
+      if (assignmentid == null) {
+        alert("Keine Aufgabe ausgewählt.")
+        goHome();
+      } else {
+        document.getElementById('assignmentid').innerHTML = assignmentid;
+        var elements = document.getElementsByClassName('assignmentdependentlink');
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].href += `?assignmentid=${assignmentid}`;
+        }
       }
-      signin(usertype, id, password);
+    }
+
+    function listSubmissions() {
+      var output = [];
+      var submissions = supervisormanagerInstance.getAssignmentSubmissionIDs(assignmentid);
+      var length = submissions[0];
+
+      output.push('<ul>');
+      for (var i = 0; i < length; ++i) {
+        var id = submissions[1][i];
+        var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(id);
+        var submissiondate = new Date(relatedinfo[1].toNumber() * 1000);
+        var line = `<li><a href="/supervisor/assess.html?submissionid=${id}">${submissiondate.toLocaleString()}</a>`;
+        if (submissions[2][i]) {
+          var extra = '<span class="info">Bereits benotet</span>';
+          output.push(extra);
+        }
+        output.push(line);
+      }
+      output.push('</ul>');
+
+      document.getElementById('submissions').innerHTML = output.join('');
     }
   </script>
-
 </head>
 <body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column center-column credentials">
-        <h4>Anmelden</h4>
-        <form id="form">
-          <label for="usertype">Benutzertyp:</label>
-          <select id="usertype" class="u-full-width">
-            <option value="student" selected>Student</option>
-            <option value="supervisor">Lehrveranstalter</option>
-          </select>
-          <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
-          <input type="number" id="matrikelnr" class="u-full-width" required>
-          <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
-          <input type="text" id="uaccountid" class="u-full-width" hidden disabled required>
-          <label for="password">Passwort:</label>
-          <input type="password" id="password" class="u-full-width" required>
-          <button id="login" class="button-primary u-full-width">Anmelden</button>
-          <span id="redirect">Neuen Account erstellen? <a href="register.html">Hier registrieren.</a></span>
-        </form>
+      <div class="one-half column">
+        <span class="inlinetitle">Aufgabe</span>
+        <span id="assignmentid" class="id"></span>
+        <div id="submissions"></div>
       </div>
     </div>
   </div>
@@ -78,8 +94,9 @@
   <!-- Javascript [EventListeners]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
-    document.getElementById('form').addEventListener('submit', login);
-    document.getElementById('usertype').addEventListener('change', switchID);
+    document.getElementById('logout').addEventListener('click', logout);
+    parseAssignmentID();
+    listSubmissions();
   </script>
 
   <!-- End Document

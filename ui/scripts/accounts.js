@@ -1,7 +1,7 @@
 function cacheCredentials(address, password, usertype) {
-  sessionStorage['address'] = address;
-  sessionStorage['password'] = password;
-  sessionStorage['usertype'] = usertype;
+  localStorage['address'] = address;
+  localStorage['password'] = password;
+  localStorage['usertype'] = usertype;
 }
 
 // Call with optional password parameter
@@ -18,9 +18,8 @@ function checkCredentials(address, password) {
 }
 
 function checkAvailability(id, value, callback) {
-  var xhr = new XMLHttpRequest();
+  var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
-    console.log(event);
     if (event.target.readyState == XMLHttpRequest.DONE
         && event.target.status == 200)
     {
@@ -31,46 +30,53 @@ function checkAvailability(id, value, callback) {
       }
     }
   };
-  var data = id + '=' + value;
-  xhr.open('GET', 'php/check.php?' + data, true);
+  var requestData = id + '=' + value;
+  xhr.open('GET', 'php/check.php?' + requestData, true);
   xhr.send();
+}
+
+function createXMLHttpRequest() {
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 4 * 1000;
+  xhr.ontimeout = (event) => {
+    alert("Zeitüberschreitung beim Verbinden mit Datenbank.");
+  }
+  return xhr;
 }
 
 function signin(usertype, id, password) {
   
-  var xhr = new XMLHttpRequest();
+  var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
     if (event.target.readyState == XMLHttpRequest.DONE
         && event.target.status == 200)
     {
-      console.log(event);
       if (!event.target.response.startsWith('OK:')) {
-        alert("Fehler beim Anmelden!");
+        alert("Benutzer oder Passwort falsch.");
       } else {
         var address = event.target.response.split(':')[1];
         cacheCredentials(address, password, usertype);
 
         // console.log(checkCredentials(address, password));
-        directToRespectiveHome();
+        goHome();
       }
     }
   };
 
-  var data = 'usertype=' + usertype + '&id=' + id + '&password=' + password;
-  xhr.open('GET', 'php/signin.php?' + data, true);
+  var requestData = 'usertype=' + usertype + '&id=' + id + '&password=' + password;
+  xhr.open('GET', 'php/signin.php?' + requestData, true);
   xhr.send();
 }
 
 function signup(name, usertype, id, password) {
 
-  var xhr = new XMLHttpRequest();
+  var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
     if (event.target.readyState == XMLHttpRequest.DONE
         && event.target.status == 200)
     {
-      console.log(event);
       if (event.target.response != 'OK') {
-        alert("Fehler beim Registrieren!");
+        alert("Fehler beim Registrieren.");
       } else {
         cacheCredentials(address, password, usertype);
 
@@ -79,24 +85,20 @@ function signup(name, usertype, id, password) {
         if (usertype == 'student') {
           data = accountmanagerInstance.registerStudent.getData(address, name, id);
         } else if (usertype == 'supervisor') {
-          data = accountmanagerInstance.registerSupervisor.getData(address, name);
+          data = accountmanagerInstance.registerSupervisor.getData(address, name, id);
         }
         signAndSend(data, accountmanagerInstance.address);
 
-        directToRespectiveHome();
+        goHome();
       }
     }
   };
 
   var address = web3.personal.newAccount(password);
-  var data = 'usertype=' + usertype + '&id=' + id + '&address=' + address+ '&password=' + password;
+  var requestData = 'usertype=' + usertype + '&id=' + id + '&address=' + address+ '&password=' + password;
   xhr.open('POST', 'php/signup.php', true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send(data);
-}
-
-function directToRespectiveHome() {
-  window.location.assign('/' + sessionStorage['usertype'] + '/index.html');
+  xhr.send(requestData);
 }
 
 function showLabelledInput(id, state) {
