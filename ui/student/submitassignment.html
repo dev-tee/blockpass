@@ -29,6 +29,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/accounts.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function showUserDependentUI() {
@@ -61,7 +62,7 @@
       if (event.preventDefault) event.preventDefault();
 
       var description = document.getElementById('description').value;
-      var remainingMembers = [];
+      var remainingMembers = getSelections();
 
       var data = studentmanagerInstance.uploadAssignmentSubmission.getData(description, assignmentid, remainingMembers);
       signAndSend(data, studentmanagerInstance.address);
@@ -94,7 +95,7 @@
           <label for="helper">Gruppenmitglieder:
             <span class="info">(leer bei Einzelarbeit)</span>
           </label>
-          <textarea id="helper" placeholder="0xcc1758ab0530f828ade9a8ea49ddede536e469e2; Ethereumadressen von anderen Lehrveranstaltern"></textarea>
+          <input type="search" id="helper" placeholder="Matrikelnummersuche" autocomplete="off">
           <label for="description">Beschreibung:</label>
           <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
           <button>Erstellen</button>
@@ -108,6 +109,10 @@
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
     document.getElementById('form').addEventListener('submit', submitAssignment);
+
+    var helper = document.getElementById('helper');
+    setupSearch(helper, 'supervisor');
+
     parseAssignmentID();
   </script>
 

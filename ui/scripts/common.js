@@ -82,6 +82,11 @@ function goHome() {
   window.location.assign(home);
 }
 
+// Create common object
+// to prevent littering global namespace.
+// TODO: Actually use it!
+var blockpass = {};
+
 // Check whether the user is logged in.
 // Redirect if that is not the case.
 checkAccess();

@@ -34,7 +34,7 @@
     function parseSubmissionID() {
       submissionid = (new URLSearchParams(window.location.search)).get('submissionid');
       if (submissionid == null) {
-        alert("Keine Aufgabe ausgewählt.")
+        alert("Keine Abgabe ausgewählt.")
         goHome();
       } else {
         document.getElementById('submissionid').innerHTML = submissionid;
@@ -65,7 +65,7 @@
       var data = supervisormanagerInstance.assess.getData(description, obtainedpoints, submissionid);
       signAndSend(data, supervisormanagerInstance.address);
 
-      window.location.assign(`/supervisor/submissions.html?assignmentid=${assignmentid}`);
+      goHome();
     }
   </script>
 </head>

@@ -97,7 +97,7 @@
     }
 
     function showTests() {
-      var tests = datamanagerInstance.getCourseTests(courseid);
+      var tests = datamanagerInstance.getPersonalTests();
       if (tests[0] == 0) {
         return;
       }
@@ -111,6 +111,11 @@
         var id = tests[1][i];
         var maxpoints = tests[2][i];
         var duedate = new Date(tests[3][i].toNumber() * 1000);
+        var testcourseid = tests[4];
+
+        if (testcourseid != courseid) {
+          continue;
+        }
 
         output.push(`<li>`);
         line = `<a href="/personal/testdetails.html?testid=${id}">${duedate.toLocaleString()}</a>`;

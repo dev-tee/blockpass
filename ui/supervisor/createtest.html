@@ -29,6 +29,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/accounts.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function parseCourseID() {
@@ -48,6 +49,7 @@
       var maxpoints = document.getElementById('maxpoints').value;
       var description = document.getElementById('description').value;
       var duedate = document.getElementById('duedate').getAttribute('data-time');
+      var helpingsupervisors = getSelections();
 
       if (duedate <= Date.now()) {
         alert("Abgabedatum muss in der Zukunft liegen.");
@@ -56,7 +58,7 @@
       // Ethereum time counts in seconds
       // while JavaScript Date has millisecond resolution.
       duedate = Math.floor(duedate / 1000);
-      var data = supervisormanagerInstance.createTest.getData(description, maxpoints, duedate, courseid, []);
+      var data = supervisormanagerInstance.createTest.getData(description, maxpoints, duedate, courseid, helpingsupervisors);
       signAndSend(data, supervisormanagerInstance.address);
 
       goHome();
@@ -105,7 +107,7 @@
           <input type="text" id="coursename" value="Testkurs" readonly>
           <input type="text" id="courseid" readonly>
           <label for="helper">Hilfskräfte:</label>
-          <textarea id="helper" placeholder="0xcc1758ab0530f828ade9a8ea49ddede536e469e2; Ethereumadressen von anderen Lehrveranstaltern"></textarea>
+          <input type="search" id="helper" placeholder="uaccountID-Suche" autocomplete="off">
           <label for="maxpoints">Maximalpunktezahl:</label>
           <input type="number" id="maxpoints" placeholder="22" required>
           <label for="duedate">Abgabedatum:</label>
@@ -134,6 +136,9 @@
     document.getElementById('year').addEventListener('input', updateTime);
     document.getElementById('hour').addEventListener('input', updateTime);
     document.getElementById('minute').addEventListener('input', updateTime);
+
+    var helper = document.getElementById('helper');
+    setupSearch(helper, 'supervisor');
 
     parseCourseID();
   </script>

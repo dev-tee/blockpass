@@ -63,7 +63,7 @@
       var description = document.getElementById('description').value;
       var remainingMembers = [];
 
-      var data = studentmanagerInstance.uploadTestSubmission.getData(description, testid, remainingMembers);
+      var data = studentmanagerInstance.uploadTestSubmission.getData(description, testid);
       signAndSend(data, studentmanagerInstance.address);
 
       window.location.assign(`/personal/testdetails.html?testid=${testid}`);
@@ -88,13 +88,9 @@
   <div class="container">
     <div class="row">
       <div class="column">
-        <span class="inlinetitle">Aufgabe</span>
+        <span class="inlinetitle">Test</span>
         <span id="testid" class="id"></span>
         <form id="form">
-          <label for="helper">Gruppenmitglieder:
-            <span class="info">(leer bei Einzelarbeit)</span>
-          </label>
-          <textarea id="helper" placeholder="0xcc1758ab0530f828ade9a8ea49ddede536e469e2; Ethereumadressen von anderen Lehrveranstaltern"></textarea>
           <label for="description">Beschreibung:</label>
           <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
           <button>Erstellen</button>
