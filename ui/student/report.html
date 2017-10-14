@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Leistungspass</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="../scripts/web3.js"></script>
+  <script type="text/javascript" src="../scripts/common.js"></script>
+  <script type="text/javascript" src="../scripts/api.js"></script>
+  <script type="text/javascript">
+    function generate() {
+      var output = [];
+      var courses = datamanagerInstance.getPersonalCourses();
+      var length = courses[0];
+
+      var totalobtainedects = 0;
+      var totalects = 0;
+
+      output.push('<ul>');
+      for (var i = length - 1; i >= 0; i--) {
+        var courseid = courses[1][i];
+        var name = web3.toAscii(courses[2][i]);
+        var ects = courses[3][i].toNumber();
+        var obtainedects = 0;
+        var line;
+
+        var assignmentoutput = [];
+        var assignments = datamanagerInstance.getCourseAssignments(courseid);
+        var numassignments = assignments[0];
+        var numpassedassignments = 0;
+        for (var j = 0; j < numassignments; j++) {
+          var assignmentid = assignments[1][j];
+          var maxpoints = assignments[2][j].toNumber();
+          var duedate = new Date(assignments[3][j].toNumber() * 1000);
+
+          var submissions = studentmanagerInstance.getAssignmentSubmissionIDs(assignmentid);
+          var numsubmissions = submissions[0].toNumber();
+
+          var submissionoutput = [];
+          var topobtainedpoints = 0;
+          for (var k = 0; k < numsubmissions; k++) {
+            var id = submissions[1][k];
+            var assessmentdetails = studentmanagerInstance.getAssessment(id);
+            var obtainedpoints = assessmentdetails[3].toNumber();
+            
+            var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
+            var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
+
+            if (assessmentdetails[0] && topobtainedpoints < obtainedpoints) {
+              topobtainedpoints = obtainedpoints;
+            }
+
+            line = `<li>Abgabe vom ${submissiondate.toLocaleDateString()}
+                    <span class="extra score">${obtainedpoints} / ${maxpoints}</span>`;
+            submissionoutput.push(line);
+          }
+
+          if (topobtainedpoints >= maxpoints/2) {
+            ++numpassedassignments;
+          }
+
+          line = `<li class="category">
+                  <span class="categoryheader">Aufgabe für den ${duedate.toLocaleDateString()}</span>
+                  <span class="extra score">${topobtainedpoints} / ${maxpoints}</span>`;
+          assignmentoutput.push(line);
+
+          assignmentoutput.push('<ul>');
+          assignmentoutput = assignmentoutput.concat(submissionoutput);
+          assignmentoutput.push('</ul>');
+        }
+
+        var testoutput = [];
+        var tests = datamanagerInstance.getCourseTests(courseid);
+        var numtests = tests[0].toNumber();
+        var numpassedtests = 0;
+        for (var j = 0; j < numtests; j++) {
+          var testid = tests[1][j];
+          var maxpoints = tests[2][j].toNumber();
+          var duedate = new Date(tests[3][j].toNumber() * 1000);
+
+          var submissions = studentmanagerInstance.getTestSubmissionIDs(testid);
+          var numsubmissions = submissions[0].toNumber();
+
+          var submissionoutput = [];
+          var topobtainedpoints = 0;
+          for (var k = 0; k < numsubmissions; k++) {
+            var id = submissions[1][k];
+            var assessmentdetails = studentmanagerInstance.getAssessment(id);
+            var obtainedpoints = assessmentdetails[3].toNumber();
+            
+            var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
+            var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
+
+            if (assessmentdetails[0] && topobtainedpoints < obtainedpoints) {
+              topobtainedpoints = obtainedpoints;
+            }
+
+            line = `<li>Abgabe vom ${submissiondate.toLocaleDateString()}
+                    <span class="extra score">${obtainedpoints} / ${maxpoints}</span>`;
+            submissionoutput.push(line);
+          }
+
+          if (topobtainedpoints >= maxpoints/2) {
+            ++numpassedtests;
+          }
+
+          line = `<li class="category">
+                  <span class="categoryheader">Test vom ${duedate.toLocaleDateString()}</span>
+                  <span class="extra score">${topobtainedpoints} / ${maxpoints}</span>`;
+          testoutput.push(line);
+
+          testoutput.push('<ul>');
+          testoutput = testoutput.concat(submissionoutput);
+          testoutput.push('</ul>');
+        }
+
+        if (numpassedassignments >= numassignments/2) {
+          obtainedects += ects/2;
+        }
+        if (numpassedtests >= numtests/2) {
+          obtainedects += ects/2;
+        }
+
+        totalobtainedects += obtainedects;
+        totalects += ects;
+
+        line = `<li class="category">
+                <span class="categoryheader">${name}</span>`;
+        output.push(line);
+        line = `<div class="score">
+                <span>${obtainedects}</span> / <span>${ects} ECTS</span></div>`;
+        output.push(line);
+        output.push('<ul>');
+
+        line = `<li class="category">
+                <span class="categoryheader">Aufgaben</span>`;
+        output.push(line);
+        line = `<div class="score">
+                <span>${numpassedassignments}</span> / <span>${numassignments}</span></div>`;
+        output.push(line);        
+        output.push('<ul>');
+        output = output.concat(assignmentoutput);
+        output.push('</ul>');
+
+        line = `<li class="category">
+                <span class="categoryheader">Tests</span>`;
+        output.push(line);
+        line = `<div class="score">
+                <span>${numpassedtests}</span> / <span>${numtests}</span></div>`;
+        output.push(line);
+        output.push('<ul>');
+        output = output.concat(testoutput);
+        output.push('</ul>');
+
+        output.push('</ul>');
+      }
+      output.push('</ul>');
+
+      document.getElementById('totalobtainedects').insertAdjacentHTML('beforeend', totalobtainedects);
+      document.getElementById('totalects').insertAdjacentHTML('beforeend', totalects);
+
+      document.getElementById('details').insertAdjacentHTML('beforeend', output.join(''));
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav>
+    <ul>
+      <li><a href="/personal/index.html">Start</a>
+    </ul>
+    <a id="logout" href="#">Abmelden</a>
+  </nav>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="two-thirds column center-column">
+        <span class="inlinetitle">Leistungen</span>
+        <div id="report">
+          <div class="summary">
+            <span class="">Zusammenfassung</span>
+            <span class="extra score">
+              <span id="totalobtainedects"></span>
+               von 
+              <span id="totalects"></span>
+              ECTS
+            </span>
+          </div>
+          <div class="category" id="details">
+            <span class="categoryheader">Details</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript">
+    document.getElementById('logout').addEventListener('click', logout);
+    generate();
+    var categories = document.getElementsByClassName('categoryheader');
+    for (var i = 0; i < categories.length; i++) {
+      categories[i].addEventListener('click', event => {
+        var element = event.target.nextElementSibling;
+        while(element != null && element.nodeName.search('UL') != 0) {
+          element = element.nextElementSibling;
+        }
+        if (element != null) {
+          element.hidden = !element.hidden;
+        }
+      });
+    }
+  </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

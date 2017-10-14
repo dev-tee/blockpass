@@ -139,7 +139,7 @@
       var extra;
 
       if (submissions[0] > 0) {
-        for (var i = submissions[1].length - 1; i >= 0; --i) {
+        for (var i = 0; i < submissions[0]; ++i) {
           var assessmentdetails = studentmanagerInstance.getAssessment(submissions[1][i]);
           if (assessmentdetails[0]) {
             var obtainedpoints = assessmentdetails[3];
@@ -163,7 +163,7 @@
         extra = "Benotung noch nicht möglich";
       } else if (submissions[0] > 0) {
         var count = 0;
-        for (var i = submissions[1].length - 1; i >= 0; i--) {
+        for (var i = submissions[0] - 1; i >= 0; i--) {
           if (!submissions[2][i]) {
             ++count;
           }
@@ -193,7 +193,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="column">
+      <div class="two-thirds column center-column">
         <div class="supervisorfunctions" hidden>
           <a class="coursedependentlink button" href="/supervisor/createassignment.html">Neue Aufgabe</a>
           <a class="coursedependentlink button" href="/supervisor/createtest.html">Neuer Test</a>

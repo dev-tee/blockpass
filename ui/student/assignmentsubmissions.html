@@ -60,7 +60,7 @@
         var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
         var obtainedpoints = assessmentdetails[3];
         
-        line = `Abgegeben: <span class="info">${submissiondate.toLocaleString()}</span> <br>`;
+        line = `Abgegeben: <span class="info">${submissiondate.toLocaleString()}</span><br>`;
         line += `Maximale Punktezahl: <span class="info">${maxpoints}</span>`;
         line += `<p>${description}</p>`;
         if (assessmentdetails[0]) {
@@ -92,7 +92,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column">
+      <div class="two-thirds column center-column">
         <span class="inlinetitle">Aufgabe</span>
         <span id="assignmentid" class="id"></span>
         <div id="submissions"></div>

@@ -50,7 +50,7 @@ contract TestParticipationDB is ManagedContract {
         return getTestParticipation(testParticipationIDs[index]);
     }
 
-    function getTestParticipation(bytes32 id) internal constant returns(address studentID, uint testID) {
+    function getTestParticipation(bytes32 id) public constant returns(address studentID, uint testID) {
         require(exists(id));
         return(testParticipations[id].studentID, testParticipations[id].testID);
     }

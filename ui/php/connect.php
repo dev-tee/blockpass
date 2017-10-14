@@ -1,9 +1,11 @@
 <?php
-  
-  $host = 'a1308076.mysql.univie.ac.at';
-  $user = 'a1308076';
-  $password = 'p1308076';
-  $database = 'a1308076';
+
+  $ini_array = parse_ini_file(".config.ini");
+
+  $host = $ini_array['host'];
+  $user = $ini_array['user'];
+  $password = $ini_array['password'];
+  $database = $ini_array['database'];
 
   $mysqli = new mysqli($host, $user, $password, $database);
   if ($mysqli->connect_errno) {

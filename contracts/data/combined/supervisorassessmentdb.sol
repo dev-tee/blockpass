@@ -50,7 +50,7 @@ contract SupervisorAssessmentDB is ManagedContract {
         return getSupervisorAssessment(supervisorAssessmentIDs[index]);
     }
 
-    function getSupervisorAssessment(bytes32 id) internal constant returns(address supervisorID, uint assessmentID) {
+    function getSupervisorAssessment(bytes32 id) public constant returns(address supervisorID, uint assessmentID) {
         require(exists(id));
         return(supervisorAssessments[id].supervisorID, supervisorAssessments[id].assessmentID);
     }

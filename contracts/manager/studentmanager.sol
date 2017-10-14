@@ -19,18 +19,17 @@ contract StudentManager is ManagedContract {
         _;
     }
 
-    modifier containsOnlyStudents(address[] acnumSubmissionss) {
-        bool valid = true;
-        address studentdb = ContractProvider(MAN).contracts("studentdb");
+    modifier containsOnlyParticipatingStudents(address[] accounts, uint assignmentID) {
+        var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+                                        .getAssignment(assignmentID);
 
-        for(uint i = 0; i < acnumSubmissionss.length; ++i) {
-            if (!StudentDB(studentdb).isStudent(acnumSubmissionss[i])) {
-                valid = false;
-                break;
-            }
+        for(uint i = 0; i < accounts.length; ++i) {
+            require(StudentDB(ContractProvider(MAN).contracts("studentdb"))
+                    .isStudent(accounts[i])
+                && CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
+                    .exists(accounts[i], assignmentCourseID));
         }
 
-        require(valid);
         _;
     }
 
@@ -58,6 +57,22 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    modifier courseParticipationExists(uint assignmentID) {
+        var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+                                        .getAssignment(assignmentID);
+        require(CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
+            .exists(msg.sender, assignmentCourseID));
+        _;
+    }
+
+    modifier testParticipationExists(uint testID) {
+        var (, testCourseID) = TestDB(ContractProvider(MAN).contracts("testdb"))
+                                .getTest(testID);
+        require(TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
+            .exists(msg.sender, testCourseID));
+        _;
+    }
+
     function registerForCourse(uint courseID) onlyStudent courseExists(courseID) {
         CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
             .addCourseParticipation(msg.sender, courseID);
@@ -75,8 +90,9 @@ contract StudentManager is ManagedContract {
     )
         public
         onlyStudent
-        containsOnlyStudents(remainingGroupMembers)
         assignmentExists(assignmentID)
+        courseParticipationExists(assignmentID)
+        containsOnlyParticipatingStudents(remainingGroupMembers, assignmentID)
     {
         uint submissionID = uploadSubmission(description, now, 0, assignmentID);
 
@@ -93,6 +109,7 @@ contract StudentManager is ManagedContract {
         public
         onlyStudent
         testExists(testID)
+        testParticipationExists(testID)
     {
         uploadSubmission(description, now, 1, testID);
     }

@@ -9,7 +9,9 @@ import "../data/assessmentdb.sol";
 import "../data/studentdb.sol";
 import "../data/supervisordb.sol";
 import "../data/combined/courseparticipationdb.sol";
+import "../data/combined/testparticipationdb.sol";
 import "../data/combined/coursesupervisiondb.sol";
+import "../data/combined/testsupervisiondb.sol";
 
 
 contract DataManager is ManagedContract {
@@ -173,4 +175,41 @@ contract DataManager is ManagedContract {
             (, names[k], ectsPoints[k]) = CourseDB(coursedb).getCourse(ids[k]);
         }
     }
+
+    function getPersonalTests()
+        public
+        constant
+        returns (uint numTests, uint[] ids, uint[] maxPoints, uint[] dueDates, uint[] courseIDs)
+    {
+        address studentdb = ContractProvider(MAN).contracts("studentdb");
+        address supervisordb = ContractProvider(MAN).contracts("supervisordb");
+        address testparticipationdb = ContractProvider(MAN).contracts("testparticipationdb");
+        address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");
+        address testdb = ContractProvider(MAN).contracts("testdb");
+
+        if (StudentDB(studentdb).isStudent(msg.sender)) {
+            numTests = StudentDB(studentdb).getNumTestParticipations(msg.sender);
+            ids = new uint[](numTests);
+            for (uint i = 0; i < numTests; ++i) {
+                bytes32 participationID = StudentDB(studentdb).getTestParticipationIDAt(msg.sender, i);
+                (, ids[i]) = TestParticipationDB(testparticipationdb).getTestParticipation(participationID);
+            }
+        } else if (SupervisorDB(supervisordb).isSupervisor(msg.sender)) {
+            numTests = SupervisorDB(supervisordb).getNumTestSupervisions(msg.sender);
+            ids = new uint[](numTests);
+            for (uint j = 0; j < numTests; ++j) {
+                bytes32 supervisionID = SupervisorDB(supervisordb).getTestSupervisionIDAt(msg.sender, j);
+                (, ids[j]) = TestSupervisionDB(testsupervisiondb).getTestSupervision(supervisionID);
+            }
+        }
+
+        maxPoints = new uint[](numTests);
+        dueDates = new uint[](numTests);
+        courseIDs = new uint[](numTests);
+
+        for (uint k = 0; k < numTests; ++k) {
+            (, maxPoints[k], dueDates[k], courseIDs[k]) = TestDB(testdb).getTest(ids[k]);
+        }
+    }
+
 }
