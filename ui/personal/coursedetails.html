@@ -80,7 +80,7 @@
         var duedate = new Date(assignments[3][i].toNumber() * 1000);
 
         output.push(`<li>`);
-        line = `<a href="/personal/assignmentdetails.html?assignmentid=${id}">${duedate.toLocaleString()}</a>`;
+        line = `<a href="../personal/assignmentdetails.html?assignmentid=${id}">${duedate.toLocaleString()}</a>`;
         output.push(line);
         if (isStudent()) {
           var submissions = studentmanagerInstance.getAssignmentSubmissionIDs(id);
@@ -118,7 +118,7 @@
         }
 
         output.push(`<li>`);
-        line = `<a href="/personal/testdetails.html?testid=${id}">${duedate.toLocaleString()}</a>`;
+        line = `<a href="../personal/testdetails.html?testid=${id}">${duedate.toLocaleString()}</a>`;
         output.push(line);
         
         if (isStudent()) {
@@ -184,7 +184,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <nav>
     <ul>
-      <li><a href="/personal/index.html">Start</a>
+      <li><a href="../personal/index.html">Start</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -195,8 +195,8 @@
     <div class="row">
       <div class="two-thirds column center-column">
         <div class="supervisorfunctions" hidden>
-          <a class="coursedependentlink button" href="/supervisor/createassignment.html">Neue Aufgabe</a>
-          <a class="coursedependentlink button" href="/supervisor/createtest.html">Neuer Test</a>
+          <a class="coursedependentlink button" href="../supervisor/createassignment.html">Neue Aufgabe</a>
+          <a class="coursedependentlink button" href="../supervisor/createtest.html">Neuer Test</a>
         </div>
         <div id="courseid"></div>
         <div id="coursedetails">

@@ -55,7 +55,7 @@
         var id = submissions[1][i];
         var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(id);
         var submissiondate = new Date(relatedinfo[1].toNumber() * 1000);
-        var line = `<li><a href="/supervisor/assess.html?submissionid=${id}">${submissiondate.toLocaleString()}</a>`;
+        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}">${submissiondate.toLocaleString()}</a>`;
         output.push(line);
         if (submissions[2][i]) {
           var extra = '<span class="extra">Bereits benotet</span>';
@@ -74,7 +74,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <nav>
     <ul>
-      <li><a href="/personal/index.html">Start</a>
+      <li><a href="../personal/index.html">Start</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>

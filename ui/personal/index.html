@@ -53,7 +53,7 @@
         var id = courses[1][i];
         var name = web3.toAscii(courses[2][i]);
         var ects = courses[3][i];
-        var line = `<li><a href="/personal/coursedetails.html?courseid=${id}">${name}</a>`;
+        var line = `<li><a href="../personal/coursedetails.html?courseid=${id}">${name}</a>`;
         var extra = `<span class="extra">${ects} ECTS</span>`;
         output.push(line);
         output.push(extra);
@@ -70,7 +70,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <nav>
     <ul>
-      <li><a href="/personal/index.html">Start</a>
+      <li><a href="../personal/index.html">Start</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -81,11 +81,11 @@
     <div class="row">
       <div class="two-thirds column center-column">
         <div class="supervisorfunctions" hidden>
-          <a class="button" href="/supervisor/createcourse.html">Neuer Kurs</a>
+          <a class="button" href="../supervisor/createcourse.html">Neuer Kurs</a>
         </div>
         <div class="studentfunctions" hidden>
-          <a class="button" href="/student/register.html">Neue Anmeldung</a>
-          <a class="button" href="/student/report.html">Leistungen</a>
+          <a class="button" href="../student/register.html">Neue Anmeldung</a>
+          <a class="button" href="../student/report.html">Leistungen</a>
         </div>
         <div id="courses"></div>
       </div>
