@@ -4,6 +4,14 @@ function cacheCredentials(address, password, usertype) {
   localStorage['usertype'] = usertype;
 }
 
+function enter() {
+  if (!isLoggedIn()) {
+    return;
+  }
+  var home = 'personal/index.html';
+  window.location.assign(home);
+}
+
 // Call with optional password parameter
 // not supported in parity v1.6.10-stable.
 function checkCredentials(address, password) {
@@ -48,13 +56,13 @@ function signin(usertype, id, password) {
         cacheCredentials(address, password, usertype);
 
         // console.log(checkCredentials(address, password));
-        goHome();
+        enter();
       }
     }
   };
 
   var requestData = 'usertype=' + usertype + '&id=' + id + '&password=' + password;
-  xhr.open('GET', '/php/signin.php?' + requestData, true);
+  xhr.open('GET', 'php/signin.php?' + requestData, true);
   xhr.send();
 }
 
@@ -78,19 +86,23 @@ function signup(name, usertype, id, password) {
         }
         signAndSend(data, accountmanagerInstance.address);
 
-        goHome();
+        enter();
       }
     }
   };
 
   var address = web3.personal.newAccount(password);
   var requestData = 'usertype=' + usertype + '&id=' + id + '&address=' + address+ '&password=' + password;
-  xhr.open('POST', '/php/signup.php', true);
+  xhr.open('POST', 'php/signup.php', true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(requestData);
 }
 
 function find(usertype, searchterm, callback) {
+  if (!isLoggedIn()) {
+    console.error('Log in to use this feature.');
+  }
+
   var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
     if (event.target.readyState == XMLHttpRequest.DONE
@@ -115,7 +127,11 @@ function find(usertype, searchterm, callback) {
   };
 
   var requestData = 'usertype=' + usertype + '&searchterm=' + searchterm;
-  xhr.open('GET', '/php/finduser.php?' + requestData, true);
+  // Go up one folder since we are calling it from within
+  // personal, student or supervisor.
+  // Since we don't want to request the php file from an unknown place
+  // we checked the logged in state beforehand.
+  xhr.open('GET', '../php/finduser.php?' + requestData, true);
   xhr.send();
 }
 

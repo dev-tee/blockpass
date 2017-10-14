@@ -29,7 +29,7 @@ function logout() {
   localStorage.clear();
   web3.eth.defaultAccount = undefined;
   
-  window.location.assign('/index.html');
+  window.location.assign('../index.html');
 }
 
 function isLoggedIn() {
@@ -45,11 +45,11 @@ function isSupervisor() {
 }
 
 function isAccessAllowed() {
-  // Format of path name: '/usertype/page.html'.
-  var request = window.location.pathname.split('/')[1];
-  if (request == 'personal') {
+  // Format of path name: 'usertype/page.html'.
+  var path = window.location.pathname;
+  if (path.search('personal') != -1) {
     return true;
-  } else if (request == localStorage['usertype']) {
+  } else if (path.search(localStorage['usertype']) != -1) {
     return true;
   } else {
     return false;
@@ -57,28 +57,18 @@ function isAccessAllowed() {
 }
 
 function checkAccess() {
-  var empty = '/';
-  var login = '/index.html';
-  var registration = '/register.html';
-
-  if (!isLoggedIn()
-    && window.location.pathname != empty
-    && window.location.pathname != login
-    && window.location.pathname != registration)
+  if (!isLoggedIn() && (window.location.pathname.search('student') != -1
+                      ||window.location.pathname.search('supervisor') != -1
+                      ||window.location.pathname.search('personal') != -1))
   {
-    window.location.assign(login);
-    return;
-  }
-
-  var home = '/personal/index.html';
-  if (isLoggedIn() && !isAccessAllowed()) {
-    window.location.assign(home);
-    return;
+    goHome();
+  } else if (isLoggedIn() && !isAccessAllowed()) {
+    goHome();
   }
 }
 
 function goHome() {
-  var home = isLoggedIn() ? '/personal/index.html' : '/index.html';
+  var home = isLoggedIn() ? '../personal/index.html' : '../index.html';
   window.location.assign(home);
 }
 
