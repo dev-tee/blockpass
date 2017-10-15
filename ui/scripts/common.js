@@ -1,5 +1,6 @@
 function init3() {
-  var web3Provider = "http://localhost:8545";
+  // var web3Provider = "http://localhost:8545";
+  var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
 
   // Use our node provided web3.
   web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
@@ -18,7 +19,8 @@ function signAndSend(data, destination) {
   var tx = {
     "from": localStorage['address'],
     "to": destination,
-    "data": data
+    "data": data,
+    "gasPrice": 0
   };
   // tx.gas = web3.eth.estimateGas(tx);
   // console.log("Estimated gas cost: " + tx.gas);

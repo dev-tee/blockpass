@@ -32,7 +32,8 @@
       var tx = {
         "from": document.getElementById('account').value,
         "to": contractmanagerInstance.address,
-        "data": data
+        "data": data,
+        "gasPrice": 0
       };
       tx.gas = web3.eth.estimateGas(tx);
       console.log("Estimated gas cost: " + tx.gas);

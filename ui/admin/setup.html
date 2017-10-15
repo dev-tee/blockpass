@@ -6,66 +6,121 @@
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/init3.js"></script>
   <script type="text/javascript">
-    function getAPIjs(content) {
-      var api = "function initAPI() {\n"
+    function deploy() {
+      blockpass.api = "\n"
       + "contractInstances = [];\n"
       + "contractNames = [];\n";
       
-      for (var variable in content.contracts) {
-        if (content.contracts.hasOwnProperty(variable)) {
-          var name = variable.toString().split(':')[1];
-          if (name == "Owned" || name == "ManagedContract") {
-            continue;
-          }
-
-          contract = content.contracts[variable];
+      for (var variable in blockpass.json.contracts) {
+        if (blockpass.json.contracts.hasOwnProperty(variable)
+            && isDeployable(variable))
+        {
+          var contract = blockpass.json.contracts[variable];
           var tx = {
             "from": document.getElementById('account').value,
-            "data": '0x' + contract.bin
+            "data": '0x' + contract.bin,
+            "gasPrice": 0
           };
           tx.gas = web3.eth.estimateGas(tx);
-          transactionHash = web3.personal.sendTransaction(tx, document.getElementById('password').value);
-          contractAddress = web3.eth.getTransactionReceipt(transactionHash).contractAddress;
-          contractName = name.toLowerCase();
-
-          api += '\n'
-              + 'var ' + contractName + 'ABI = ' + contract.abi + ';' + '\n'
-              + 'var ' + contractName + 'Address = "' + contractAddress + '";' + '\n'
-              + contractName + 'Instance = web3.eth.contract(' + contractName + 'ABI).at(' + contractName + 'Address)' + ';' + '\n'
-              + 'contractInstances.push(' + contractName + 'Instance)' + ';' + '\n'
-              + 'contractNames.push("' + contractName + '")' + ';' + '\n';
+          contract.transactionHash = web3.personal.sendTransaction(tx, document.getElementById('password').value);
         }
       }
+    }
 
-      api += "\n"
-      + "document.dispatchEvent(new Event('initAPI'));\n"
-      + "}\n"
-      + "initAPI();\n";
-      return api;
+    function watchDeployment() {
+      blockpass.filter = web3.eth.filter('latest');
+      blockpass.filter.watch((error, result) => {
+        if (error) {
+          console.error(error);
+        } else {
+          var transactionHashes = web3.eth.getBlock(result).transactions;
+          for (var variable in blockpass.json.contracts) {
+            if (blockpass.json.contracts.hasOwnProperty(variable)
+                && isDeployable(variable))
+            {
+              var contract = blockpass.json.contracts[variable];
+              for (var i = 0; i < transactionHashes.length; i++) {
+                if (contract.address == undefined
+                  && contract.name == undefined
+                  && contract.transactionHash == transactionHashes[i])
+                {
+                  contract.address = web3.eth.getTransactionReceipt(contract.transactionHash).contractAddress;
+                  contract.name = variable.split(':')[1].toLowerCase();
+
+                  blockpass.api += '\n'
+                      + 'var ' + contract.name + 'ABI = ' + contract.abi + ';' + '\n'
+                      + 'var ' + contract.name + 'Address = "' + contract.address + '";' + '\n'
+                      + contract.name + 'Instance = web3.eth.contract(' + contract.name + 'ABI).at(' + contract.name + 'Address)' + ';' + '\n'
+                      + 'contractInstances.push(' + contract.name + 'Instance)' + ';' + '\n'
+                      + 'contractNames.push("' + contract.name + '")' + ';' + '\n';
+
+                  progress();
+                  break;
+                }
+              }
+            }
+          }
+        }
+      });
     }
 
     function parse(event) {
-
+      blockpass = {};
       var reader = new FileReader();
       reader.onload = (event) => {
-        var json = JSON.parse(event.target.result);
-        var APIjs = getAPIjs(json);
-
-        downloadElement = document.createElement('a');
-        downloadElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(APIjs));
-        downloadElement.setAttribute('download', 'api.js');
-        downloadElement.style.display = 'none';
+        blockpass.json = JSON.parse(event.target.result);
+        setupProgressbar();
+        watchDeployment();
+        setTimeout(deploy, 3 * 1000);
       };
       reader.readAsText(event.target.files[0]);
 
       event.srcElement.disabled = true;
+    }
+
+    function progress() {
+      var progress = document.getElementById('progressbar');
+      ++progress.value;
+
+      if (progress.value >= progress.max) {
+        blockpass.filter.stopWatching();
+        setupDownload();
+      }
+    }
+
+    function isDeployable(jsonvalue) {
+      return jsonvalue.search('Owned') == -1 && jsonvalue.search('ManagedContract') == -1;
+    }
+
+    function setupProgressbar() {
+      var count = 0;
+      for (var variable in blockpass.json.contracts) {
+        if (blockpass.json.contracts.hasOwnProperty(variable)
+            && isDeployable(variable))
+        {
+          ++count;
+        }
+      }
+
+      var progress = document.getElementById('progressbar');
+      progress.value = 0;
+      progress.max = count;
+    }
+
+    function setupDownload() {
+      blockpass.downloadElement = document.createElement('a');
+      blockpass.downloadElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(blockpass.api));
+      blockpass.downloadElement.setAttribute('download', 'api.js');
+      blockpass.downloadElement.style.display = 'none';
+
       document.getElementById('download').hidden = false;
+      blockpass.filter.stopWatching();
     }
 
     function download() {
-      document.body.appendChild(downloadElement);
-      downloadElement.click();
-      document.body.removeChild(downloadElement);
+      document.body.appendChild(blockpass.downloadElement);
+      blockpass.downloadElement.click();
+      document.body.removeChild(blockpass.downloadElement);
     }
   </script>
 </head>
@@ -73,6 +128,7 @@
   <input id="account" type="text" required>
   <input id="password" type="password">
   <input id="combinedjson" type="file">
+  <progress id="progressbar" value="" max=""></progress>
   <button id="download" hidden="true">Lade api.js</button>
   <script type="text/javascript">
     document.getElementById('combinedjson').addEventListener('change', parse);
