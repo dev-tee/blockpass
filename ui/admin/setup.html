@@ -22,6 +22,7 @@
             "gasPrice": 0
           };
           tx.gas = web3.eth.estimateGas(tx);
+          console.log(tx.gas);
           contract.transactionHash = web3.personal.sendTransaction(tx, document.getElementById('password').value);
         }
       }

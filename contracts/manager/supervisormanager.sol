@@ -204,31 +204,4 @@ contract SupervisorManager is ManagedContract {
             }
         }
     }
-
-    function getPersonalSupervisorCourses()
-        public
-        constant
-        onlySupervisor
-        returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)
-    {
-        address supervisordb = ContractProvider(MAN).contracts("supervisordb");
-        address coursesupervisiondb = ContractProvider(MAN).contracts("coursesupervisiondb");
-        address coursedb = ContractProvider(MAN).contracts("coursedb");
-
-        numCourses = SupervisorDB(supervisordb).getNumCourseSupervisions(msg.sender);
-
-        ids = new uint[](numCourses);
-        names = new bytes32[](numCourses);
-        ectsPoints = new uint[](numCourses);
-
-        for (uint j = 0; j < numCourses; ++j) {
-            bytes32 supervisionID = SupervisorDB(supervisordb).getCourseSupervisionIDAt(msg.sender, j);
-            var (, supervisionCourseID) = CourseSupervisionDB(coursesupervisiondb).getCourseSupervision(supervisionID);
-            var (, courseName, courseECTSPoints) = CourseDB(coursedb).getCourse(supervisionCourseID);
-
-            ids[j] = supervisionCourseID;
-            names[j] = courseName;
-            ectsPoints[j] = courseECTSPoints;
-        }
-    }
 }

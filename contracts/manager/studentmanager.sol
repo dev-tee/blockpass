@@ -206,31 +206,4 @@ contract StudentManager is ManagedContract {
             assert(assessmentSubmissionID == submissionID);
         }
     }
-
-    function getPersonalStudentCourses()
-        public
-        constant
-        onlyStudent
-        returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)
-    {
-        address studentdb = ContractProvider(MAN).contracts("studentdb");
-        address courseparticipationdb = ContractProvider(MAN).contracts("courseparticipationdb");
-        address coursedb = ContractProvider(MAN).contracts("coursedb");
-
-        numCourses = StudentDB(studentdb).getNumCourseParticipations(msg.sender);
-
-        ids = new uint[](numCourses);
-        names = new bytes32[](numCourses);
-        ectsPoints = new uint[](numCourses);
-
-        for (uint i = 0; i < numCourses; ++i) {
-            bytes32 participationID = StudentDB(studentdb).getCourseParticipationIDAt(msg.sender, i);
-            var (, participationCourseID) = CourseParticipationDB(courseparticipationdb).getCourseParticipation(participationID);
-            var (, courseName, courseECTSPoints) = CourseDB(coursedb).getCourse(participationCourseID);
-
-            ids[i] = participationCourseID;
-            names[i] = courseName;
-            ectsPoints[i] = courseECTSPoints;
-        }
-    }
 }
