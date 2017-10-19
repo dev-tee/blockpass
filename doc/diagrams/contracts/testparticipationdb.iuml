@@ -1,0 +1,37 @@
+@startuml
+
+!include managedcontract.iuml
+!include studentdb.iuml
+!include testdb.iuml
+
+title TestParticipationDB
+
+class TestParticipation << Struct >> {
+  studentID: address
+  testID: uint
+  idIndex: uint
+}
+
+class TestParticipationDB <<Contract>> {
+  -testParticipationIDs: bytes32[]
+  -testParticipations: mapping {bytes32 => TestParticipation}
+  __
+  +exists(studentID: address, testID: uint) : bool {constant}
+  +addTestParticipation(studentID: address, testID: uint)
+  +getTestParticipationAt(index: uint) : Tuple { studentID: address, testID: uint } {constant}
+  +getTestParticipation(id: bytes32) : Tuple { studentID: address, testID: uint } {constant}
+}
+
+TestParticipationDB -up-|> ManagedContract
+TestParticipationDB -up- TestParticipation
+TestParticipation -up- Student
+TestParticipation -up- Test
+
+hide ManagedContract members
+hide StudentDB
+hide Student members
+hide TestDB
+hide Test members
+hide Course
+
+@enduml

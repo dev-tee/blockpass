@@ -1,0 +1,35 @@
+@startuml
+
+!include managedcontract.iuml
+
+title CourseDB
+
+class Course << Struct >> {
+  description: string
+  ectsPoints: uint
+  name: bytes32
+  assignmentIDs: uint[]
+  testIDs: uint[]
+  courseParticipationIDs: bytes32[]
+  courseSupervisionIDs: bytes32[]
+}
+
+class CourseDB << Contract >> {
+  -courses: Course[]
+  __
+  +addCourse(description: string, name: bytes32, ectsPoints: uint) : uint
+  +getCourse(id: uint) : Tuple { description: string, name: bytes32, ectsPoints: uint } {constant}
+  +getNumCourses() : uint {constant}
+  .. Setter for combined values ..
+  +addCourseParticipationID(courseID: uint, id: bytes32) {permission: "courseparticipationdb" }
+  +addCourseSupervisionID(courseID: uint, id: bytes32) {permission: "coursesupervisiondb"}
+  +addAssignmentID(courseID: uint, id: uint) {permission: "assignmentdb"}
+  +addTestID(courseID: uint, id: uint) {permission: "testdb"}
+}
+
+CourseDB -up-|> ManagedContract
+CourseDB -down- Course
+
+hide ManagedContract members
+
+@enduml

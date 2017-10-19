@@ -1,0 +1,31 @@
+@startuml
+
+!include managedcontract.iuml
+
+title StudentManager
+
+class StudentManager << Contract >> {
+  __
+  +registerForCourse(courseID: uint) {onlyStudent} {courseExists: courseID}
+  +registerForTest(testID: uint) {onlyStudent} {testExists: testID}
+  +uploadAssignmentSubmission(description: string, assignmentID: uint, remainingGroupMembers: address[]) {onlyStudent} {assignmentExists: assignmentID} {containsOnlyParticipatingStudents: remainingGroupMembers, assignmentID} {courseParticipationExists: assignmentID}
+  +uploadTestSubmission(description: string, testID: uint) {onlyStudent} {testExists: testID} {testParticipationExists: testID}
+  +getAssignmentSubmissionIDs(assignmentID: uint) : Tuple { numAssignmentSubmissions: uint, assignmentSubmissionIDs: uint[] } {constant} {onlyStudent} {assignmentExists: assignmentID}
+  +getTestSubmissionIDs(testID: uint) : Tuple { numTestSubmissions: uint, testSubmissionIDs: uint[] } {constant} {onlyStudent} {testExists: testID}
+  +getAssessment(submissionID: uint) : Tuple { bool assessed, numPriorAssessments: uint, id: uint, obtainedPoints: uint } {constant} {onlyStudent} {submissionExists: submissionID}
+  .. Modifier ..
+  #onlyStudent()
+  #containsOnlyParticipatingStudents(accounts: address[], assignmentID: uint)
+  #courseExists(courseID: uint)
+  #testExists(testID: uint)
+  #assignmentExists(assignmentID: uint)
+  #submissionExists(submissionID: uint)
+  #courseParticipationExists(assignmentID: uint)
+  #testParticipationExists(testID: uint)
+}
+
+StudentManager -down-|> ManagedContract
+
+hide ContractManager
+
+@enduml

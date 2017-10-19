@@ -1,0 +1,36 @@
+@startuml
+
+!include managedcontract.iuml
+!include submissiondb.iuml
+
+title AssessmentDB
+
+class Assessment << Struct >> {
+  description: string
+  obtainedPoints: uint
+  submissionID: uint
+  supervisorAssessmentIDs: bytes32[]
+}
+
+class AssessmentDB << Contract >> {
+  -assessments: Assessment[]
+  __
+  +addAssessment(description: string, obtainedPoints: uint, submissionID: uint) : uint
+  +getAssessment(id: uint) : Tuple { description: string, obtainedPoints: uint, submissionID: uint } {constant}
+  +getNumAssessments() : uint {constant}
+  .. Setter for combined values ..
+  +addSupervisorAssessmentID(assessmentID: uint, id: bytes32) permission("supervisorassessmentdb")
+}
+
+AssessmentDB -up-|> ManagedContract
+AssessmentDB -down- Assessment
+Assessment -left- Submission
+
+hide ManagedContract members
+hide SubmissionDB
+hide Submission members
+hide ReferenceNote
+hide Test
+hide Assignment
+
+@enduml

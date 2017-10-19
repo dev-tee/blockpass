@@ -1,0 +1,9 @@
+@startuml
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+@enduml

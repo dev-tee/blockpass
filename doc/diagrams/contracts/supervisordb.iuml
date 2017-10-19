@@ -1,0 +1,36 @@
+@startuml
+
+!include managedcontract.iuml
+
+title SupervisorDB
+
+class Supervisor << Struct >> {
+  name: bytes32
+  uaccountID: bytes32
+  index: uint
+  courseSupervisionIDs: bytes32[]
+  testSupervisionIDs: bytes32[]
+  supervisorAssessmentIDs: bytes32[]
+}
+
+class SupervisorDB << Contract >> {
+  -indices: address[]
+  -supervisors: mapping {address => Supervisor}
+  __
+  +isSupervisor(account: address) : bool {constant}
+  +addSupervisor(account: address, name: bytes32, uaccountID: bytes32)
+  +getSupervisor(account: address) : Tuple { name: bytes32, uaccountID: bytes32 } {constant}
+  +getSupervisorAt(index: uint) : Tuple { name: bytes32, uaccountID: bytes32 } {constant}
+  +getNumSupervisors() : uint {constant}
+  .. Setter for combined values ..
+  +addCourseSupervisionID(account: address, id: bytes32) {permission: "coursesupervisiondb"}
+  +addTestSupervisionID(account: address, id: bytes32) {permission: "testsupervisiondb"}
+  +addSupervisorAssessmentID(account: address, id: bytes32) {permission: "supervisorassessmentdb"}
+}
+
+SupervisorDB -up-|> ManagedContract
+SupervisorDB -down- Supervisor
+
+hide ManagedContract members
+
+@enduml

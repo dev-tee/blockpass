@@ -1,0 +1,36 @@
+@startuml
+
+!include managedcontract.iuml
+
+title StudentDB
+
+class Student << Struct >> {
+  name: bytes32
+  matrNr: uint
+  index: uint
+  testParticipationIDs: bytes32[]
+  courseParticipationIDs: bytes32[]
+  studentSubmissionIDs: bytes32[]
+}
+
+class StudentDB << Contract >> {
+  -indices: address[]
+  -students: mapping {address => Student}
+  __
+  +isStudent(account: address) : bool {constant}
+  +addStudent(account: address, name: bytes32, matrNr: uint)
+  +getStudent(account: address) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getStudentAt(index: uint) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getNumStudents() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(account: address, id: bytes32) {permission: "testparticipationdb"}
+  +addCourseParticipationID(account: address, id: bytes32) {permission: "courseparticipationdb"}
+  +addStudentSubmissionID(account: address, id: bytes32) {permission: "studentsubmissiondb"}
+}
+
+StudentDB -up-|> ManagedContract
+StudentDB -down- Student
+
+hide ManagedContract members
+
+@enduml

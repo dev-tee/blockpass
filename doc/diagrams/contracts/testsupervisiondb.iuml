@@ -1,0 +1,37 @@
+@startuml
+
+!include managedcontract.iuml
+!include supervisordb.iuml
+!include testdb.iuml
+
+title TestSupervisionDB
+
+class TestSupervision << Struct >> {
+  supervisorID: address
+  testID: uint
+  idIndex: uint
+}
+
+class TestSupervisionDB << Contract >> {
+  -testSupervisionIDs: bytes32[]
+  -testSupervisions: mapping {bytes32 => TestSupervision}
+  __
+  +exists(supervisorID: address, testID: uint) : bool {constant}
+  +addTestSupervision(supervisorID: address, testID: uint)
+  +getTestSupervisionAt(index: uint) : Tuple { supervisorID: address, testID: uint } {constant}
+  +getTestSupervision(id: bytes32) : Tuple { supervisorID: address, testID: uint } {constant}
+}
+
+TestSupervisionDB -up-|> ManagedContract
+TestSupervisionDB -up- TestSupervision
+TestSupervision -up- Supervisor
+TestSupervision -up- Test
+
+hide ManagedContract members
+hide SupervisorDB
+hide Supervisor members
+hide TestDB
+hide Test members
+hide Course
+
+@enduml

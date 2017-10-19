@@ -1,0 +1,38 @@
+@startuml
+
+!include managedcontract.iuml
+!include supervisordb.iuml
+!include coursedb.iuml
+
+title CourseSupervisionDB
+
+class CourseSupervision << Struct >> {
+  supervisorID: address
+  courseID: uint
+  idIndex: uint
+}
+
+class CourseSupervisionDB << Contract >> {
+  -courseSupervisionIDs: bytes32[]
+  -courseSupervisions: mapping {bytes32 => CourseSupervision}
+  __
+  +exists(supervisorID: address, courseID: uint) : bool {constant}
+  +addCourseSupervision(supervisorID: address, courseID: uint)
+  +getCourseSupervisionAt(index: uint) : Tuple { supervisorID: address, courseID: uint } {constant}
+  +getCourseSupervision(id: bytes32) : Tuple { supervisorID: address, courseID: uint } {constant}
+}
+
+
+
+CourseSupervisionDB -up-|> ManagedContract
+CourseSupervisionDB -up- CourseSupervision
+CourseSupervision -up- Supervisor
+CourseSupervision -up- Course
+
+hide ManagedContract members
+hide SupervisorDB
+hide Supervisor members
+hide CourseDB
+hide Course members
+
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+
+!include managedcontract.iuml
+!include testdb.iuml
+!include assignmentdb.iuml
+
+title SubmissionDB
+
+class Submission << Struct >> {
+  description: string
+  submittedDate: uint
+  ref: uint
+  referenceID: uint
+  assessmentIDs: uint[]
+  studentSubmissionIDs: bytes32[]
+}
+note "References Assignment or Test" as ReferenceNote
+Submission .down. ReferenceNote
+
+class SubmissionDB << Contract >> {
+  -submissions: Submission[]
+  __
+  +addSubmission(description: string, submittedDate: uint, ref: uint, referenceID: uint) : uint
+  +getSubmission(id: uint) : Tuple { description: string, submittedDate: uint, ref: uint, referenceID: uint } {constant}
+  +getNumSubmissions() : uint {constant}
+  .. Setter for combined values ..
+  +addStudentSubmissionID(submissionID: uint, id: bytes32) {permission: "studentsubmissiondb"}
+  +addAssessmentID(submissionID: uint, id: uint) {permission: "assessmentdb"}
+}
+
+
+SubmissionDB -up-|> ManagedContract
+SubmissionDB -down- Submission
+Submission -left- Assignment
+Submission -right- Test
+
+hide ManagedContract members
+hide AssignmentDB
+hide Assignment members
+hide TestDB
+hide Test members
+hide CourseDB
+hide Course
+
+@enduml

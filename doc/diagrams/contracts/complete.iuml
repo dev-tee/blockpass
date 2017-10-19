@@ -1,0 +1,68 @@
+@startuml
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+scale .7
+
+!include accountmanager.iuml
+!include assessmentdb.iuml
+!include assignmentdb.iuml
+!include contractmanager.iuml
+!include contractprovider.iuml
+!include coursedb.iuml
+!include courseparticipationdb.iuml
+!include coursesupervisiondb.iuml
+!include datamanager.iuml
+!include managedcontract.iuml
+!include owned.iuml
+!include studentdb.iuml
+!include studentmanager.iuml
+!include studentsubmissiondb.iuml
+!include submissiondb.iuml
+!include supervisorassessmentdb.iuml
+!include supervisordb.iuml
+!include supervisormanager.iuml
+!include testdb.iuml
+!include testparticipationdb.iuml
+!include testsupervisiondb.iuml
+
+show AssessmentDB
+show AssessmentDB members
+show Assessment
+show Assessment members
+show AssignmentDB
+show AssignmentDB members
+show Assignment
+show Assignment members
+show CourseDB
+show CourseDB members
+show Course
+show Course members
+show StudentDB
+show StudentDB members
+show Student
+show Student members
+show SubmissionDB
+show SubmissionDB members
+show Submission
+show Submission members
+show SupervisorDB
+show SupervisorDB members
+show Supervisor
+show Supervisor members
+show TestDB
+show TestDB members
+show Test
+show Test members
+
+show ContractProvider
+show ContractManager
+show ContractManager members
+show ManagedContract members
+show Owned
+show Owned members
+
+@enduml

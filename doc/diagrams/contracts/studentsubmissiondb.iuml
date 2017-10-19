@@ -1,0 +1,39 @@
+@startuml
+
+!include managedcontract.iuml
+!include studentdb.iuml
+!include submissiondb.iuml
+
+title StudentSubmissionDB
+
+class StudentSubmission << Struct >> {
+    studentID: address
+    submissionID: uint
+    idIndex: uint
+}
+
+class StudentSubmissionDB << Contract >> {
+  -studentSubmissionIDs: bytes32[]
+  -studentSubmissions: mapping {bytes32 => StudentSubmission}
+  __
+  +exists(studentID: address, submissionID: uint) : bool {constant}
+  +addStudentSubmission(studentID: address, submissionID: uint)
+  +getStudentSubmissionAt(index: uint) : Tuple { studentID: address, submissionID: uint } {constant}
+  +getStudentSubmission(id: bytes32) : Tuple { studentID: address, submissionID: uint } {constant}
+}
+
+StudentSubmissionDB -up-|> ManagedContract
+StudentSubmissionDB -up- StudentSubmission
+StudentSubmission -up- Student
+StudentSubmission -up- Submission
+
+hide ManagedContract members
+hide StudentDB
+hide Student members
+hide SubmissionDB
+hide Submission members
+hide ReferenceNote
+hide Test
+hide Assignment
+
+@enduml

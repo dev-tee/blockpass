@@ -1,0 +1,25 @@
+@startuml
+
+!include managedcontract.iuml
+
+title DataManager
+
+class DataManager << Contract >> {
+  __
+  +getAllCourses() : Tuple { numCourses: uint, ids: uint[], courseNames: bytes32[], ectsPoints: uint[] } {constant}
+  +getAllTests() : Tuple { numTests: uint, ids: uint[], courseNames: bytes32[], dueDates: uint[] } {constant}
+  +getCourseAssignments(courseID: uint) : Tuple { numAssignments: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}
+  +getCourseTests(courseID: uint) : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}
+  +getSubmissionRelatedInfo(submissionID: uint) onlyRegistered submissionExists(submissionID) : Tuple { maxPoints: uint, submissionDate: uint, dueDate: uint } {constant}
+  +getPersonalCourses() : Tuple { numCourses: uint, ids: uint[], names: bytes32[], ectsPoints: uint[] } {constant}
+  +getPersonalTests() : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[], courseIDs: uint[] } {constant}
+  .. Modifier ..
+  #onlyRegistered()
+  #submissionExists(submissionID: uint)
+}
+
+DataManager -down-|> ManagedContract
+
+hide ContractManager
+
+@enduml

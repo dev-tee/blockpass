@@ -1,0 +1,21 @@
+@startuml
+
+!include managedcontract.iuml
+
+title AccountManager
+
+class AccountManager << Contract >> {
+  __
+  +registerStudent(account: address, name: bytes32, matrNr: uint)
+  +registerSupervisor(account: address, name: bytes32, uaccountID: bytes32)
+  .. Events ..
+  +RegisteredStudent(address, bytes32, uint)
+  +RegisteredSupervisor(address, bytes32, bytes32)
+}
+
+AccountManager -down-|> ManagedContract
+
+hide ContractManager
+
+
+@enduml

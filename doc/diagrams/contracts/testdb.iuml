@@ -1,0 +1,38 @@
+@startuml
+
+!include managedcontract.iuml
+!include coursedb.iuml
+
+title TestDB
+
+class Test << Struct >> {
+  description: string
+  maxPoints: uint
+  dueDate: uint
+  courseID: uint
+  submissionIDs: uint[]
+  testParticipationIDs: bytes32[]
+  testSupervisionIDs: bytes32[]
+}
+
+class TestDB << Contract >> {
+  -tests: Test[]
+  __
+  +addTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getTest(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +getNumTests() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(testID: uint, id: bytes32) {permission: "testparticipationdb"}
+  +addTestSupervisionID(testID: uint, id: bytes32) {permission: "testsupervisiondb"}
+  +addSubmissionID(testID: uint, id: uint) {permission: "submissiondb"}
+}
+
+TestDB -up-|> ManagedContract
+TestDB -down- Test
+Test -left- Course
+
+hide ManagedContract members
+hide CourseDB
+hide Course members
+
+@enduml

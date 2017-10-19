@@ -1,0 +1,35 @@
+@startuml
+
+!include managedcontract.iuml
+!include coursedb.iuml
+
+title AssignmentDB
+
+class Assignment << Struct >> {
+  description: string
+  maxPoints: uint
+  dueDate: uint
+  courseID: uint
+  submissionIDs: uint[]
+}
+
+class AssignmentDB << Contract >> {
+  -assignments: Assignment[]
+  __
+  +addAssignment(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getAssignment(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +getNumAssignments() : uint {constant}
+  .. Setter for combined values ..
+  +addSubmissionID(assignmentID: uint, id: uint) {permission: "submissiondb"}
+}
+
+
+AssignmentDB -up-|> ManagedContract
+AssignmentDB -down- Assignment
+Assignment -left- Course
+
+hide ManagedContract members
+hide CourseDB
+hide Course members
+
+@enduml
