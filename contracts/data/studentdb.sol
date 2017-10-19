@@ -41,12 +41,12 @@ contract StudentDB is ManagedContract {
         indices.push(account);
     }
 
-    function getStudent(address account) public constant returns(bytes32, uint) {
+    function getStudent(address account) public constant returns(bytes32 name, uint matrNr) {
         require(isStudent(account));
         return(students[account].name, students[account].matrNr);
     }
 
-    function getStudentAt(uint index) public constant returns(bytes32, uint) {
+    function getStudentAt(uint index) public constant returns(bytes32 name, uint matrNr) {
         return getStudent(indices[index]);
     }
 

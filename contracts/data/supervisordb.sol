@@ -41,12 +41,12 @@ contract SupervisorDB is ManagedContract {
         indices.push(account);
     }
 
-    function getSupervisor(address account) public constant returns(bytes32, bytes32) {
+    function getSupervisor(address account) public constant returns(bytes32 name, bytes32 uaccountID) {
         require(isSupervisor(account));
         return(supervisors[account].name, supervisors[account].uaccountID);
     }
 
-    function getSupervisorAt(uint index) public constant returns(bytes32, bytes32) {
+    function getSupervisorAt(uint index) public constant returns(bytes32 name, bytes32 uaccountID) {
         return getSupervisor(indices[index]);
     }
 

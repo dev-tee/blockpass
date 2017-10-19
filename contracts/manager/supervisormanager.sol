@@ -33,12 +33,6 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
-    modifier courseExists(uint courseID) {
-        require(CourseDB(ContractProvider(MAN).contracts("coursedb"))
-            .exists(courseID));
-        _;
-    }
-
     modifier isOwnCourse(uint courseID) {
         require(CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
             .exists(msg.sender, courseID));
