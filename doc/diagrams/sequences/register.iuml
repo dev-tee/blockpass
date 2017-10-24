@@ -1,0 +1,65 @@
+@startuml
+
+!include ../style.iuml
+
+title U1 Register
+
+actor Student
+
+Student -> App: submit registration request for choice
+activate App
+
+Student -> App: confirmation
+
+activate StudentManager
+alt course registration
+  App -> StudentManager: registerForCourse()
+
+  StudentManager -> CourseParticipationDB: addCourseParticipation(studentID, courseID)
+  activate CourseParticipationDB
+
+  group AddCourseParticipation
+
+    create CourseParticipation
+    CourseParticipationDB -> CourseParticipation
+
+    CourseParticipationDB -> CourseDB: addCourseParticipationID(courseID, id)
+    activate CourseDB
+    deactivate CourseDB
+
+    CourseParticipationDB -> StudentDB: addCourseParticipationID(studentID, id)
+    activate StudentDB
+    deactivate StudentDB
+
+  end
+  
+  deactivate CourseParticipationDB
+else test registration
+  App -> StudentManager: registerForTest()
+
+  StudentManager -> TestParticipationDB: addTestParticipation(studentID, testID)
+  activate TestParticipationDB
+
+  group AddTestParticipation
+
+    create TestParticipation
+    TestParticipationDB -> TestParticipation
+
+    TestParticipationDB -> TestDB: addTestParticipationID(testID, id)
+    activate TestDB
+    deactivate TestDB
+
+    TestParticipationDB -> StudentDB: addTestParticipationID(studentID, id)
+    activate StudentDB
+    deactivate StudentDB
+
+  end
+  
+  deactivate TestParticipationDB
+end
+
+
+
+hide footbox
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+!include ../style.iuml
+
+title U5 Assess
+
+actor Instructor
+
+Instructor -> App: submitAssignmentForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: assess(description, obtainedPoints, submissionID)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> AssessmentDB: addAssessment(description, obtainedPoints, submissionID);
+activate AssessmentDB
+
+create Assessment
+AssessmentDB -> Assessment
+
+AssessmentDB --> SupervisorManager: assessmentID
+deactivate AssessmentDB
+
+SupervisorManager -> SupervisorAssessmentDB: addSupervisorAssessment(senderSupervisorID, assessmentID)
+activate SupervisorAssessmentDB
+
+group AddSupervisorAssessment
+
+  create SupervisorAssessment
+  SupervisorAssessmentDB -> SupervisorAssessment
+
+  SupervisorAssessmentDB -> SupervisorDB: addSupervisorAssessmentID(supervisorID, id)
+  activate SupervisorDB
+  deactivate SupervisorDB
+
+  SupervisorAssessmentDB -> AssessmentDB: addSupervisorAssessmentID(assessmentID, id)
+  activate AssessmentDB
+  deactivate AssessmentDB
+
+end
+
+deactivate SupervisorAssessmentDB
+
+deactivate SupervisorManager
+
+hide footbox
+
+@enduml

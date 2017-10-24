@@ -1,0 +1,199 @@
+@startuml
+
+!include ../style.iuml
+
+title U7 Generate Report
+
+actor Student
+
+Student -> App: submit report generation request
+activate App
+
+App -> DataManager: getPersonalCourses()
+activate DataManager
+
+DataManager -> StudentDB: getNumCourseParticipations(senderStudentID)
+activate StudentDB
+
+StudentDB --> DataManager: numCourses
+deactivate StudentDB
+
+loop number of own courses
+  DataManager -> StudentDB: getCourseParticipationIDAt(senderStudentID, index);
+  activate StudentDB
+
+  StudentDB --> DataManager: participationID
+  deactivate StudentDB
+
+  DataManager -> CourseParticipationDB: getCourseParticipation(participationID)
+  activate CourseParticipationDB
+
+  CourseParticipationDB --> DataManager: ...courseID
+  deactivate CourseParticipationDB
+
+  DataManager -> CourseDB: getCourse(courseID)
+  activate CourseDB
+
+  CourseDB --> DataManager: course
+  deactivate CourseDB
+
+end
+
+DataManager --> App: courses
+deactivate DataManager
+
+loop number of own courses
+  App -> DataManager: getCourseAssignments(courseID)
+  activate DataManager
+
+  DataManager -> CourseDB: getNumAssignments(courseID)
+  activate CourseDB
+  
+  CourseDB --> DataManager: numAssignments
+  deactivate CourseDB
+
+  loop number of assignments
+
+    DataManager -> CourseDB: getAssignmentIDAt(courseID, index);
+    activate CourseDB
+    
+    CourseDB --> DataManager: assignmentID
+    deactivate CourseDB
+
+    DataManager -> AssignmentDB: getAssignment(assignmentID)
+    activate AssignmentDB
+
+    AssignmentDB --> DataManager: assignment
+    deactivate AssignmentDB
+  
+  end
+  
+  DataManager --> App: assignments
+  deactivate DataManager
+
+  loop number of assignments
+    
+    App -> StudentManager: getAssignmentSubmissionIDs(assignmentID)
+    activate StudentManager
+
+    StudentManager -> StudentManager: getSubmissionIDs(referenceType = 0, assignmentID)
+    activate StudentManager
+
+    StudentManager -> StudentDB: getNumStudentSubmissions(senderStudentID)
+    activate StudentDB
+    
+    StudentDB --> StudentManager: numSubmissions
+    deactivate StudentDB
+
+    loop number of submissions
+      
+      StudentManager -> StudentDB: getStudentSubmissionIDAt(senderStudentID, index)
+      activate StudentDB
+      
+      StudentDB --> StudentManager: studentsubmissionID
+      deactivate StudentDB
+
+      StudentManager -> StudentSubmissionDB: getStudentSubmission(studentsubmissionID)
+      activate StudentSubmissionDB
+
+      StudentSubmissionDB --> StudentManager: ...submissionID
+      deactivate StudentSubmissionDB
+
+      StudentManager -> SubmissionDB: getSubmission(submissionID)
+      activate SubmissionDB
+
+      SubmissionDB --> StudentManager: submission
+      deactivate SubmissionDB
+
+    end
+
+    StudentManager --> StudentManager: numReferencedSubmissions, ids
+    deactivate StudentManager
+
+    StudentManager --> App: submissions
+    deactivate StudentManager
+
+    loop number of submissions
+      App -> StudentManager: getAssessment(submissionID)
+      activate StudentManager
+
+      StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, 0)
+      activate SubmissionDB
+
+      SubmissionDB --> StudentManager: firstAssessmentID
+      deactivate SubmissionDB
+
+      StudentManager -> AssessmentDB: getAssessment(firstAssessmentID)
+      activate AssessmentDB
+
+      AssessmentDB --> StudentManager: firstAssessment
+      deactivate AssessmentDB
+
+      group find better assessment
+
+        StudentManager -> SubmissionDB: getNumAssessments(submissionID)
+        activate SubmissionDB
+
+        SubmissionDB --> StudentManager: numAssessments
+        deactivate SubmissionDB
+
+        loop number of assessments
+
+          StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, index)
+          activate SubmissionDB
+
+          SubmissionDB --> StudentManager: assessmentID
+          deactivate SubmissionDB
+
+          StudentManager -> AssessmentDB: getAssessment(assessmentID)
+          activate AssessmentDB
+
+          AssessmentDB --> StudentManager: assessment
+          deactivate AssessmentDB
+
+          opt assessment.obtainedpoints > firstAssessment.obtainedpoints
+            StudentManager -> StudentManager: remember assessment
+          end
+
+        end
+
+      end
+
+      StudentManager --> App: bestAssessment
+      deactivate StudentManager
+
+      App -> DataManager: getSubmissionRelatedInfo(submissionID)
+      activate DataManager
+
+      DataManager -> SubmissionDB: getSubmission(submissionID)
+      activate SubmissionDB
+
+      SubmissionDB --> DataManager: ...submittedDate, referenceType, referenceID
+      deactivate SubmissionDB
+
+      alt referenceType == 0
+
+        DataManager -> AssignmentDB: getAssignment(referenceID)
+        activate AssignmentDB
+
+        AssignmentDB --> DataManager: ...maxPoints, dueDate...
+        deactivate AssignmentDB
+
+      else referenceType == 1
+      end
+
+      DataManager --> App: maxPoints, submissionDate, dueDate
+      deactivate DataManager
+    end
+  end
+
+  ref over App, DataManager, StudentManager: loop for tests as well
+
+end
+
+
+deactivate StudentManager
+
+hide footbox
+
+@enduml

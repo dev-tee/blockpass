@@ -1,0 +1,62 @@
+@startuml
+
+!include ../style.iuml
+
+title U0 + U3.1 Create Test
+
+actor Instructor
+
+Instructor -> App: submitTestCreationForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: createTest(description, maxPoints, dueDate, courseID)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> TestDB: addTest(description, maxPoints, dueDate, courseID)
+activate TestDB
+
+create Test
+TestDB -> Test
+
+TestDB -> CourseDB: addTestID(courseID, id)
+activate CourseDB
+deactivate CourseDB
+
+TestDB --> SupervisorManager: testID
+deactivate TestDB
+
+loop times number of helpingSupervisors
+  SupervisorManager -> TestSupervisionDB: addTestSupervision(supervisorID, testID)
+  activate TestSupervisionDB
+
+  group AddTestSupervision
+
+    create TestSupervision
+    TestSupervisionDB -> TestSupervision
+
+    TestSupervisionDB -> TestDB: addTestSupervisionID(testID, id)
+    activate TestDB
+    deactivate TestDB
+
+    TestSupervisionDB -> SupervisorDB: addTestSupervisionID(supervisorID, id)
+    activate SupervisorDB
+    deactivate SupervisorDB
+
+  end
+  
+  deactivate TestSupervisionDB
+end
+
+SupervisorManager -> TestSupervisionDB: addTestSupervision(senderSupervisorID, testID)
+deactivate SupervisorManager
+
+ref over TestSupervisionDB, TestSupervision, TestDB, SupervisorDB: AddTestSupervision
+activate TestSupervisionDB
+deactivate TestSupervisionDB
+
+hide footbox
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+!include ../style.iuml
+
+title U0 Create Course
+
+actor Instructor
+
+Instructor -> App: submitCourseCreationForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: createCourse(description, name, ectsPoints, helpingSupervisors)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> CourseDB: addCourse(description, name, ectsPoints)
+activate CourseDB
+
+create Course
+CourseDB -> Course
+
+CourseDB --> SupervisorManager: courseID
+deactivate CourseDB
+
+loop times number of helpingSupervisors
+  SupervisorManager -> CourseSupervisionDB: addCourseSupervision(supervisorID, courseID)
+  activate CourseSupervisionDB
+
+  group AddCourseSupervision
+
+    create CourseSupervision
+    CourseSupervisionDB -> CourseSupervision
+
+    CourseSupervisionDB -> CourseDB: addCourseSupervisionID(courseID, id)
+    activate CourseDB
+    deactivate CourseDB
+
+    CourseSupervisionDB -> SupervisorDB: addCourseSupervisionID(supervisorID, id)
+    activate SupervisorDB
+    deactivate SupervisorDB
+
+  end
+  
+  deactivate CourseSupervisionDB
+end
+
+SupervisorManager -> CourseSupervisionDB: addCourseSupervision(senderSupervisorID, courseID)
+deactivate SupervisorManager
+
+ref over CourseSupervisionDB, CourseSupervision, CourseDB, SupervisorDB: AddCourseSupervision
+activate CourseSupervisionDB
+deactivate CourseSupervisionDB
+
+hide footbox
+
+@enduml

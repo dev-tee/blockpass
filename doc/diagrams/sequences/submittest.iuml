@@ -1,0 +1,61 @@
+@startuml
+
+!include ../style.iuml
+
+title U4 Submit Test
+
+actor Student
+
+Student -> App: submitTestForm(form)
+activate App
+
+App -> App: validate()
+
+App -> StudentManager: uploadTestSubmission(description, testID, remainingGroupMembers)
+activate StudentManager
+deactivate App
+
+StudentManager -> StudentManager: uploadSubmission(description, now, referenceType = 1, testID)
+activate StudentManager
+
+StudentManager -> SubmissionDB: addSubmission(description, submittedDate, referenceType, referenceID)
+activate SubmissionDB
+
+create Submission
+SubmissionDB -> Submission
+
+alt referenceType == 0
+else referenceType == 1
+  SubmissionDB -> TestDB: addSubmissionID(referenceID, id);
+  activate TestDB
+  deactivate TestDB
+end
+
+SubmissionDB --> StudentManager: submissionID
+deactivate SubmissionDB
+
+StudentManager -> StudentSubmissionDB: addStudentSubmission(senderStudentID, submissionID)
+activate StudentSubmissionDB
+deactivate StudentManager
+
+group AddStudentSubmission
+
+  create StudentSubmission
+  StudentSubmissionDB -> StudentSubmission
+
+  StudentSubmissionDB -> StudentDB: addStudentSubmissionID(studentID, id)
+  activate StudentDB
+  deactivate StudentDB
+
+  StudentSubmissionDB -> SubmissionDB: addStudentSubmissionID(submissionID, id)
+  activate SubmissionDB
+  deactivate SubmissionDB
+
+end
+
+deactivate StudentSubmissionDB
+deactivate StudentManager
+
+hide footbox
+
+@enduml

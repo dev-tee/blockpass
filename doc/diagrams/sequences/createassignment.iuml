@@ -1,0 +1,35 @@
+@startuml
+
+!include ../style.iuml
+
+title U3.1 Create Assignment
+
+actor Instructor
+
+Instructor -> App: submitAssignmentCreationForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: createAssignment(description, maxPoints, dueDate, courseID)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> AssignmentDB: addAssignment(description, maxPoints, dueDate, courseID)
+activate AssignmentDB
+
+create Assignment
+AssignmentDB -> Assignment
+
+AssignmentDB -> CourseDB: addAssignmentID(courseID, id)
+activate CourseDB
+deactivate CourseDB
+
+AssignmentDB --> SupervisorManager
+deactivate AssignmentDB
+
+deactivate SupervisorManager
+
+hide footbox
+
+@enduml
