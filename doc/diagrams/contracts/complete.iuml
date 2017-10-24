@@ -29,6 +29,8 @@ scale .7
 !include testparticipationdb.iuml
 !include testsupervisiondb.iuml
 
+title Blockpass
+
 show AssessmentDB
 show AssessmentDB members
 show Assessment
