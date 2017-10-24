@@ -1,5 +1,7 @@
 @startuml
 
+!include ../style.iuml
+
 !include owned.iuml
 !include contractprovider.iuml
 

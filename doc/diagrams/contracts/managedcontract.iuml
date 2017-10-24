@@ -1,5 +1,7 @@
 @startuml
 
+!include ../style.iuml
+
 !include contractmanager.iuml
 
 title ManagedContract

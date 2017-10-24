@@ -1,5 +1,7 @@
 @startuml
 
+!include ../style.iuml
+
 !include managedcontract.iuml
 !include testdb.iuml
 !include assignmentdb.iuml

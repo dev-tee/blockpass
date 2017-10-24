@@ -1,5 +1,7 @@
 @startuml
 
+!include ../style.iuml
+
 title Owned
 
 class Owned << Contract >> {
