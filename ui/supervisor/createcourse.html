@@ -43,7 +43,7 @@
       var data = supervisormanagerInstance.createCourse.getData(description, name, ectspoints, helpingsupervisors);
       signAndSend(data, supervisormanagerInstance.address);
 
-      goHome();
+      window.location.assign(document.getElementById('previouspage').href);
     }
   </script>
 </head>
@@ -55,7 +55,8 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a id="previouspage" href="../personal/courses.html">Kurse</a>
+      <li><a id="currentpage" href="createcourse.html">Neuer Kurs</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -65,7 +66,7 @@
   <div class="container">
     <div class="row">
       <div class="two-thirds column center-column">
-        <h4>Lehrveranstalter</h4>
+        <h4>Neuen Kurs erstellen</h4>
         <form id="form">
           <label for="ectspoints">ECTS Punkte:</label>
           <input type="number" name="ectspoints" id="ectspoints" placeholder="6" required>

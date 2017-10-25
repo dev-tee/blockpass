@@ -32,8 +32,10 @@
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function parseID() {
-      courseid = (new URLSearchParams(window.location.search)).get('courseid');
-      testid = (new URLSearchParams(window.location.search)).get('testid');
+      blockpass.parseIDs();
+      
+      courseid = blockpass.ids.course;
+      testid = blockpass.ids.test;
       if (courseid == null && testid == null) {
         alert("Nichts ausgewählt.")
         goHome();
@@ -67,7 +69,8 @@
         data = studentmanagerInstance.registerForTest.getData(testid);
       }
       signAndSend(data, studentmanagerInstance.address);
-      goHome();
+      
+      window.location.assign('../personal/courses.html');
     }
   </script>
 </head>
@@ -79,7 +82,8 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a href="../personal/courses.html">Kurse</a>
+      <li><a href="../student/register.html">Anmeldung</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>

@@ -1,6 +1,8 @@
-function init3() {
-  // var web3Provider = "http://localhost:8545";
-  var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
+var blockpass = {};
+
+blockpass.init3 = function() {
+  var web3Provider = "http://localhost:8545";
+  // var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
 
   // Use our node provided web3.
   web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
@@ -12,4 +14,4 @@ function init3() {
   }
 }
 
-init3();
+blockpass.init3();

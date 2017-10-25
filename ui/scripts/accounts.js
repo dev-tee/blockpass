@@ -8,7 +8,7 @@ function enter() {
   if (!isLoggedIn()) {
     return;
   }
-  var home = 'personal/index.html';
+  var home = 'personal/courses.html';
   window.location.assign(home);
 }
 

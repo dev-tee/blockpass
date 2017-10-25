@@ -33,19 +33,20 @@
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function parseCourseID() {
-      courseid = (new URLSearchParams(window.location.search)).get('courseid');
+      blockpass.parseIDs();
+
+      courseid = blockpass.ids.course;
       if (courseid == null) {
         alert("Kein Kurs ausgewählt.")
         goHome();
       } else {
-        document.getElementById('courseid').value = courseid;
+        document.getElementById('courseid').innerHTML = courseid;
       }
     }
 
     function createTest() {
       if (event.preventDefault) event.preventDefault();
-      
-      var courseid = document.getElementById('courseid').value;
+
       var maxpoints = document.getElementById('maxpoints').value;
       var description = document.getElementById('description').value;
       var duedate = document.getElementById('duedate').getAttribute('data-time');
@@ -61,7 +62,7 @@
       var data = supervisormanagerInstance.createTest.getData(description, maxpoints, duedate, courseid, helpingsupervisors);
       signAndSend(data, supervisormanagerInstance.address);
 
-      goHome();
+      window.location.assign(document.getElementById('previouspage').href);
     }
 
     function updateTime(event) {
@@ -93,7 +94,9 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a href="../personal/courses.html">Kurse</a>
+      <li><a id="previouspage" class="coursedependentlink" href="../personal/coursedetails.html">Kursdetails</a>
+      <li><a id="currentpage" class="coursedependentlink" href="../supervisor/createtest.html">Neuer Test</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -103,11 +106,9 @@
   <div class="container">
     <div class="row">
       <div class="two-thirds column center-column">
-        <h4>Lehrveranstalter</h4>
+        <span class="inlinetitle">Test für Kurs</span>
+        <span id="courseid" class="id"></span>
         <form id="form">
-          <label for="course">Kurs:</label>
-          <input type="text" id="coursename" value="Testkurs" readonly>
-          <input type="text" id="courseid" readonly>
           <label for="helper">Hilfskräfte:</label>
           <input type="search" id="helper" placeholder="uaccountID-Suche" autocomplete="off">
           <label for="maxpoints">Maximalpunktezahl:</label>

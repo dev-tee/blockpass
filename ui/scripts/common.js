@@ -1,6 +1,12 @@
+// Create common object
+// to prevent littering global namespace.
+// TODO: Actually use it!
+var blockpass = {};
+
+
 function init3() {
-  // var web3Provider = "http://localhost:8545";
-  var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
+  var web3Provider = "http://localhost:8545";
+  // var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
 
   // Use our node provided web3.
   web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
@@ -46,41 +52,61 @@ function isSupervisor() {
   return localStorage['usertype'] == 'supervisor';
 }
 
-function isAccessAllowed() {
-  // Format of path name: 'usertype/page.html'.
+function checkPage() {
   var path = window.location.pathname;
-  if (path.search('personal') != -1) {
-    return true;
-  } else if (path.search(localStorage['usertype']) != -1) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function checkAccess() {
-  if (!isLoggedIn() && (window.location.pathname.search('student') != -1
-                      ||window.location.pathname.search('supervisor') != -1
-                      ||window.location.pathname.search('personal') != -1))
-  {
-    goHome();
-  } else if (isLoggedIn() && !isAccessAllowed()) {
-    goHome();
+  if (path.search('index.html') == -1 && path.search('signup.html') == -1) {
+    if (isLoggedIn()) {
+      if (path.search('/personal/') == -1 && path.search(localStorage['usertype']) == -1) {
+        window.location.assign('../personal/courses.html');
+        return;
+      }
+    }
+    else {
+      window.location.assign('../index.html');
+      return;
+    }
+  } else if (isLoggedIn()) {
+    window.location.assign('personal/courses.html');
+    return;
   }
 }
 
 function goHome() {
-  var home = isLoggedIn() ? '../personal/index.html' : '../index.html';
+  if (!isLoggedIn()) {
+    return;
+  }
+  var home = '../personal/courses.html';
   window.location.assign(home);
 }
 
-// Create common object
-// to prevent littering global namespace.
-// TODO: Actually use it!
-var blockpass = {};
+blockpass.parseIDs = function() {
+  var searchParameters = new URLSearchParams(window.location.search);
+  blockpass.ids = {
+    course: searchParameters.get('courseid'),
+    assignment: searchParameters.get('assignmentid'),
+    test: searchParameters.get('testid'),
+    submission: searchParameters.get('submissionid')
+  }
+
+  for (var variable in blockpass.ids) {
+    if (blockpass.ids.hasOwnProperty(variable) && blockpass.ids[variable] != null) {
+      var id = blockpass.ids[variable];
+      
+      var elements = document.getElementsByClassName(`${variable}dependentlink`);
+      for (var i = 0; i < elements.length; i++) {
+        if (elements[i].href.search('\\?') == -1) {
+          elements[i].href += '?';
+        } else {
+          elements[i].href += '&';
+        }
+        elements[i].href += `${variable}id=${id}`;
+      }
+    }
+  }
+}
 
 // Check whether the user is logged in.
 // Redirect if that is not the case.
-checkAccess();
+checkPage();
 // Finally call our initialisation sequence.
 init3();

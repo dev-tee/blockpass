@@ -44,16 +44,14 @@
     }
 
     function parseCourseID() {
-      courseid = (new URLSearchParams(window.location.search)).get('courseid');
+      blockpass.parseIDs();
+
+      courseid = blockpass.ids.course;
       if (courseid == null) {
         alert("Kein Kurs ausgewählt.")
         goHome();
       } else {
         document.getElementById('courseid').value = courseid;
-        var elements = document.getElementsByClassName('coursedependentlink');
-        for (var i = 0; i < elements.length; i++) {
-          elements[i].href += `?courseid=${courseid}`;
-        }
       }
     }
 
@@ -80,7 +78,7 @@
         var duedate = new Date(assignments[3][i].toNumber() * 1000);
 
         output.push(`<li>`);
-        line = `<a href="../personal/assignmentdetails.html?assignmentid=${id}">${duedate.toLocaleString()}</a>`;
+        line = `<a href="../personal/assignmentdetails.html?assignmentid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
         output.push(line);
         if (isStudent()) {
           var submissions = studentmanagerInstance.getAssignmentSubmissionIDs(id);
@@ -118,7 +116,7 @@
         }
 
         output.push(`<li>`);
-        line = `<a href="../personal/testdetails.html?testid=${id}">${duedate.toLocaleString()}</a>`;
+        line = `<a href="../personal/testdetails.html?testid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
         output.push(line);
         
         if (isStudent()) {
@@ -130,9 +128,18 @@
         }
         output.push(`<span class="extra">${extra}</span>`);
       }
-      
+
       output.push(`</ul>`);
-      document.getElementById('tests').innerHTML = output.join('');
+
+      if (output.length == 3) {
+        if (isStudent()) {
+          document.getElementById('tests').innerHTML = 'Zu keinem Test für diesen Kurs angemeldet.';
+        } else if (isSupervisor()) {
+          document.getElementById('tests').innerHTML = 'Für keinen Test in diesem Kurs verantwortlich.';
+        }
+      } else {
+        document.getElementById('tests').innerHTML = output.join('');
+      }
     }
 
     function getStudentSubmissionInfo(submissions, maxpoints) {
@@ -186,7 +193,8 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a href="../personal/courses.html">Kurse</a>
+      <li><a class="coursedependentlink" href="../personal/coursedetails.html">Kursdetails</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>

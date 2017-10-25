@@ -32,16 +32,14 @@
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function parseTestID() {
-      testid = (new URLSearchParams(window.location.search)).get('testid');
+      blockpass.parseIDs();
+
+      testid = blockpass.ids.test;
       if (testid == null) {
         alert("Kein Test ausgewählt.")
         goHome();
       } else {
         document.getElementById('testid').innerHTML = testid;
-        var elements = document.getElementsByClassName('testdependentlink');
-        for (var i = 0; i < elements.length; i++) {
-          elements[i].href += `?testid=${testid}`;
-        }
       }
     }
 
@@ -85,7 +83,10 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a href="../personal/courses.html">Kurse</a>
+      <li><a class="coursedependentlink" href="../personal/coursedetails.html">Kursdetails</a>
+      <li><a class="testdependentlink coursedependentlink" href="../personal/testdetails.html">Testdetails</a>
+      <li><a class="testdependentlink coursedependentlink" href="../student/testsubmissions.html">Abgaben</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>

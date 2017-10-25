@@ -41,6 +41,12 @@ nav ul li a {
   color: black;
 }
 
+nav ul li+li:before {
+  content: '>';
+  padding: 2rem 0rem;
+  float: left;
+}
+
 nav ul li a:hover
 {
   padding-top: 1.5rem;

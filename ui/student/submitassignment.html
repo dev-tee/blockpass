@@ -32,29 +32,15 @@
   <script type="text/javascript" src="../scripts/accounts.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
-    function showUserDependentUI() {
-      var elements = [];
-      if (isSupervisor()) {
-        elements = document.getElementsByClassName('supervisorfunctions');
-      } else if (isStudent()) {
-        elements = document.getElementsByClassName('studentfunctions');
-      }
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].hidden = false;
-      }
-    }
-
     function parseAssignmentID() {
-      assignmentid = (new URLSearchParams(window.location.search)).get('assignmentid');
+      blockpass.parseIDs();
+
+      assignmentid = blockpass.ids.assignment;
       if (assignmentid == null) {
         alert("Keine Aufgabe ausgewählt.")
         goHome();
       } else {
         document.getElementById('assignmentid').innerHTML = assignmentid;
-        var elements = document.getElementsByClassName('assignmentdependentlink');
-        for (var i = 0; i < elements.length; i++) {
-          elements[i].href += `?assignmentid=${assignmentid}`;
-        }
       }
     }
 
@@ -67,7 +53,7 @@
       var data = studentmanagerInstance.uploadAssignmentSubmission.getData(description, assignmentid, remainingMembers);
       signAndSend(data, studentmanagerInstance.address);
 
-      window.location.assign(`/personal/assignmentdetails.html?assignmentid=${assignmentid}`);
+      window.location.assign(document.getElementById('previouspage').href);
     }
   </script>
 </head>
@@ -79,7 +65,10 @@
     <input type="checkbox" id="menutrigger" checked>
     <label for="menutrigger">Menü</label>
     <ul>
-      <li><a href="../personal/index.html">Start</a>
+      <li><a href="../personal/courses.html">Kurse</a>
+      <li><a class="coursedependentlink" href="../personal/coursedetails.html">Kursdetails</a>
+      <li><a id="previouspage" class="assignmentdependentlink coursedependentlink" href="../personal/assignmentdetails.html">Aufgabendetails</a>
+      <li><a id="currentpage" class="assignmentdependentlink coursedependentlink" href="../student/submitassignment.html">Abgeben</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
