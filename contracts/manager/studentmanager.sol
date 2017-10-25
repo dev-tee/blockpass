@@ -66,10 +66,8 @@ contract StudentManager is ManagedContract {
     }
 
     modifier testParticipationExists(uint testID) {
-        var (, testCourseID) = TestDB(ContractProvider(MAN).contracts("testdb"))
-                                .getTest(testID);
         require(TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
-            .exists(msg.sender, testCourseID));
+            .exists(msg.sender, testID));
         _;
     }
 
