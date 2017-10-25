@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="677px" preserveAspectRatio="none" style="width:658px;height:677px;" version="1.1" viewBox="0 0 658 677" width="658px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="60" x="303" y="17.4023">TestDB</text><!--class ContractProvider--><rect fill="#F8F8F8" height="67.2207" id="ContractProvider" style="stroke: #383838; stroke-width: 1.5;" width="210" x="435" y="170.1992"/><ellipse cx="487.75" cy="189.332" fill="#B1B1B1" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M483.6777,185.0972 L483.6777,182.939 L491.0571,182.939 L491.0571,185.0972 L488.5918,185.0972 L488.5918,193.1738 L491.0571,193.1738 L491.0571,195.332 L483.6777,195.332 L483.6777,193.1738 L486.1431,193.1738 L486.1431,185.0972 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="62" x="525.25" y="186.8008">«Interface»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="96" x="508.25" y="200.9336">ContractProvider</text><line style="stroke: #383838; stroke-width: 1.5;" x1="436" x2="644" y1="208.4648" y2="208.4648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="436" x2="644" y1="216.4648" y2="216.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="441" y="231.0996">+contracts(name: bytes32) : address</text><!--class ContractManager--><rect fill="#F8F8F8" height="80.1758" id="ContractManager" style="stroke: #383838; stroke-width: 1.5;" width="467" x="180.5" y="29.1992"/><ellipse cx="360.75" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M363.7231,53.9751 Q363.1421,54.2739 362.5029,54.4233 Q361.8638,54.5728 361.1582,54.5728 Q358.6514,54.5728 357.3315,52.9209 Q356.0117,51.269 356.0117,48.1479 Q356.0117,45.0186 357.3315,43.3667 Q358.6514,41.7148 361.1582,41.7148 Q361.8638,41.7148 362.5112,41.8643 Q363.1587,42.0137 363.7231,42.3125 L363.7231,45.0352 Q363.0923,44.4541 362.4988,44.1843 Q361.9053,43.9146 361.2744,43.9146 Q359.9297,43.9146 359.2449,44.9812 Q358.5601,46.0479 358.5601,48.1479 Q358.5601,50.2397 359.2449,51.3064 Q359.9297,52.373 361.2744,52.373 Q361.9053,52.373 362.4988,52.1033 Q363.0923,51.8335 363.7231,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="400.25" y="45.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="98" x="381.25" y="59.9336">ContractManager</text><line style="stroke: #383838; stroke-width: 1.5;" x1="181.5" x2="646.5" y1="67.4648" y2="67.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="269" x="186.5" y="82.0996">+contracts: mapping {name: bytes32 =&gt; address}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="181.5" x2="646.5" y1="88.4199" y2="88.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="455" x="186.5" y="103.0547">+addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}</text><!--class ManagedContract--><rect fill="#F8F8F8" height="38.2656" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="133" x="222.5" y="184.6992"/><ellipse cx="237.5" cy="203.832" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M240.4731,209.4751 Q239.8921,209.7739 239.2529,209.9233 Q238.6138,210.0728 237.9082,210.0728 Q235.4014,210.0728 234.0815,208.4209 Q232.7617,206.769 232.7617,203.6479 Q232.7617,200.5186 234.0815,198.8667 Q235.4014,197.2148 237.9082,197.2148 Q238.6138,197.2148 239.2612,197.3643 Q239.9087,197.5137 240.4731,197.8125 L240.4731,200.5352 Q239.8423,199.9541 239.2488,199.6843 Q238.6553,199.4146 238.0244,199.4146 Q236.6797,199.4146 235.9949,200.4812 Q235.3101,201.5479 235.3101,203.6479 Q235.3101,205.7397 235.9949,206.8064 Q236.6797,207.873 238.0244,207.873 Q238.6553,207.873 239.2488,207.6033 Q239.8423,207.3335 240.4731,206.7524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="272" y="201.3008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="251.5" y="215.4336">ManagedContract</text><!--class Course--><rect fill="#F8F8F8" height="38.2656" id="Course" style="stroke: #383838; stroke-width: 1.5;" width="72" x="95" y="574.6992"/><ellipse cx="110" cy="593.832" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M112.9731,599.4751 Q112.3921,599.7739 111.7529,599.9233 Q111.1138,600.0728 110.4082,600.0728 Q107.9014,600.0728 106.5815,598.4209 Q105.2617,596.769 105.2617,593.6479 Q105.2617,590.5186 106.5815,588.8667 Q107.9014,587.2148 110.4082,587.2148 Q111.1138,587.2148 111.7612,587.3643 Q112.4087,587.5137 112.9731,587.8125 L112.9731,590.5352 Q112.3423,589.9541 111.7488,589.6843 Q111.1553,589.4146 110.5244,589.4146 Q109.1797,589.4146 108.4949,590.4812 Q107.8101,591.5479 107.8101,593.6479 Q107.8101,595.7397 108.4949,596.8064 Q109.1797,597.873 110.5244,597.873 Q111.1553,597.873 111.7488,597.6033 Q112.3423,597.3335 112.9731,596.7524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="122" y="591.3008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="40" x="124" y="605.4336">Course</text><!--class Test--><rect fill="#F8F8F8" height="144.9512" id="Test" style="stroke: #383838; stroke-width: 1.5;" width="173" x="202.5" y="521.1992"/><ellipse cx="264.75" cy="540.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M267.7231,545.9751 Q267.1421,546.2739 266.5029,546.4233 Q265.8638,546.5728 265.1582,546.5728 Q262.6514,546.5728 261.3315,544.9209 Q260.0117,543.269 260.0117,540.1479 Q260.0117,537.0186 261.3315,535.3667 Q262.6514,533.7148 265.1582,533.7148 Q265.8638,533.7148 266.5112,533.8643 Q267.1587,534.0137 267.7231,534.3125 L267.7231,537.0352 Q267.0923,536.4541 266.4988,536.1843 Q265.9053,535.9146 265.2744,535.9146 Q263.9297,535.9146 263.2449,536.9812 Q262.5601,538.0479 262.5601,540.1479 Q262.5601,542.2397 263.2449,543.3064 Q263.9297,544.373 265.2744,544.373 Q265.9053,544.373 266.4988,544.1033 Q267.0923,543.8335 267.7231,543.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="283.25" y="537.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="292.75" y="551.9336">Test</text><line style="stroke: #383838; stroke-width: 1.5;" x1="203.5" x2="374.5" y1="559.4648" y2="559.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="208.5" y="574.0996">description: string</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="83" x="208.5" y="587.0547">maxPoints: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="71" x="208.5" y="600.0098">dueDate: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="75" x="208.5" y="612.9648">courseID: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="208.5" y="625.9199">submissionIDs: uint[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="161" x="208.5" y="638.875">testParticipationIDs: bytes32[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="157" x="208.5" y="651.8301">testSupervisionIDs: bytes32[]</text><line style="stroke: #383838; stroke-width: 1.5;" x1="203.5" x2="374.5" y1="658.1504" y2="658.1504"/><!--class TestDB--><rect fill="#F8F8F8" height="161.9063" id="TestDB" style="stroke: #383838; stroke-width: 1.5;" width="566" x="6" y="298.1992"/><ellipse cx="256.75" cy="317.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M259.7231,322.9751 Q259.1421,323.2739 258.5029,323.4233 Q257.8638,323.5728 257.1582,323.5728 Q254.6514,323.5728 253.3315,321.9209 Q252.0117,320.269 252.0117,317.1479 Q252.0117,314.0186 253.3315,312.3667 Q254.6514,310.7148 257.1582,310.7148 Q257.8638,310.7148 258.5112,310.8643 Q259.1587,311.0137 259.7231,311.3125 L259.7231,314.0352 Q259.0923,313.4541 258.4988,313.1843 Q257.9053,312.9146 257.2744,312.9146 Q255.9297,312.9146 255.2449,313.9812 Q254.5601,315.0479 254.5601,317.1479 Q254.5601,319.2397 255.2449,320.3064 Q255.9297,321.373 257.2744,321.373 Q257.9053,321.373 258.4988,321.1033 Q259.0923,320.8335 259.7231,320.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="275.25" y="314.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="41" x="284.75" y="328.9336">TestDB</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="571" y1="336.4648" y2="336.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="69" x="12" y="351.0996">-tests: Test[]</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="571" y1="357.4199" y2="357.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="436" x="12" y="372.0547">+addTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="554" x="12" y="385.0098">+getTest(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="176" x="12" y="397.9648">+getNumTests() : uint {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="448" x="12" y="427.875">+addTestParticipationID(testID: uint, id: bytes32) {permission: "testparticipationdb"}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="439" x="12" y="440.8301">+addTestSupervisionID(testID: uint, id: bytes32) {permission: "testsupervisiondb"}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="372" x="12" y="453.7852">+addSubmissionID(testID: uint, id: uint) {permission: "submissiondb"}</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="7" x2="217.5" y1="410.7627" y2="410.7627"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="143" x="217.5" y="414.4199">Setter for combined values</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="360.5" x2="571" y1="410.7627" y2="410.7627"/><!--link ContractManager to ContractProvider--><path d="M451.8042,109.5536 C465.2542,123.911 480.5386,140.2265 494.5614,155.1953 " fill="none" id="ContractManager-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="500.0233,150.7868,508.5882,170.1684,489.8062,160.3582,500.0233,150.7868" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to ContractProvider--><path d="M355.6044,203.6992 C378.3427,203.6992 404.4168,203.6992 429.6605,203.6992 " fill="none" id="ManagedContract-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#383838" points="434.6969,203.6992,425.6969,199.6992,429.6969,203.6992,425.6969,207.6992,434.6969,203.6992" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="43" x="373.75" y="197.2676">«uses»</text><!--link ContractManager to ManagedContract--><path d="M372.9503,113.3687 C350.6234,137.3924 324.1404,165.8881 306.976,184.3571 " fill="none" id="ContractManager-ManagedContract" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="376.4959,109.5536,367.439,113.4231,373.0921,113.2161,373.2991,118.8692,376.4959,109.5536" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to TestDB--><path d="M289,243.003 C289,259.3082 289,278.8637 289,298.0013 " fill="none" id="ManagedContract-TestDB" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="none" points="282.0001,242.8149,289,222.8149,296.0001,242.8148,282.0001,242.8149" style="stroke: #383838; stroke-width: 1.0;"/><!--link TestDB to Test--><path d="M289,460.2925 C289,480.2236 289,501.4384 289,520.9484 " fill="none" id="TestDB-Test" style="stroke: #383838; stroke-width: 1.0;"/><!--link Course to Test--><path d="M167.1055,593.6992 C178.8505,593.6992 190.5956,593.6992 202.3406,593.6992 " fill="none" id="Course-Test" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+
+
+
+title CourseDB
+
+class Course << Struct >> {
+  description: string
+  ectsPoints: uint
+  name: bytes32
+  assignmentIDs: uint[]
+  testIDs: uint[]
+  courseParticipationIDs: bytes32[]
+  courseSupervisionIDs: bytes32[]
+}
+
+class CourseDB << Contract >> {
+  -courses: Course[]
+  __
+  +addCourse(description: string, name: bytes32, ectsPoints: uint) : uint
+  +getCourse(id: uint) : Tuple { description: string, name: bytes32, ectsPoints: uint } {constant}
+  +getNumCourses() : uint {constant}
+  .. Setter for combined values ..
+  +addCourseParticipationID(courseID: uint, id: bytes32) {permission: "courseparticipationdb" }
+  +addCourseSupervisionID(courseID: uint, id: bytes32) {permission: "coursesupervisiondb"}
+  +addAssignmentID(courseID: uint, id: uint) {permission: "assignmentdb"}
+  +addTestID(courseID: uint, id: uint) {permission: "testdb"}
+}
+
+CourseDB -up-|> ManagedContract
+CourseDB -down- Course
+
+hide ManagedContract members
+
+
+title TestDB
+
+class Test << Struct >> {
+  description: string
+  maxPoints: uint
+  dueDate: uint
+  courseID: uint
+  submissionIDs: uint[]
+  testParticipationIDs: bytes32[]
+  testSupervisionIDs: bytes32[]
+}
+
+class TestDB << Contract >> {
+  -tests: Test[]
+  __
+  +addTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getTest(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +getNumTests() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(testID: uint, id: bytes32) {permission: "testparticipationdb"}
+  +addTestSupervisionID(testID: uint, id: bytes32) {permission: "testsupervisiondb"}
+  +addSubmissionID(testID: uint, id: uint) {permission: "submissiondb"}
+}
+
+TestDB -up-|> ManagedContract
+TestDB -down- Test
+Test -left- Course
+
+hide ManagedContract members
+hide CourseDB
+hide Course members
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

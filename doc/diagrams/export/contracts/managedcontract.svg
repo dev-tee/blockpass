@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="291px" preserveAspectRatio="none" style="width:707px;height:291px;" version="1.1" viewBox="0 0 707 291" width="707px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="153" x="281" y="17.4023">ManagedContract</text><!--class ContractProvider--><rect fill="#F8F8F8" height="67.2207" id="ContractProvider" style="stroke: #383838; stroke-width: 1.5;" width="210" x="486.5" y="191.6992"/><ellipse cx="539.25" cy="210.832" fill="#B1B1B1" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M535.1777,206.5972 L535.1777,204.439 L542.5571,204.439 L542.5571,206.5972 L540.0918,206.5972 L540.0918,214.6738 L542.5571,214.6738 L542.5571,216.832 L535.1777,216.832 L535.1777,214.6738 L537.6431,214.6738 L537.6431,206.5972 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="62" x="576.75" y="208.3008">«Interface»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="96" x="559.75" y="222.4336">ContractProvider</text><line style="stroke: #383838; stroke-width: 1.5;" x1="487.5" x2="695.5" y1="229.9648" y2="229.9648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="487.5" x2="695.5" y1="237.9648" y2="237.9648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="492.5" y="252.5996">+contracts(name: bytes32) : address</text><!--class ContractManager--><rect fill="#F8F8F8" height="80.1758" id="ContractManager" style="stroke: #383838; stroke-width: 1.5;" width="467" x="165" y="29.1992"/><ellipse cx="345.25" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M348.2231,53.9751 Q347.6421,54.2739 347.0029,54.4233 Q346.3638,54.5728 345.6582,54.5728 Q343.1514,54.5728 341.8315,52.9209 Q340.5117,51.269 340.5117,48.1479 Q340.5117,45.0186 341.8315,43.3667 Q343.1514,41.7148 345.6582,41.7148 Q346.3638,41.7148 347.0112,41.8643 Q347.6587,42.0137 348.2231,42.3125 L348.2231,45.0352 Q347.5923,44.4541 346.9988,44.1843 Q346.4053,43.9146 345.7744,43.9146 Q344.4297,43.9146 343.7449,44.9812 Q343.0601,46.0479 343.0601,48.1479 Q343.0601,50.2397 343.7449,51.3064 Q344.4297,52.373 345.7744,52.373 Q346.4053,52.373 346.9988,52.1033 Q347.5923,51.8335 348.2231,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="384.75" y="45.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="98" x="365.75" y="59.9336">ContractManager</text><line style="stroke: #383838; stroke-width: 1.5;" x1="166" x2="631" y1="67.4648" y2="67.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="269" x="171" y="82.0996">+contracts: mapping {name: bytes32 =&gt; address}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="166" x2="631" y1="88.4199" y2="88.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="455" x="171" y="103.0547">+addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}</text><!--class ManagedContract--><rect fill="#F8F8F8" height="110.0859" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="401" x="6" y="170.1992"/><ellipse cx="151.75" cy="189.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M154.7231,194.9751 Q154.1421,195.2739 153.5029,195.4233 Q152.8638,195.5728 152.1582,195.5728 Q149.6514,195.5728 148.3315,193.9209 Q147.0117,192.269 147.0117,189.1479 Q147.0117,186.0186 148.3315,184.3667 Q149.6514,182.7148 152.1582,182.7148 Q152.8638,182.7148 153.5112,182.8643 Q154.1587,183.0137 154.7231,183.3125 L154.7231,186.0352 Q154.0923,185.4541 153.4988,185.1843 Q152.9053,184.9146 152.2744,184.9146 Q150.9297,184.9146 150.2449,185.9812 Q149.5601,187.0479 149.5601,189.1479 Q149.5601,191.2397 150.2449,192.3064 Q150.9297,193.373 152.2744,193.373 Q152.9053,193.373 153.4988,193.1033 Q154.0923,192.8335 154.7231,192.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="192.75" y="186.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="172.25" y="200.9336">ManagedContract</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="406" y1="208.4648" y2="208.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="81" x="12" y="223.0996">#MAN: address</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="406" y1="229.4199" y2="229.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="389" x="12" y="244.0547">+setContractManagerAddress(contractManagerAddress: address) : bool</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="213" x="12" y="273.9648">#permission(permittedSender: bytes32)</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="7" x2="184.5" y1="256.8525" y2="256.8525"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="44" x="184.5" y="260.5098">Modifier</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="228.5" x2="406" y1="256.8525" y2="256.8525"/><!--link ContractManager to ContractProvider--><path d="M448.2023,109.3731 C474.4081,130.555 506.6892,156.6474 533.9739,178.7014 " fill="none" id="ContractManager-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="538.6425,173.4742,549.7964,191.4906,529.8418,184.3622,538.6425,173.4742" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to ContractProvider--><path d="M407.1753,225.1992 C432.628,225.1992 457.8898,225.1992 481.1764,225.1992 " fill="none" id="ManagedContract-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#383838" points="486.4253,225.1992,477.4253,221.1992,481.4253,225.1992,477.4253,229.1992,486.4253,225.1992" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="43" x="425.25" y="218.7676">«uses»</text><!--link ContractManager to ManagedContract--><path d="M345.0053,112.6636 C323.0772,130.4802 297.4418,151.309 274.2279,170.1703 " fill="none" id="ContractManager-ManagedContract" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="349.0552,109.3731,339.5478,111.944,345.1746,112.5261,344.5926,118.1529,349.0552,109.3731" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

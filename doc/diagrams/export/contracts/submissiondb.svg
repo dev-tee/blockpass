@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="738px" preserveAspectRatio="none" style="width:681px;height:738px;" version="1.1" viewBox="0 0 681 738" width="681px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="122" x="283.5" y="17.4023">SubmissionDB</text><!--class ContractProvider--><rect fill="#F8F8F8" height="67.2207" id="ContractProvider" style="stroke: #383838; stroke-width: 1.5;" width="210" x="458" y="170.1992"/><ellipse cx="510.75" cy="189.332" fill="#B1B1B1" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M506.6777,185.0972 L506.6777,182.939 L514.0571,182.939 L514.0571,185.0972 L511.5918,185.0972 L511.5918,193.1738 L514.0571,193.1738 L514.0571,195.332 L506.6777,195.332 L506.6777,193.1738 L509.1431,193.1738 L509.1431,185.0972 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="62" x="548.25" y="186.8008">«Interface»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="96" x="531.25" y="200.9336">ContractProvider</text><line style="stroke: #383838; stroke-width: 1.5;" x1="459" x2="667" y1="208.4648" y2="208.4648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="459" x2="667" y1="216.4648" y2="216.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="464" y="231.0996">+contracts(name: bytes32) : address</text><!--class ContractManager--><rect fill="#F8F8F8" height="80.1758" id="ContractManager" style="stroke: #383838; stroke-width: 1.5;" width="467" x="203.5" y="29.1992"/><ellipse cx="383.75" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M386.7231,53.9751 Q386.1421,54.2739 385.5029,54.4233 Q384.8638,54.5728 384.1582,54.5728 Q381.6514,54.5728 380.3315,52.9209 Q379.0117,51.269 379.0117,48.1479 Q379.0117,45.0186 380.3315,43.3667 Q381.6514,41.7148 384.1582,41.7148 Q384.8638,41.7148 385.5112,41.8643 Q386.1587,42.0137 386.7231,42.3125 L386.7231,45.0352 Q386.0923,44.4541 385.4988,44.1843 Q384.9053,43.9146 384.2744,43.9146 Q382.9297,43.9146 382.2449,44.9812 Q381.5601,46.0479 381.5601,48.1479 Q381.5601,50.2397 382.2449,51.3064 Q382.9297,52.373 384.2744,52.373 Q384.9053,52.373 385.4988,52.1033 Q386.0923,51.8335 386.7231,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="423.25" y="45.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="98" x="404.25" y="59.9336">ContractManager</text><line style="stroke: #383838; stroke-width: 1.5;" x1="204.5" x2="669.5" y1="67.4648" y2="67.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="269" x="209.5" y="82.0996">+contracts: mapping {name: bytes32 =&gt; address}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="204.5" x2="669.5" y1="88.4199" y2="88.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="455" x="209.5" y="103.0547">+addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}</text><!--class ManagedContract--><rect fill="#F8F8F8" height="38.2656" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="133" x="245.5" y="184.6992"/><ellipse cx="260.5" cy="203.832" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M263.4731,209.4751 Q262.8921,209.7739 262.2529,209.9233 Q261.6138,210.0728 260.9082,210.0728 Q258.4014,210.0728 257.0815,208.4209 Q255.7617,206.769 255.7617,203.6479 Q255.7617,200.5186 257.0815,198.8667 Q258.4014,197.2148 260.9082,197.2148 Q261.6138,197.2148 262.2612,197.3643 Q262.9087,197.5137 263.4731,197.8125 L263.4731,200.5352 Q262.8423,199.9541 262.2488,199.6843 Q261.6553,199.4146 261.0244,199.4146 Q259.6797,199.4146 258.9949,200.4812 Q258.3101,201.5479 258.3101,203.6479 Q258.3101,205.7397 258.9949,206.8064 Q259.6797,207.873 261.0244,207.873 Q261.6553,207.873 262.2488,207.6033 Q262.8423,207.3335 263.4731,206.7524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="295" y="201.3008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="274.5" y="215.4336">ManagedContract</text><!--class Test--><rect fill="#F8F8F8" height="38.2656" id="Test" style="stroke: #383838; stroke-width: 1.5;" width="72" x="442" y="555.1992"/><ellipse cx="457" cy="574.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M459.9731,579.9751 Q459.3921,580.2739 458.7529,580.4233 Q458.1138,580.5728 457.4082,580.5728 Q454.9014,580.5728 453.5815,578.9209 Q452.2617,577.269 452.2617,574.1479 Q452.2617,571.0186 453.5815,569.3667 Q454.9014,567.7148 457.4082,567.7148 Q458.1138,567.7148 458.7612,567.8643 Q459.4087,568.0137 459.9731,568.3125 L459.9731,571.0352 Q459.3423,570.4541 458.7488,570.1843 Q458.1553,569.9146 457.5244,569.9146 Q456.1797,569.9146 455.4949,570.9812 Q454.8101,572.0479 454.8101,574.1479 Q454.8101,576.2397 455.4949,577.3064 Q456.1797,578.373 457.5244,578.373 Q458.1553,578.373 458.7488,578.1033 Q459.3423,577.8335 459.9731,577.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="469" y="571.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="478.5" y="585.9336">Test</text><!--class Assignment--><rect fill="#F8F8F8" height="38.2656" id="Assignment" style="stroke: #383838; stroke-width: 1.5;" width="98" x="84" y="555.1992"/><ellipse cx="99" cy="574.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M101.9731,579.9751 Q101.3921,580.2739 100.7529,580.4233 Q100.1138,580.5728 99.4082,580.5728 Q96.9014,580.5728 95.5815,578.9209 Q94.2617,577.269 94.2617,574.1479 Q94.2617,571.0186 95.5815,569.3667 Q96.9014,567.7148 99.4082,567.7148 Q100.1138,567.7148 100.7612,567.8643 Q101.4087,568.0137 101.9731,568.3125 L101.9731,571.0352 Q101.3423,570.4541 100.7488,570.1843 Q100.1553,569.9146 99.5244,569.9146 Q98.1797,569.9146 97.4949,570.9812 Q96.8101,572.0479 96.8101,574.1479 Q96.8101,576.2397 97.4949,577.3064 Q98.1797,578.373 99.5244,578.373 Q100.1553,578.373 100.7488,578.1033 Q101.3423,577.8335 101.9731,577.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="124" y="571.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="66" x="113" y="585.9336">Assignment</text><!--class Submission--><rect fill="#F8F8F8" height="131.9961" id="Submission" style="stroke: #383838; stroke-width: 1.5;" width="189" x="217.5" y="508.1992"/><ellipse cx="275.75" cy="527.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M278.7231,532.9751 Q278.1421,533.2739 277.5029,533.4233 Q276.8638,533.5728 276.1582,533.5728 Q273.6514,533.5728 272.3315,531.9209 Q271.0117,530.269 271.0117,527.1479 Q271.0117,524.0186 272.3315,522.3667 Q273.6514,520.7148 276.1582,520.7148 Q276.8638,520.7148 277.5112,520.8643 Q278.1587,521.0137 278.7231,521.3125 L278.7231,524.0352 Q278.0923,523.4541 277.4988,523.1843 Q276.9053,522.9146 276.2744,522.9146 Q274.9297,522.9146 274.2449,523.9812 Q273.5601,525.0479 273.5601,527.1479 Q273.5601,529.2397 274.2449,530.3064 Q274.9297,531.373 276.2744,531.373 Q276.9053,531.373 277.4988,531.1033 Q278.0923,530.8335 278.7231,530.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="306.25" y="524.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="64" x="296.25" y="538.9336">Submission</text><line style="stroke: #383838; stroke-width: 1.5;" x1="218.5" x2="405.5" y1="546.4648" y2="546.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="223.5" y="561.0996">description: string</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="105" x="223.5" y="574.0547">submittedDate: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="42" x="223.5" y="587.0098">ref: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="89" x="223.5" y="599.9648">referenceID: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="115" x="223.5" y="612.9199">assessmentIDs: uint[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="177" x="223.5" y="625.875">studentSubmissionIDs: bytes32[]</text><line style="stroke: #383838; stroke-width: 1.5;" x1="218.5" x2="405.5" y1="632.1953" y2="632.1953"/><polygon fill="#ECECEC" points="204,701.1992,204,726.5098,420,726.5098,420,711.1992,410,701.1992,204,701.1992" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#ECECEC" points="204,701.1992,204,726.5098,420,726.5098,420,711.1992,410,701.1992,316,701.1992,312,640.2725,308,701.1992,204,701.1992" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="410" x2="410" y1="701.1992" y2="711.1992"/><line style="stroke: #383838; stroke-width: 1.0;" x1="420" x2="410" y1="711.1992" y2="711.1992"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="195" x="210" y="718.7676">References Assignment or Test</text><!--class SubmissionDB--><rect fill="#F8F8F8" height="148.9512" id="SubmissionDB" style="stroke: #383838; stroke-width: 1.5;" width="612" x="6" y="298.1992"/><ellipse cx="267.75" cy="317.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M270.7231,322.9751 Q270.1421,323.2739 269.5029,323.4233 Q268.8638,323.5728 268.1582,323.5728 Q265.6514,323.5728 264.3315,321.9209 Q263.0117,320.269 263.0117,317.1479 Q263.0117,314.0186 264.3315,312.3667 Q265.6514,310.7148 268.1582,310.7148 Q268.8638,310.7148 269.5112,310.8643 Q270.1587,311.0137 270.7231,311.3125 L270.7231,314.0352 Q270.0923,313.4541 269.4988,313.1843 Q268.9053,312.9146 268.2744,312.9146 Q266.9297,312.9146 266.2449,313.9812 Q265.5601,315.0479 265.5601,317.1479 Q265.5601,319.2397 266.2449,320.3064 Q266.9297,321.373 268.2744,321.373 Q268.9053,321.373 269.4988,321.1033 Q270.0923,320.8335 270.7231,320.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="298.25" y="314.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="80" x="288.25" y="328.9336">SubmissionDB</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="617" y1="336.4648" y2="336.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="150" x="12" y="351.0996">-submissions: Submission[]</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="617" y1="357.4199" y2="357.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="482" x="12" y="372.0547">+addSubmission(description: string, submittedDate: uint, ref: uint, referenceID: uint) : uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="600" x="12" y="385.0098">+getSubmission(id: uint) : Tuple { description: string, submittedDate: uint, ref: uint, referenceID: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="215" x="12" y="397.9648">+getNumSubmissions() : uint {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="518" x="12" y="427.875">+addStudentSubmissionID(submissionID: uint, id: bytes32) {permission: "studentsubmissiondb"}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="418" x="12" y="440.8301">+addAssessmentID(submissionID: uint, id: uint) {permission: "assessmentdb"}</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="7" x2="240.5" y1="410.7627" y2="410.7627"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="143" x="240.5" y="414.4199">Setter for combined values</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="383.5" x2="617" y1="410.7627" y2="410.7627"/><!--link ContractManager to ContractProvider--><path d="M474.8042,109.5536 C488.2542,123.911 503.5386,140.2265 517.5614,155.1953 " fill="none" id="ContractManager-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="523.0233,150.7868,531.5882,170.1684,512.8062,160.3582,523.0233,150.7868" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to ContractProvider--><path d="M378.6044,203.6992 C401.3427,203.6992 427.4168,203.6992 452.6605,203.6992 " fill="none" id="ManagedContract-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#383838" points="457.6969,203.6992,448.6969,199.6992,452.6969,203.6992,448.6969,207.6992,457.6969,203.6992" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="43" x="396.75" y="197.2676">«uses»</text><!--link ContractManager to ManagedContract--><path d="M395.9503,113.3687 C373.6234,137.3924 347.1404,165.8881 329.976,184.3571 " fill="none" id="ContractManager-ManagedContract" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="399.4959,109.5536,390.439,113.4231,396.0921,113.2161,396.2991,118.8692,399.4959,109.5536" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to SubmissionDB--><path d="M312,243.028 C312,259.3807 312,278.9301 312,297.8286 " fill="none" id="ManagedContract-SubmissionDB" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="none" points="305.0001,242.7572,312,222.7571,319.0001,242.7571,305.0001,242.7572" style="stroke: #383838; stroke-width: 1.0;"/><!--link SubmissionDB to Submission--><path d="M312,447.444 C312,467.2683 312,488.5346 312,507.8766 " fill="none" id="SubmissionDB-Submission" style="stroke: #383838; stroke-width: 1.0;"/><!--link Assignment to Submission--><path d="M182.2949,574.1992 C193.9481,574.1992 205.6013,574.1992 217.2545,574.1992 " fill="none" id="Assignment-Submission" style="stroke: #383838; stroke-width: 1.0;"/><!--link Submission to Test--><path d="M406.6719,574.1992 C418.3741,574.1992 430.0764,574.1992 441.7787,574.1992 " fill="none" id="Submission-Test" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+
+
+
+
+
+title CourseDB
+
+class Course << Struct >> {
+  description: string
+  ectsPoints: uint
+  name: bytes32
+  assignmentIDs: uint[]
+  testIDs: uint[]
+  courseParticipationIDs: bytes32[]
+  courseSupervisionIDs: bytes32[]
+}
+
+class CourseDB << Contract >> {
+  -courses: Course[]
+  __
+  +addCourse(description: string, name: bytes32, ectsPoints: uint) : uint
+  +getCourse(id: uint) : Tuple { description: string, name: bytes32, ectsPoints: uint } {constant}
+  +getNumCourses() : uint {constant}
+  .. Setter for combined values ..
+  +addCourseParticipationID(courseID: uint, id: bytes32) {permission: "courseparticipationdb" }
+  +addCourseSupervisionID(courseID: uint, id: bytes32) {permission: "coursesupervisiondb"}
+  +addAssignmentID(courseID: uint, id: uint) {permission: "assignmentdb"}
+  +addTestID(courseID: uint, id: uint) {permission: "testdb"}
+}
+
+CourseDB -up-|> ManagedContract
+CourseDB -down- Course
+
+hide ManagedContract members
+
+
+title TestDB
+
+class Test << Struct >> {
+  description: string
+  maxPoints: uint
+  dueDate: uint
+  courseID: uint
+  submissionIDs: uint[]
+  testParticipationIDs: bytes32[]
+  testSupervisionIDs: bytes32[]
+}
+
+class TestDB << Contract >> {
+  -tests: Test[]
+  __
+  +addTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getTest(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +getNumTests() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(testID: uint, id: bytes32) {permission: "testparticipationdb"}
+  +addTestSupervisionID(testID: uint, id: bytes32) {permission: "testsupervisiondb"}
+  +addSubmissionID(testID: uint, id: uint) {permission: "submissiondb"}
+}
+
+TestDB -up-|> ManagedContract
+TestDB -down- Test
+Test -left- Course
+
+hide ManagedContract members
+hide CourseDB
+hide Course members
+
+
+
+
+title AssignmentDB
+
+class Assignment << Struct >> {
+  description: string
+  maxPoints: uint
+  dueDate: uint
+  courseID: uint
+  submissionIDs: uint[]
+}
+
+class AssignmentDB << Contract >> {
+  -assignments: Assignment[]
+  __
+  +addAssignment(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getAssignment(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +getNumAssignments() : uint {constant}
+  .. Setter for combined values ..
+  +addSubmissionID(assignmentID: uint, id: uint) {permission: "submissiondb"}
+}
+
+
+AssignmentDB -up-|> ManagedContract
+AssignmentDB -down- Assignment
+Assignment -left- Course
+
+hide ManagedContract members
+hide CourseDB
+hide Course members
+
+
+title SubmissionDB
+
+class Submission << Struct >> {
+  description: string
+  submittedDate: uint
+  ref: uint
+  referenceID: uint
+  assessmentIDs: uint[]
+  studentSubmissionIDs: bytes32[]
+}
+note "References Assignment or Test" as ReferenceNote
+Submission .down. ReferenceNote
+
+class SubmissionDB << Contract >> {
+  -submissions: Submission[]
+  __
+  +addSubmission(description: string, submittedDate: uint, ref: uint, referenceID: uint) : uint
+  +getSubmission(id: uint) : Tuple { description: string, submittedDate: uint, ref: uint, referenceID: uint } {constant}
+  +getNumSubmissions() : uint {constant}
+  .. Setter for combined values ..
+  +addStudentSubmissionID(submissionID: uint, id: bytes32) {permission: "studentsubmissiondb"}
+  +addAssessmentID(submissionID: uint, id: uint) {permission: "assessmentdb"}
+}
+
+
+SubmissionDB -up-|> ManagedContract
+SubmissionDB -down- Submission
+Submission -left- Assignment
+Submission -right- Test
+
+hide ManagedContract members
+hide AssignmentDB
+hide Assignment members
+hide TestDB
+hide Test members
+hide CourseDB
+hide Course
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

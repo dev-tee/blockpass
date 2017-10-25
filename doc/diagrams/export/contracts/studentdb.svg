@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="703px" preserveAspectRatio="none" style="width:639px;height:703px;" version="1.1" viewBox="0 0 639 703" width="639px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="90" x="278" y="17.4023">StudentDB</text><!--class ContractProvider--><rect fill="#F8F8F8" height="67.2207" id="ContractProvider" style="stroke: #383838; stroke-width: 1.5;" width="210" x="415.5" y="170.1992"/><ellipse cx="468.25" cy="189.332" fill="#B1B1B1" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M464.1777,185.0972 L464.1777,182.939 L471.5571,182.939 L471.5571,185.0972 L469.0918,185.0972 L469.0918,193.1738 L471.5571,193.1738 L471.5571,195.332 L464.1777,195.332 L464.1777,193.1738 L466.6431,193.1738 L466.6431,185.0972 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="62" x="505.75" y="186.8008">«Interface»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="96" x="488.75" y="200.9336">ContractProvider</text><line style="stroke: #383838; stroke-width: 1.5;" x1="416.5" x2="624.5" y1="208.4648" y2="208.4648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="416.5" x2="624.5" y1="216.4648" y2="216.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="421.5" y="231.0996">+contracts(name: bytes32) : address</text><!--class ContractManager--><rect fill="#F8F8F8" height="80.1758" id="ContractManager" style="stroke: #383838; stroke-width: 1.5;" width="467" x="161" y="29.1992"/><ellipse cx="341.25" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M344.2231,53.9751 Q343.6421,54.2739 343.0029,54.4233 Q342.3638,54.5728 341.6582,54.5728 Q339.1514,54.5728 337.8315,52.9209 Q336.5117,51.269 336.5117,48.1479 Q336.5117,45.0186 337.8315,43.3667 Q339.1514,41.7148 341.6582,41.7148 Q342.3638,41.7148 343.0112,41.8643 Q343.6587,42.0137 344.2231,42.3125 L344.2231,45.0352 Q343.5923,44.4541 342.9988,44.1843 Q342.4053,43.9146 341.7744,43.9146 Q340.4297,43.9146 339.7449,44.9812 Q339.0601,46.0479 339.0601,48.1479 Q339.0601,50.2397 339.7449,51.3064 Q340.4297,52.373 341.7744,52.373 Q342.4053,52.373 342.9988,52.1033 Q343.5923,51.8335 344.2231,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="380.75" y="45.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="98" x="361.75" y="59.9336">ContractManager</text><line style="stroke: #383838; stroke-width: 1.5;" x1="162" x2="627" y1="67.4648" y2="67.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="269" x="167" y="82.0996">+contracts: mapping {name: bytes32 =&gt; address}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="162" x2="627" y1="88.4199" y2="88.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="455" x="167" y="103.0547">+addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}</text><!--class ManagedContract--><rect fill="#F8F8F8" height="38.2656" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="133" x="203" y="184.6992"/><ellipse cx="218" cy="203.832" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M220.9731,209.4751 Q220.3921,209.7739 219.7529,209.9233 Q219.1138,210.0728 218.4082,210.0728 Q215.9014,210.0728 214.5815,208.4209 Q213.2617,206.769 213.2617,203.6479 Q213.2617,200.5186 214.5815,198.8667 Q215.9014,197.2148 218.4082,197.2148 Q219.1138,197.2148 219.7612,197.3643 Q220.4087,197.5137 220.9731,197.8125 L220.9731,200.5352 Q220.3423,199.9541 219.7488,199.6843 Q219.1553,199.4146 218.5244,199.4146 Q217.1797,199.4146 216.4949,200.4812 Q215.8101,201.5479 215.8101,203.6479 Q215.8101,205.7397 216.4949,206.8064 Q217.1797,207.873 218.5244,207.873 Q219.1553,207.873 219.7488,207.6033 Q220.3423,207.3335 220.9731,206.7524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="252.5" y="201.3008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="232" y="215.4336">ManagedContract</text><!--class Student--><rect fill="#F8F8F8" height="131.9961" id="Student" style="stroke: #383838; stroke-width: 1.5;" width="190" x="174.5" y="560.1992"/><ellipse cx="243.75" cy="579.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M246.7231,584.9751 Q246.1421,585.2739 245.5029,585.4233 Q244.8638,585.5728 244.1582,585.5728 Q241.6514,585.5728 240.3315,583.9209 Q239.0117,582.269 239.0117,579.1479 Q239.0117,576.0186 240.3315,574.3667 Q241.6514,572.7148 244.1582,572.7148 Q244.8638,572.7148 245.5112,572.8643 Q246.1587,573.0137 246.7231,573.3125 L246.7231,576.0352 Q246.0923,575.4541 245.4988,575.1843 Q244.9053,574.9146 244.2744,574.9146 Q242.9297,574.9146 242.2449,575.9812 Q241.5601,577.0479 241.5601,579.1479 Q241.5601,581.2397 242.2449,582.3064 Q242.9297,583.373 244.2744,583.373 Q244.9053,583.373 245.4988,583.1033 Q246.0923,582.8335 246.7231,582.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="263.75" y="576.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="43" x="264.25" y="590.9336">Student</text><line style="stroke: #383838; stroke-width: 1.5;" x1="175.5" x2="363.5" y1="598.4648" y2="598.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="78" x="180.5" y="613.0996">name: bytes32</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="65" x="180.5" y="626.0547">matrNr: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="57" x="180.5" y="639.0098">index: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="161" x="180.5" y="651.9648">testParticipationIDs: bytes32[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="178" x="180.5" y="664.9199">courseParticipationIDs: bytes32[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="177" x="180.5" y="677.875">studentSubmissionIDs: bytes32[]</text><line style="stroke: #383838; stroke-width: 1.5;" x1="175.5" x2="363.5" y1="684.1953" y2="684.1953"/><!--class StudentDB--><rect fill="#F8F8F8" height="200.7715" id="StudentDB" style="stroke: #383838; stroke-width: 1.5;" width="527" x="6" y="298.1992"/><ellipse cx="235.75" cy="317.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M238.7231,322.9751 Q238.1421,323.2739 237.5029,323.4233 Q236.8638,323.5728 236.1582,323.5728 Q233.6514,323.5728 232.3315,321.9209 Q231.0117,320.269 231.0117,317.1479 Q231.0117,314.0186 232.3315,312.3667 Q233.6514,310.7148 236.1582,310.7148 Q236.8638,310.7148 237.5112,310.8643 Q238.1587,311.0137 238.7231,311.3125 L238.7231,314.0352 Q238.0923,313.4541 237.4988,313.1843 Q236.9053,312.9146 236.2744,312.9146 Q234.9297,312.9146 234.2449,313.9812 Q233.5601,315.0479 233.5601,317.1479 Q233.5601,319.2397 234.2449,320.3064 Q234.9297,321.373 236.2744,321.373 Q236.9053,321.373 237.4988,321.1033 Q238.0923,320.8335 238.7231,320.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="255.75" y="314.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="59" x="256.25" y="328.9336">StudentDB</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="532" y1="336.4648" y2="336.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="101" x="12" y="351.0996">-indices: address[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="225" x="12" y="364.0547">-students: mapping {address =&gt; Student}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="532" y1="370.375" y2="370.375"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="250" x="12" y="385.0098">+isStudent(account: address) : bool {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="325" x="12" y="397.9648">+addStudent(account: address, name: bytes32, matrNr: uint)</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="430" x="12" y="410.9199">+getStudent(account: address) : Tuple { name: bytes32, matrNr: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="407" x="12" y="423.875">+getStudentAt(index: uint) : Tuple { name: bytes32, matrNr: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="194" x="12" y="436.8301">+getNumStudents() : uint {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="482" x="12" y="466.7402">+addTestParticipationID(account: address, id: bytes32) {permission: "testparticipationdb"}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="515" x="12" y="479.6953">+addCourseParticipationID(account: address, id: bytes32) {permission: "courseparticipationdb"}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="510" x="12" y="492.6504">+addStudentSubmissionID(account: address, id: bytes32) {permission: "studentsubmissiondb"}</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="7" x2="198" y1="449.6279" y2="449.6279"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="143" x="198" y="453.2852">Setter for combined values</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="341" x2="532" y1="449.6279" y2="449.6279"/><!--link ContractManager to ContractProvider--><path d="M432.3042,109.5536 C445.7542,123.911 461.0386,140.2265 475.0614,155.1953 " fill="none" id="ContractManager-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="480.5233,150.7868,489.0882,170.1684,470.3062,160.3582,480.5233,150.7868" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to ContractProvider--><path d="M336.1044,203.6992 C358.8427,203.6992 384.9168,203.6992 410.1605,203.6992 " fill="none" id="ManagedContract-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#383838" points="415.1969,203.6992,406.1969,199.6992,410.1969,203.6992,406.1969,207.6992,415.1969,203.6992" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="43" x="354.25" y="197.2676">«uses»</text><!--link ContractManager to ManagedContract--><path d="M353.4503,113.3687 C331.1234,137.3924 304.6404,165.8881 287.476,184.3571 " fill="none" id="ContractManager-ManagedContract" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="#383838" points="356.9959,109.5536,347.939,113.4231,353.5921,113.2161,353.7991,118.8692,356.9959,109.5536" style="stroke: #383838; stroke-width: 1.0;"/><!--link ManagedContract to StudentDB--><path d="M269.5,242.9609 C269.5,259.0682 269.5,278.5227 269.5,298.1424 " fill="none" id="ManagedContract-StudentDB" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="none" points="262.5001,242.7517,269.5,222.7517,276.5001,242.7516,262.5001,242.7517" style="stroke: #383838; stroke-width: 1.0;"/><!--link StudentDB to Student--><path d="M269.5,499.4775 C269.5,520.0389 269.5,541.1731 269.5,560.1455 " fill="none" id="StudentDB-Student" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+
+title StudentDB
+
+class Student << Struct >> {
+  name: bytes32
+  matrNr: uint
+  index: uint
+  testParticipationIDs: bytes32[]
+  courseParticipationIDs: bytes32[]
+  studentSubmissionIDs: bytes32[]
+}
+
+class StudentDB << Contract >> {
+  -indices: address[]
+  -students: mapping {address => Student}
+  __
+  +isStudent(account: address) : bool {constant}
+  +addStudent(account: address, name: bytes32, matrNr: uint)
+  +getStudent(account: address) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getStudentAt(index: uint) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getNumStudents() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(account: address, id: bytes32) {permission: "testparticipationdb"}
+  +addCourseParticipationID(account: address, id: bytes32) {permission: "courseparticipationdb"}
+  +addStudentSubmissionID(account: address, id: bytes32) {permission: "studentsubmissiondb"}
+}
+
+StudentDB -up-|> ManagedContract
+StudentDB -down- Student
+
+hide ManagedContract members
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

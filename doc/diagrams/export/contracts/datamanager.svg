@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="399px" preserveAspectRatio="none" style="width:968px;height:399px;" version="1.1" viewBox="0 0 968 399" width="968px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="115" x="430" y="17.4023">DataManager</text><!--class ContractProvider--><rect fill="#F8F8F8" height="67.2207" id="ContractProvider" style="stroke: #383838; stroke-width: 1.5;" width="210" x="747" y="299.6992"/><ellipse cx="799.75" cy="318.832" fill="#B1B1B1" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M795.6777,314.5972 L795.6777,312.439 L803.0571,312.439 L803.0571,314.5972 L800.5918,314.5972 L800.5918,322.6738 L803.0571,322.6738 L803.0571,324.832 L795.6777,324.832 L795.6777,322.6738 L798.1431,322.6738 L798.1431,314.5972 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="62" x="837.25" y="316.3008">«Interface»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="96" x="820.25" y="330.4336">ContractProvider</text><line style="stroke: #383838; stroke-width: 1.5;" x1="748" x2="956" y1="337.9648" y2="337.9648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="748" x2="956" y1="345.9648" y2="345.9648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="198" x="753" y="360.5996">+contracts(name: bytes32) : address</text><!--class ManagedContract--><rect fill="#F8F8F8" height="110.0859" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="401" x="266.5" y="278.1992"/><ellipse cx="412.25" cy="297.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M415.2231,302.9751 Q414.6421,303.2739 414.0029,303.4233 Q413.3638,303.5728 412.6582,303.5728 Q410.1514,303.5728 408.8315,301.9209 Q407.5117,300.269 407.5117,297.1479 Q407.5117,294.0186 408.8315,292.3667 Q410.1514,290.7148 412.6582,290.7148 Q413.3638,290.7148 414.0112,290.8643 Q414.6587,291.0137 415.2231,291.3125 L415.2231,294.0352 Q414.5923,293.4541 413.9988,293.1843 Q413.4053,292.9146 412.7744,292.9146 Q411.4297,292.9146 410.7449,293.9812 Q410.0601,295.0479 410.0601,297.1479 Q410.0601,299.2397 410.7449,300.3064 Q411.4297,301.373 412.7744,301.373 Q413.4053,301.373 413.9988,301.1033 Q414.5923,300.8335 415.2231,300.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="453.25" y="294.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="432.75" y="308.9336">ManagedContract</text><line style="stroke: #383838; stroke-width: 1.5;" x1="267.5" x2="666.5" y1="316.4648" y2="316.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="81" x="272.5" y="331.0996">#MAN: address</text><line style="stroke: #383838; stroke-width: 1.5;" x1="267.5" x2="666.5" y1="337.4199" y2="337.4199"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="389" x="272.5" y="352.0547">+setContractManagerAddress(contractManagerAddress: address) : bool</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="213" x="272.5" y="381.9648">#permission(permittedSender: bytes32)</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="267.5" x2="445" y1="364.8525" y2="364.8525"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="44" x="445" y="368.5098">Modifier</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="489" x2="666.5" y1="364.8525" y2="364.8525"/><!--class DataManager--><rect fill="#F8F8F8" height="187.8164" id="DataManager" style="stroke: #383838; stroke-width: 1.5;" width="922" x="6" y="29.1992"/><ellipse cx="424.25" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M427.2231,53.9751 Q426.6421,54.2739 426.0029,54.4233 Q425.3638,54.5728 424.6582,54.5728 Q422.1514,54.5728 420.8315,52.9209 Q419.5117,51.269 419.5117,48.1479 Q419.5117,45.0186 420.8315,43.3667 Q422.1514,41.7148 424.6582,41.7148 Q425.3638,41.7148 426.0112,41.8643 Q426.6587,42.0137 427.2231,42.3125 L427.2231,45.0352 Q426.5923,44.4541 425.9988,44.1843 Q425.4053,43.9146 424.7744,43.9146 Q423.4297,43.9146 422.7449,44.9812 Q422.0601,46.0479 422.0601,48.1479 Q422.0601,50.2397 422.7449,51.3064 Q423.4297,52.373 424.7744,52.373 Q425.4053,52.373 425.9988,52.1033 Q426.5923,51.8335 427.2231,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="453.25" y="45.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="77" x="444.75" y="59.9336">DataManager</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="927" y1="67.4648" y2="67.4648"/><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="927" y1="75.4648" y2="75.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="592" x="12" y="90.0996">+getAllCourses() : Tuple { numCourses: uint, ids: uint[], courseNames: bytes32[], ectsPoints: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="555" x="12" y="103.0547">+getAllTests() : Tuple { numTests: uint, ids: uint[], courseNames: bytes32[], dueDates: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="698" x="12" y="116.0098">+getCourseAssignments(courseID: uint) : Tuple { numAssignments: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="616" x="12" y="128.9648">+getCourseTests(courseID: uint) : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="910" x="12" y="141.9199">+getSubmissionRelatedInfo(submissionID: uint) onlyRegistered submissionExists(submissionID) : Tuple { maxPoints: uint, submissionDate: uint, dueDate: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="586" x="12" y="154.875">+getPersonalCourses() : Tuple { numCourses: uint, ids: uint[], names: bytes32[], ectsPoints: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="643" x="12" y="167.8301">+getPersonalTests() : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[], courseIDs: uint[] } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="95" x="12" y="197.7402">#onlyRegistered()</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="209" x="12" y="210.6953">#submissionExists(submissionID: uint)</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="7" x2="445" y1="180.6279" y2="180.6279"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="44" x="445" y="184.2852">Modifier</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 1.0,2.0;" x1="489" x2="927" y1="180.6279" y2="180.6279"/><!--link ManagedContract to ContractProvider--><path d="M667.6753,333.1992 C693.128,333.1992 718.3898,333.1992 741.6764,333.1992 " fill="none" id="ManagedContract-ContractProvider" style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#383838" points="746.9253,333.1992,737.9253,329.1992,741.9253,333.1992,737.9253,337.1992,746.9253,333.1992" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="43" x="685.75" y="326.7676">«uses»</text><!--link DataManager to ManagedContract--><path d="M467,217.4494 C467,230.883 467,244.5539 467,257.5699 " fill="none" id="DataManager-ManagedContract" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="none" points="474.0001,258.021,467,278.021,460.0001,258.0209,474.0001,258.021" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+
+title DataManager
+
+class DataManager << Contract >> {
+  __
+  +getAllCourses() : Tuple { numCourses: uint, ids: uint[], courseNames: bytes32[], ectsPoints: uint[] } {constant}
+  +getAllTests() : Tuple { numTests: uint, ids: uint[], courseNames: bytes32[], dueDates: uint[] } {constant}
+  +getCourseAssignments(courseID: uint) : Tuple { numAssignments: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}
+  +getCourseTests(courseID: uint) : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[] } {constant}
+  +getSubmissionRelatedInfo(submissionID: uint) onlyRegistered submissionExists(submissionID) : Tuple { maxPoints: uint, submissionDate: uint, dueDate: uint } {constant}
+  +getPersonalCourses() : Tuple { numCourses: uint, ids: uint[], names: bytes32[], ectsPoints: uint[] } {constant}
+  +getPersonalTests() : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[], courseIDs: uint[] } {constant}
+  .. Modifier ..
+  #onlyRegistered()
+  #submissionExists(submissionID: uint)
+}
+
+DataManager -down-|> ManagedContract
+
+hide ContractManager
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

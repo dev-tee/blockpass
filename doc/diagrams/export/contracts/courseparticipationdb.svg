@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="423px" preserveAspectRatio="none" style="width:534px;height:423px;" version="1.1" viewBox="0 0 534 423" width="534px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="191" x="175" y="17.4023">CourseParticipationDB</text><!--class ManagedContract--><rect fill="#F8F8F8" height="38.2656" id="ManagedContract" style="stroke: #383838; stroke-width: 1.5;" width="133" x="285" y="154.6992"/><ellipse cx="300" cy="173.832" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M302.9731,179.4751 Q302.3921,179.7739 301.7529,179.9233 Q301.1138,180.0728 300.4082,180.0728 Q297.9014,180.0728 296.5815,178.4209 Q295.2617,176.769 295.2617,173.6479 Q295.2617,170.5186 296.5815,168.8667 Q297.9014,167.2148 300.4082,167.2148 Q301.1138,167.2148 301.7612,167.3643 Q302.4087,167.5137 302.9731,167.8125 L302.9731,170.5352 Q302.3423,169.9541 301.7488,169.6843 Q301.1553,169.4146 300.5244,169.4146 Q299.1797,169.4146 298.4949,170.4812 Q297.8101,171.5479 297.8101,173.6479 Q297.8101,175.7397 298.4949,176.8064 Q299.1797,177.873 300.5244,177.873 Q301.1553,177.873 301.7488,177.6033 Q302.3423,177.3335 302.9731,176.7524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="334.5" y="171.3008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="101" x="314" y="185.4336">ManagedContract</text><!--class Student--><rect fill="#F8F8F8" height="38.2656" id="Student" style="stroke: #383838; stroke-width: 1.5;" width="75" x="196" y="29.1992"/><ellipse cx="211" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M213.9731,53.9751 Q213.3921,54.2739 212.7529,54.4233 Q212.1138,54.5728 211.4082,54.5728 Q208.9014,54.5728 207.5815,52.9209 Q206.2617,51.269 206.2617,48.1479 Q206.2617,45.0186 207.5815,43.3667 Q208.9014,41.7148 211.4082,41.7148 Q212.1138,41.7148 212.7612,41.8643 Q213.4087,42.0137 213.9731,42.3125 L213.9731,45.0352 Q213.3423,44.4541 212.7488,44.1843 Q212.1553,43.9146 211.5244,43.9146 Q210.1797,43.9146 209.4949,44.9812 Q208.8101,46.0479 208.8101,48.1479 Q208.8101,50.2397 209.4949,51.3064 Q210.1797,52.373 211.5244,52.373 Q212.1553,52.373 212.7488,52.1033 Q213.3423,51.8335 213.9731,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="224.5" y="45.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="43" x="225" y="59.9336">Student</text><!--class Course--><rect fill="#F8F8F8" height="38.2656" id="Course" style="stroke: #383838; stroke-width: 1.5;" width="72" x="88.5" y="29.1992"/><ellipse cx="103.5" cy="48.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M106.4731,53.9751 Q105.8921,54.2739 105.2529,54.4233 Q104.6138,54.5728 103.9082,54.5728 Q101.4014,54.5728 100.0815,52.9209 Q98.7617,51.269 98.7617,48.1479 Q98.7617,45.0186 100.0815,43.3667 Q101.4014,41.7148 103.9082,41.7148 Q104.6138,41.7148 105.2612,41.8643 Q105.9087,42.0137 106.4731,42.3125 L106.4731,45.0352 Q105.8423,44.4541 105.2488,44.1843 Q104.6553,43.9146 104.0244,43.9146 Q102.6797,43.9146 101.9949,44.9812 Q101.3101,46.0479 101.3101,48.1479 Q101.3101,50.2397 101.9949,51.3064 Q102.6797,52.373 104.0244,52.373 Q104.6553,52.373 105.2488,52.1033 Q105.8423,51.8335 106.4731,51.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="115.5" y="45.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="40" x="117.5" y="59.9336">Course</text><!--class CourseParticipation--><rect fill="#F8F8F8" height="93.1309" id="CourseParticipation" style="stroke: #383838; stroke-width: 1.5;" width="143" x="107" y="127.1992"/><ellipse cx="122" cy="146.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M124.9731,151.9751 Q124.3921,152.2739 123.7529,152.4233 Q123.1138,152.5728 122.4082,152.5728 Q119.9014,152.5728 118.5815,150.9209 Q117.2617,149.269 117.2617,146.1479 Q117.2617,143.0186 118.5815,141.3667 Q119.9014,139.7148 122.4082,139.7148 Q123.1138,139.7148 123.7612,139.8643 Q124.4087,140.0137 124.9731,140.3125 L124.9731,143.0352 Q124.3423,142.4541 123.7488,142.1843 Q123.1553,141.9146 122.5244,141.9146 Q121.1797,141.9146 120.4949,142.9812 Q119.8101,144.0479 119.8101,146.1479 Q119.8101,148.2397 120.4949,149.3064 Q121.1797,150.373 122.5244,150.373 Q123.1553,150.373 123.7488,150.1033 Q124.3423,149.8335 124.9731,149.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="44" x="169.5" y="143.8008">«Struct»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="111" x="136" y="157.9336">CourseParticipation</text><line style="stroke: #383838; stroke-width: 1.5;" x1="108" x2="249" y1="165.4648" y2="165.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="101" x="113" y="180.0996">studentID: address</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="75" x="113" y="193.0547">courseID: uint</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="67" x="113" y="206.0098">idIndex: uint</text><line style="stroke: #383838; stroke-width: 1.5;" x1="108" x2="249" y1="212.3301" y2="212.3301"/><!--class CourseParticipationDB--><rect fill="#F8F8F8" height="131.9961" id="CourseParticipationDB" style="stroke: #383838; stroke-width: 1.5;" width="517" x="6" y="280.1992"/><ellipse cx="196.75" cy="299.332" fill="#C2C2C2" rx="11" ry="11" style="stroke: #383838; stroke-width: 1.0;"/><path d="M199.7231,304.9751 Q199.1421,305.2739 198.5029,305.4233 Q197.8638,305.5728 197.1582,305.5728 Q194.6514,305.5728 193.3315,303.9209 Q192.0117,302.269 192.0117,299.1479 Q192.0117,296.0186 193.3315,294.3667 Q194.6514,292.7148 197.1582,292.7148 Q197.8638,292.7148 198.5112,292.8643 Q199.1587,293.0137 199.7231,293.3125 L199.7231,296.0352 Q199.0923,295.4541 198.4988,295.1843 Q197.9053,294.9146 197.2744,294.9146 Q195.9297,294.9146 195.2449,295.9812 Q194.5601,297.0479 194.5601,299.1479 Q194.5601,301.2397 195.2449,302.3064 Q195.9297,303.373 197.2744,303.373 Q197.9053,303.373 198.4988,303.1033 Q199.0923,302.8335 199.7231,302.2524 Z "/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="60" x="250.75" y="296.8008">«Contract»</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="127" x="217.25" y="310.9336">CourseParticipationDB</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="522" y1="318.4648" y2="318.4648"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="184" x="12" y="333.0996">-courseParticipationIDs: bytes32[]</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="353" x="12" y="346.0547">-courseParticipations: mapping {bytes32 =&gt; CourseParticipation}</text><line style="stroke: #383838; stroke-width: 1.5;" x1="7" x2="522" y1="352.375" y2="352.375"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="322" x="12" y="367.0098">+exists(studentID: address, courseID: uint) : bool {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="325" x="12" y="379.9648">+addCourseParticipation(studentID: address, courseID: uint)</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="505" x="12" y="392.9199">+getCourseParticipationAt(index: uint) : Tuple { studentID: address, courseID: uint } {constant}</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="495" x="12" y="405.875">+getCourseParticipation(id: bytes32) : Tuple { studentID: address, courseID: uint } {constant}</text><!--link ManagedContract to CourseParticipationDB--><path d="M332.7127,210.9499 C322.527,231.1457 309.6361,256.7052 297.81,280.1536 " fill="none" id="ManagedContract-CourseParticipationDB" style="stroke: #383838; stroke-width: 1.0;"/><polygon fill="none" points="326.6006,207.524,341.8571,192.8188,339.1008,213.8284,326.6006,207.524" style="stroke: #383838; stroke-width: 1.0;"/><!--link CourseParticipation to CourseParticipationDB--><path d="M201.7728,220.3802 C210.9259,238.7394 221.6014,260.1525 231.523,280.0535 " fill="none" id="CourseParticipation-CourseParticipationDB" style="stroke: #383838; stroke-width: 1.0;"/><!--link Student to CourseParticipation--><path d="M225.1467,67.2599 C218.2049,83.0998 208.0318,106.313 198.9562,127.022 " fill="none" id="Student-CourseParticipation" style="stroke: #383838; stroke-width: 1.0;"/><!--link Course to CourseParticipation--><path d="M132.7014,67.2599 C139.517,83.0998 149.5051,106.313 158.4158,127.022 " fill="none" id="Course-CourseParticipation" style="stroke: #383838; stroke-width: 1.0;"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+
+
+
+
+
+
+title Owned
+
+class Owned << Contract >> {
+  +owner: address
+  __
+  +Owned()
+  .. Modifier ..
+  #onlyOwner()
+}
+
+
+
+title ContractProvider
+
+interface ContractProvider << Interface >> {
+  +contracts(name: bytes32) : address
+}
+
+
+title ContractManager
+
+class ContractManager << Contract >> {
+  +contracts: mapping {name: bytes32 => address}
+  +addContract(contractName: bytes32, contractAddress: address) : bool {onlyOwner}
+}
+
+ContractManager -up-|> Owned
+
+ContractManager .down.|> ContractProvider
+
+
+title ManagedContract
+
+class ManagedContract << Contract >> {
+  #MAN: address
+  __
+  +setContractManagerAddress(contractManagerAddress: address) : bool
+  .. Modifier ..
+  #permission(permittedSender: bytes32)
+}
+
+ManagedContract .right.> ContractProvider : << uses >>
+ManagedContract -up-> ContractManager
+
+hide Owned
+
+
+
+
+title StudentDB
+
+class Student << Struct >> {
+  name: bytes32
+  matrNr: uint
+  index: uint
+  testParticipationIDs: bytes32[]
+  courseParticipationIDs: bytes32[]
+  studentSubmissionIDs: bytes32[]
+}
+
+class StudentDB << Contract >> {
+  -indices: address[]
+  -students: mapping {address => Student}
+  __
+  +isStudent(account: address) : bool {constant}
+  +addStudent(account: address, name: bytes32, matrNr: uint)
+  +getStudent(account: address) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getStudentAt(index: uint) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +getNumStudents() : uint {constant}
+  .. Setter for combined values ..
+  +addTestParticipationID(account: address, id: bytes32) {permission: "testparticipationdb"}
+  +addCourseParticipationID(account: address, id: bytes32) {permission: "courseparticipationdb"}
+  +addStudentSubmissionID(account: address, id: bytes32) {permission: "studentsubmissiondb"}
+}
+
+StudentDB -up-|> ManagedContract
+StudentDB -down- Student
+
+hide ManagedContract members
+
+
+
+
+title CourseDB
+
+class Course << Struct >> {
+  description: string
+  ectsPoints: uint
+  name: bytes32
+  assignmentIDs: uint[]
+  testIDs: uint[]
+  courseParticipationIDs: bytes32[]
+  courseSupervisionIDs: bytes32[]
+}
+
+class CourseDB << Contract >> {
+  -courses: Course[]
+  __
+  +addCourse(description: string, name: bytes32, ectsPoints: uint) : uint
+  +getCourse(id: uint) : Tuple { description: string, name: bytes32, ectsPoints: uint } {constant}
+  +getNumCourses() : uint {constant}
+  .. Setter for combined values ..
+  +addCourseParticipationID(courseID: uint, id: bytes32) {permission: "courseparticipationdb" }
+  +addCourseSupervisionID(courseID: uint, id: bytes32) {permission: "coursesupervisiondb"}
+  +addAssignmentID(courseID: uint, id: uint) {permission: "assignmentdb"}
+  +addTestID(courseID: uint, id: uint) {permission: "testdb"}
+}
+
+CourseDB -up-|> ManagedContract
+CourseDB -down- Course
+
+hide ManagedContract members
+
+
+title CourseParticipationDB
+
+class CourseParticipation << Struct >> {
+  studentID: address
+  courseID: uint
+  idIndex: uint
+}
+
+class CourseParticipationDB << Contract >> {
+  -courseParticipationIDs: bytes32[]
+  -courseParticipations: mapping {bytes32 => CourseParticipation}
+  __
+  +exists(studentID: address, courseID: uint) : bool {constant}
+  +addCourseParticipation(studentID: address, courseID: uint)
+  +getCourseParticipationAt(index: uint) : Tuple { studentID: address, courseID: uint } {constant}
+  +getCourseParticipation(id: bytes32) : Tuple { studentID: address, courseID: uint } {constant}
+}
+
+
+
+CourseParticipationDB -up-|> ManagedContract
+CourseParticipationDB -up- CourseParticipation
+CourseParticipation -up- Student
+CourseParticipation -up- Course
+
+hide ManagedContract members
+hide StudentDB
+hide Student members
+hide CourseDB
+hide Course members
+hide ContractManager
+hide ContractProvider
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

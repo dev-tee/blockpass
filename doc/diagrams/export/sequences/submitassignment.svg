@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="880px" preserveAspectRatio="none" style="width:2042px;height:880px;" version="1.1" viewBox="0 0 2042 880" width="2042px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="178" x="933" y="23.5352">U3.2 Submit Assignment</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="245.5" y="143.9766"/><rect fill="#FFFFFF" height="582.3477" style="stroke: #383838; stroke-width: 1.0;" width="10" x="805.5" y="215.5977"/><rect fill="#FFFFFF" height="269.9961" style="stroke: #383838; stroke-width: 1.0;" width="10" x="810.5" y="282.9082"/><rect fill="#FFFFFF" height="176.375" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1291.5" y="317.2188"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1291.5" y="707.3242"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1534.5" y="412.3281"/><rect fill="#FFFFFF" height="229.7305" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1683" y="522.9043"/><rect fill="#FFFFFF" height="61.9316" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1683" y="797.9453"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1973.5" y="648.0137"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="93" x="1362" y="325.5293"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="1369" y="346.0645">Submission</text><rect fill="#FFFFFF" height="91.5762" style="stroke: #000000; stroke-width: 2.0;" width="375" x="1231" y="374.0176"/><rect fill="#FFFFFF" height="14.9551" style="stroke: none; stroke-width: 1.0;" width="375" x="1231" y="450.6387"/><rect fill="#FFFFFF" height="177.4199" style="stroke: #000000; stroke-width: 2.0;" width="800" x="1231" y="568.2148"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="146" x="1780" y="585.5254"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="132" x="1787" y="606.0605">StudentSubmission</text><rect fill="#FFFFFF" height="92.2422" style="stroke: #000000; stroke-width: 2.0;" width="1294" x="737" y="759.6348"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="37" x2="37" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="250.5" x2="250.5" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="810" x2="810" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1296" x2="1296" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1408" x2="1408" y1="356.2734" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1539" x2="1539" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1688" x2="1688" y1="112.9766" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1853" x2="1853" y1="616.2695" y2="868.877"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1978" x2="1978" y1="112.9766" y2="868.877"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="53" x="8" y="110.0234">Student</text><ellipse cx="37.5" cy="43.4883" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 2.0;"/><path d="M37.5,51.4883 L37.5,78.4883 M24.5,59.4883 L50.5,59.4883 M37.5,78.4883 L24.5,93.4883 M37.5,78.4883 L50.5,93.4883 " fill="#F8F8F8" style="stroke: #383838; stroke-width: 2.0;"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="42" x="229.5" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="236.5" y="102.0234">App</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="127" x="747" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="113" x="754" y="102.0234">StudentManager</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="111" x="1241" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="97" x="1248" y="102.0234">SubmissionDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="113" x="1483" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="99" x="1490" y="102.0234">AssignmentDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="164" x="1606" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="150" x="1613" y="102.0234">StudentSubmissionDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="85" x="1936" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="71" x="1943" y="102.0234">StudentDB</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="245.5" y="143.9766"/><rect fill="#FFFFFF" height="582.3477" style="stroke: #383838; stroke-width: 1.0;" width="10" x="805.5" y="215.5977"/><rect fill="#FFFFFF" height="269.9961" style="stroke: #383838; stroke-width: 1.0;" width="10" x="810.5" y="282.9082"/><rect fill="#FFFFFF" height="176.375" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1291.5" y="317.2188"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1291.5" y="707.3242"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1534.5" y="412.3281"/><rect fill="#FFFFFF" height="229.7305" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1683" y="522.9043"/><rect fill="#FFFFFF" height="61.9316" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1683" y="797.9453"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1973.5" y="648.0137"/><polygon fill="#383838" points="233.5,139.9766,243.5,143.9766,233.5,147.9766,237.5,143.9766" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="37.5" x2="239.5" y1="143.9766" y2="143.9766"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="189" x="44.5" y="139.5449">submitAssignmentForm(form)</text><line style="stroke: #383838; stroke-width: 1.0;" x1="255.5" x2="297.5" y1="173.5977" y2="173.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="297.5" x2="297.5" y1="173.5977" y2="186.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="256.5" x2="297.5" y1="186.5977" y2="186.5977"/><polygon fill="#383838" points="266.5,182.5977,256.5,186.5977,266.5,190.5977,262.5,186.5977" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="57" x="262.5" y="168.8555">validate()</text><polygon fill="#383838" points="793.5,211.5977,803.5,215.5977,793.5,219.5977,797.5,215.5977" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="255.5" x2="799.5" y1="215.5977" y2="215.5977"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="531" x="262.5" y="211.166">uploadAssignmentSubmission(description, assignmentID, remainingGroupMembers)</text><line style="stroke: #383838; stroke-width: 1.0;" x1="815.5" x2="862.5" y1="270.2188" y2="270.2188"/><line style="stroke: #383838; stroke-width: 1.0;" x1="862.5" x2="862.5" y1="270.2188" y2="283.2188"/><line style="stroke: #383838; stroke-width: 1.0;" x1="821.5" x2="862.5" y1="283.2188" y2="283.2188"/><polygon fill="#383838" points="831.5,279.2188,821.5,283.2188,831.5,287.2188,827.5,283.2188" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="446" x="827.5" y="265.4766">uploadSubmission(description, now, referenceType = 0, assignmentID)</text><polygon fill="#383838" points="1279.5,313.2188,1289.5,317.2188,1279.5,321.2188,1283.5,317.2188" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="820.5" x2="1285.5" y1="317.2188" y2="317.2188"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="452" x="827.5" y="312.7871">addSubmission(description, submittedDate, referenceType, referenceID)</text><polygon fill="#383838" points="1350,327.5293,1360,331.5293,1350,335.5293,1354,331.5293" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1301.5" x2="1356" y1="331.5293" y2="331.5293"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="93" x="1362" y="325.5293"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="79" x="1369" y="346.0645">Submission</text><rect fill="none" height="91.5762" style="stroke: #000000; stroke-width: 2.0;" width="375" x="1231" y="374.0176"/><polygon fill="#EEEEEE" points="1231,374.0176,1293,374.0176,1293,381.0176,1283,391.0176,1231,391.0176,1231,374.0176" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="17" x="1246" y="387.5859">alt</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="120" x="1308" y="386.6523">[referenceType == 0]</text><polygon fill="#383838" points="1522.5,408.3281,1532.5,412.3281,1522.5,416.3281,1526.5,412.3281" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1301.5" x2="1528.5" y1="412.3281" y2="412.3281"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="214" x="1308.5" y="407.8965">addSubmissionID(referenceID, id);</text><line style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="1231" x2="1606" y1="451.6387" y2="451.6387"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="120" x="1236" y="462.2734">[referenceType == 1]</text><polygon fill="#383838" points="831.5,489.5938,821.5,493.5938,831.5,497.5938,827.5,493.5938" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="825.5" x2="1295.5" y1="493.5938" y2="493.5938"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="87" x="837.5" y="489.1621">submissionID</text><polygon fill="#383838" points="1671,518.9043,1681,522.9043,1671,526.9043,1675,522.9043" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="820.5" x2="1677" y1="522.9043" y2="522.9043"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="351" x="827.5" y="518.4727">addStudentSubmission(senderStudentID, submissionID)</text><rect fill="none" height="177.4199" style="stroke: #000000; stroke-width: 2.0;" width="800" x="1231" y="568.2148"/><polygon fill="#EEEEEE" points="1231,568.2148,1433,568.2148,1433,575.2148,1423,585.2148,1231,585.2148,1231,568.2148" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="157" x="1246" y="581.7832">AddStudentSubmission</text><polygon fill="#383838" points="1768,587.5254,1778,591.5254,1768,595.5254,1772,591.5254" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1693" x2="1774" y1="591.5254" y2="591.5254"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="146" x="1780" y="585.5254"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="132" x="1787" y="606.0605">StudentSubmission</text><polygon fill="#383838" points="1961.5,644.0137,1971.5,648.0137,1961.5,652.0137,1965.5,648.0137" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1693" x2="1967.5" y1="648.0137" y2="648.0137"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="248" x="1700" y="643.582">addStudentSubmissionID(studentID, id)</text><polygon fill="#383838" points="1312.5,703.3242,1302.5,707.3242,1312.5,711.3242,1308.5,707.3242" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1306.5" x2="1682" y1="707.3242" y2="707.3242"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="273" x="1318.5" y="702.8926">addStudentSubmissionID(submissionID, id)</text><rect fill="none" height="92.2422" style="stroke: #000000; stroke-width: 2.0;" width="1294" x="737" y="759.6348"/><polygon fill="#EEEEEE" points="737,759.6348,811,759.6348,811,766.6348,801,776.6348,737,776.6348,737,759.6348" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="29" x="752" y="773.2031">loop</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="11" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="248" x="826" y="772.2695">[times number of remainingGroupMembers]</text><polygon fill="#383838" points="1671,793.9453,1681,797.9453,1671,801.9453,1675,797.9453" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="810.5" x2="1677" y1="797.9453" y2="797.9453"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="309" x="817.5" y="793.5137">addStudentSubmission(studentID, submissionID)</text><rect fill="#FFFFFF" height="40.6211" style="stroke: #000000; stroke-width: 2.0;" width="786" x="1238" y="806.2559"/><polygon fill="#EEEEEE" points="1238,806.2559,1302,806.2559,1302,813.2559,1292,823.2559,1238,823.2559,1238,806.2559" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="19" x="1251" y="820.8242">ref</text><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="146" x="1558" y="839.8242">AddStudentSubmission</text><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+title U3.2 Submit Assignment
+
+actor Student
+
+Student -> App: submitAssignmentForm(form)
+activate App
+
+App -> App: validate()
+
+App -> StudentManager: uploadAssignmentSubmission(description, assignmentID, remainingGroupMembers)
+activate StudentManager
+deactivate App
+
+StudentManager -> StudentManager: uploadSubmission(description, now, referenceType = 0, assignmentID)
+activate StudentManager
+
+StudentManager -> SubmissionDB: addSubmission(description, submittedDate, referenceType, referenceID)
+activate SubmissionDB
+
+create Submission
+SubmissionDB -> Submission
+
+alt referenceType == 0
+  SubmissionDB -> AssignmentDB: addSubmissionID(referenceID, id);
+  activate AssignmentDB
+  deactivate AssignmentDB
+else referenceType == 1
+end
+
+SubmissionDB - -> StudentManager: submissionID
+deactivate SubmissionDB
+
+StudentManager -> StudentSubmissionDB: addStudentSubmission(senderStudentID, submissionID)
+activate StudentSubmissionDB
+deactivate StudentManager
+
+group AddStudentSubmission
+
+  create StudentSubmission
+  StudentSubmissionDB -> StudentSubmission
+
+  StudentSubmissionDB -> StudentDB: addStudentSubmissionID(studentID, id)
+  activate StudentDB
+  deactivate StudentDB
+
+  StudentSubmissionDB -> SubmissionDB: addStudentSubmissionID(submissionID, id)
+  activate SubmissionDB
+  deactivate SubmissionDB
+
+end
+
+deactivate StudentSubmissionDB
+
+loop times number of remainingGroupMembers
+
+  StudentManager -> StudentSubmissionDB: addStudentSubmission(studentID, submissionID)
+  deactivate StudentManager
+
+  ref over StudentSubmissionDB, StudentSubmission, StudentDB, SubmissionDB: AddStudentSubmission
+  activate StudentSubmissionDB
+  deactivate StudentSubmissionDB
+
+end
+
+
+
+hide footbox
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

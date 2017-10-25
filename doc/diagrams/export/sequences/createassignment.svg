@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="420px" preserveAspectRatio="none" style="width:1410px;height:420px;" version="1.1" viewBox="0 0 1410 420" width="1410px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="173" x="617" y="23.5352">U3.1 Create Assignment</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="305.5" y="143.9766"/><rect fill="#FFFFFF" height="174.4199" style="stroke: #383838; stroke-width: 1.0;" width="10" x="724.5" y="215.5977"/><rect fill="#FFFFFF" height="115.1094" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1128.5" y="274.9082"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1353.5" y="345.707"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="95" x="1200" y="283.2188"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="1207" y="303.7539">Assignment</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="44" x2="44" y1="112.9766" y2="408.0176"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="310.5" x2="310.5" y1="112.9766" y2="408.0176"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="729" x2="729" y1="112.9766" y2="408.0176"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1133" x2="1133" y1="112.9766" y2="408.0176"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1247" x2="1247" y1="313.9629" y2="408.0176"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1358" x2="1358" y1="112.9766" y2="408.0176"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="67" x="8" y="110.0234">Instructor</text><ellipse cx="44.5" cy="43.4883" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 2.0;"/><path d="M44.5,51.4883 L44.5,78.4883 M31.5,59.4883 L57.5,59.4883 M44.5,78.4883 L31.5,93.4883 M44.5,78.4883 L57.5,93.4883 " fill="#F8F8F8" style="stroke: #383838; stroke-width: 2.0;"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="42" x="289.5" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="296.5" y="102.0234">App</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="147" x="656" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="133" x="663" y="102.0234">SupervisorManager</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="113" x="1077" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="99" x="1084" y="102.0234">AssignmentDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="81" x="1318" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="67" x="1325" y="102.0234">CourseDB</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="305.5" y="143.9766"/><rect fill="#FFFFFF" height="174.4199" style="stroke: #383838; stroke-width: 1.0;" width="10" x="724.5" y="215.5977"/><rect fill="#FFFFFF" height="115.1094" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1128.5" y="274.9082"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1353.5" y="345.707"/><polygon fill="#383838" points="293.5,139.9766,303.5,143.9766,293.5,147.9766,297.5,143.9766" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="44.5" x2="299.5" y1="143.9766" y2="143.9766"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="242" x="51.5" y="139.5449">submitAssignmentCreationForm(form)</text><line style="stroke: #383838; stroke-width: 1.0;" x1="315.5" x2="357.5" y1="173.5977" y2="173.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="357.5" x2="357.5" y1="173.5977" y2="186.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="316.5" x2="357.5" y1="186.5977" y2="186.5977"/><polygon fill="#383838" points="326.5,182.5977,316.5,186.5977,326.5,190.5977,322.5,186.5977" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="57" x="322.5" y="168.8555">validate()</text><polygon fill="#383838" points="712.5,211.5977,722.5,215.5977,712.5,219.5977,716.5,215.5977" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="315.5" x2="718.5" y1="215.5977" y2="215.5977"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="390" x="322.5" y="211.166">createAssignment(description, maxPoints, dueDate, courseID)</text><polygon fill="#383838" points="1116.5,270.9082,1126.5,274.9082,1116.5,278.9082,1120.5,274.9082" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="734.5" x2="1122.5" y1="274.9082" y2="274.9082"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="375" x="741.5" y="270.4766">addAssignment(description, maxPoints, dueDate, courseID)</text><polygon fill="#383838" points="1188,285.2188,1198,289.2188,1188,293.2188,1192,289.2188" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1138.5" x2="1194" y1="289.2188" y2="289.2188"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="95" x="1200" y="283.2188"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="1207" y="303.7539">Assignment</text><polygon fill="#383838" points="1341.5,341.707,1351.5,345.707,1341.5,349.707,1345.5,345.707" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1138.5" x2="1347.5" y1="345.707" y2="345.707"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="196" x="1145.5" y="341.2754">addAssignmentID(courseID, id)</text><polygon fill="#383838" points="740.5,386.0176,730.5,390.0176,740.5,394.0176,736.5,390.0176" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="734.5" x2="1132.5" y1="390.0176" y2="390.0176"/><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+title U3.1 Create Assignment
+
+actor Instructor
+
+Instructor -> App: submitAssignmentCreationForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: createAssignment(description, maxPoints, dueDate, courseID)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> AssignmentDB: addAssignment(description, maxPoints, dueDate, courseID)
+activate AssignmentDB
+
+create Assignment
+AssignmentDB -> Assignment
+
+AssignmentDB -> CourseDB: addAssignmentID(courseID, id)
+activate CourseDB
+deactivate CourseDB
+
+AssignmentDB - -> SupervisorManager
+deactivate AssignmentDB
+
+deactivate SupervisorManager
+
+hide footbox
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>

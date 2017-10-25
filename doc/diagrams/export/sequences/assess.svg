@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="596px" preserveAspectRatio="none" style="width:1743px;height:596px;" version="1.1" viewBox="0 0 1743 596" width="1743px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="74" x="835.75" y="23.5352">U5 Assess</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="252.5" y="143.9766"/><rect fill="#FFFFFF" height="359.1504" style="stroke: #383838; stroke-width: 1.0;" width="10" x="599.5" y="215.5977"/><rect fill="#FFFFFF" height="70.7988" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1007.5" y="274.9082"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1007.5" y="529.4375"/><rect fill="#FFFFFF" height="199.7305" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1331.5" y="375.0176"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1665" y="470.127"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="95" x="1079" y="283.2188"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="1086" y="303.7539">Assessment</text><rect fill="#FFFFFF" height="177.4199" style="stroke: #000000; stroke-width: 2.0;" width="786.5" x="946" y="390.3281"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="168" x="1439.5" y="407.6387"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="154" x="1446.5" y="428.1738">SupervisorAssessment</text><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="44" x2="44" y1="112.9766" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="257.5" x2="257.5" y1="112.9766" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="604" x2="604" y1="112.9766" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1012" x2="1012" y1="112.9766" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1126" x2="1126" y1="313.9629" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1336.5" x2="1336.5" y1="112.9766" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1523.5" x2="1523.5" y1="438.3828" y2="584.748"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="1669.5" x2="1669.5" y1="112.9766" y2="584.748"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="67" x="8" y="110.0234">Instructor</text><ellipse cx="44.5" cy="43.4883" fill="#F8F8F8" rx="8" ry="8" style="stroke: #383838; stroke-width: 2.0;"/><path d="M44.5,51.4883 L44.5,78.4883 M31.5,59.4883 L57.5,59.4883 M44.5,78.4883 L31.5,93.4883 M44.5,78.4883 L57.5,93.4883 " fill="#F8F8F8" style="stroke: #383838; stroke-width: 2.0;"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="42" x="236.5" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="28" x="243.5" y="102.0234">App</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="147" x="531" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="133" x="538" y="102.0234">SupervisorManager</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="113" x="956" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="99" x="963" y="102.0234">AssessmentDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="186" x="1243.5" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="172" x="1250.5" y="102.0234">SupervisorAssessmentDB</text><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="105" x="1617.5" y="81.4883"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="91" x="1624.5" y="102.0234">SupervisorDB</text><rect fill="#FFFFFF" height="101.6211" style="stroke: #383838; stroke-width: 1.0;" width="10" x="252.5" y="143.9766"/><rect fill="#FFFFFF" height="359.1504" style="stroke: #383838; stroke-width: 1.0;" width="10" x="599.5" y="215.5977"/><rect fill="#FFFFFF" height="70.7988" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1007.5" y="274.9082"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1007.5" y="529.4375"/><rect fill="#FFFFFF" height="199.7305" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1331.5" y="375.0176"/><rect fill="#FFFFFF" height="30" style="stroke: #383838; stroke-width: 1.0;" width="10" x="1665" y="470.127"/><polygon fill="#383838" points="240.5,139.9766,250.5,143.9766,240.5,147.9766,244.5,143.9766" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="44.5" x2="246.5" y1="143.9766" y2="143.9766"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="189" x="51.5" y="139.5449">submitAssignmentForm(form)</text><line style="stroke: #383838; stroke-width: 1.0;" x1="262.5" x2="304.5" y1="173.5977" y2="173.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="304.5" x2="304.5" y1="173.5977" y2="186.5977"/><line style="stroke: #383838; stroke-width: 1.0;" x1="263.5" x2="304.5" y1="186.5977" y2="186.5977"/><polygon fill="#383838" points="273.5,182.5977,263.5,186.5977,273.5,190.5977,269.5,186.5977" style="stroke: #383838; stroke-width: 1.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="57" x="269.5" y="168.8555">validate()</text><polygon fill="#383838" points="587.5,211.5977,597.5,215.5977,587.5,219.5977,591.5,215.5977" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="262.5" x2="593.5" y1="215.5977" y2="215.5977"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="318" x="269.5" y="211.166">assess(description, obtainedPoints, submissionID)</text><polygon fill="#383838" points="995.5,270.9082,1005.5,274.9082,995.5,278.9082,999.5,274.9082" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="609.5" x2="1001.5" y1="274.9082" y2="274.9082"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="379" x="616.5" y="270.4766">addAssessment(description, obtainedPoints, submissionID);</text><polygon fill="#383838" points="1067,285.2188,1077,289.2188,1067,293.2188,1071,289.2188" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1017.5" x2="1073" y1="289.2188" y2="289.2188"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="95" x="1079" y="283.2188"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="1086" y="303.7539">Assessment</text><polygon fill="#383838" points="620.5,341.707,610.5,345.707,620.5,349.707,616.5,345.707" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="614.5" x2="1011.5" y1="345.707" y2="345.707"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="88" x="626.5" y="341.2754">assessmentID</text><polygon fill="#383838" points="1319.5,371.0176,1329.5,375.0176,1319.5,379.0176,1323.5,375.0176" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="609.5" x2="1325.5" y1="375.0176" y2="375.0176"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="391" x="616.5" y="370.5859">addSupervisorAssessment(senderSupervisorID, assessmentID)</text><rect fill="none" height="177.4199" style="stroke: #000000; stroke-width: 2.0;" width="786.5" x="946" y="390.3281"/><polygon fill="#EEEEEE" points="946,390.3281,1172,390.3281,1172,397.3281,1162,407.3281,946,407.3281,946,390.3281" style="stroke: #000000; stroke-width: 2.0;"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="181" x="961" y="403.8965">AddSupervisorAssessment</text><polygon fill="#383838" points="1427.5,409.6387,1437.5,413.6387,1427.5,417.6387,1431.5,413.6387" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1341.5" x2="1433.5" y1="413.6387" y2="413.6387"/><rect fill="#F8F8F8" height="30.4883" style="stroke: #383838; stroke-width: 1.5;" width="168" x="1439.5" y="407.6387"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="154" x="1446.5" y="428.1738">SupervisorAssessment</text><polygon fill="#383838" points="1653,466.127,1663,470.127,1653,474.127,1657,470.127" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1341.5" x2="1659" y1="470.127" y2="470.127"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="287" x="1348.5" y="465.6953">addSupervisorAssessmentID(supervisorID, id)</text><polygon fill="#383838" points="1028.5,525.4375,1018.5,529.4375,1028.5,533.4375,1024.5,529.4375" style="stroke: #383838; stroke-width: 1.0;"/><line style="stroke: #383838; stroke-width: 1.0;" x1="1022.5" x2="1330.5" y1="529.4375" y2="529.4375"/><text fill="#000000" font-family="Source Sans Pro Semibold" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="295" x="1034.5" y="525.0059">addSupervisorAssessmentID(assessmentID, id)</text><!--
+@startuml
+
+
+'skinparam handwritten true
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Source Sans Pro Semibold"
+    
+
+title U5 Assess
+
+actor Instructor
+
+Instructor -> App: submitAssignmentForm(form)
+activate App
+
+App -> App: validate()
+
+App -> SupervisorManager: assess(description, obtainedPoints, submissionID)
+activate SupervisorManager
+deactivate App
+
+SupervisorManager -> AssessmentDB: addAssessment(description, obtainedPoints, submissionID);
+activate AssessmentDB
+
+create Assessment
+AssessmentDB -> Assessment
+
+AssessmentDB - -> SupervisorManager: assessmentID
+deactivate AssessmentDB
+
+SupervisorManager -> SupervisorAssessmentDB: addSupervisorAssessment(senderSupervisorID, assessmentID)
+activate SupervisorAssessmentDB
+
+group AddSupervisorAssessment
+
+  create SupervisorAssessment
+  SupervisorAssessmentDB -> SupervisorAssessment
+
+  SupervisorAssessmentDB -> SupervisorDB: addSupervisorAssessmentID(supervisorID, id)
+  activate SupervisorDB
+  deactivate SupervisorDB
+
+  SupervisorAssessmentDB -> AssessmentDB: addSupervisorAssessmentID(assessmentID, id)
+  activate AssessmentDB
+  deactivate AssessmentDB
+
+end
+
+deactivate SupervisorAssessmentDB
+
+deactivate SupervisorManager
+
+hide footbox
+
+@enduml
+
+PlantUML version 1.2017.18(Fri Oct 06 18:56:32 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_131-b11
+Operating System: Mac OS X
+OS Version: 10.12.6
+Default Encoding: UTF-8
+Language: de
+Country: AT
+--></g></svg>
