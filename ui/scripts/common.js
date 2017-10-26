@@ -13,7 +13,7 @@ function init3() {
 
   if (web3.isConnected()) {
     if (isLoggedIn()) {
-      web3.eth.defaultAccount = localStorage['address'];
+      web3.eth.defaultAccount = sessionStorage['address'];
     }
     document.dispatchEvent(new Event('init3'));
   } else {
@@ -23,33 +23,33 @@ function init3() {
 
 function signAndSend(data, destination) {
   var tx = {
-    "from": localStorage['address'],
+    "from": sessionStorage['address'],
     "to": destination,
     "data": data,
     "gasPrice": 0
   };
   // tx.gas = web3.eth.estimateGas(tx);
   // console.log("Estimated gas cost: " + tx.gas);
-  web3.personal.sendTransaction(tx, localStorage['password']);
+  web3.personal.sendTransaction(tx, sessionStorage['password']);
 }
 
 function logout() {
-  localStorage.clear();
+  sessionStorage.clear();
   web3.eth.defaultAccount = undefined;
   
   window.location.assign('../index.html');
 }
 
 function isLoggedIn() {
-  return Boolean(localStorage['address']) && Boolean(localStorage['password']);
+  return Boolean(sessionStorage['address']) && Boolean(sessionStorage['password']);
 }
 
 function isStudent() {
-  return localStorage['usertype'] == 'student';
+  return sessionStorage['usertype'] == 'student';
 }
 
 function isSupervisor() {
-  return localStorage['usertype'] == 'supervisor';
+  return sessionStorage['usertype'] == 'supervisor';
 }
 
 function checkPage() {
@@ -59,7 +59,7 @@ function checkPage() {
     && path.search('signup.html') == -1)
   {
     if (isLoggedIn()) {
-      if (path.search('/personal/') == -1 && path.search(localStorage['usertype']) == -1) {
+      if (path.search('/personal/') == -1 && path.search(sessionStorage['usertype']) == -1) {
         window.location.assign('../personal/courses.html');
         return;
       }

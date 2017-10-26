@@ -1,7 +1,7 @@
 function cacheCredentials(address, password, usertype) {
-  localStorage['address'] = address;
-  localStorage['password'] = password;
-  localStorage['usertype'] = usertype;
+  sessionStorage['address'] = address;
+  sessionStorage['password'] = password;
+  sessionStorage['usertype'] = usertype;
 }
 
 function enter() {
@@ -157,7 +157,7 @@ function getSelections() {
   var addresses = [];
   for (var variable in helpers) {
     if (helpers.hasOwnProperty(variable)
-      && helpers[variable] != localStorage['address'])
+      && helpers[variable] != sessionStorage['address'])
     {
       addresses.push(helpers[variable]);
     }
@@ -170,7 +170,7 @@ function render(suggested, selected) {
   suggestions.push('<ul class="suggestions">');
   for (var variable in suggested) {
     if (suggested.hasOwnProperty(variable)
-      && suggested[variable] != localStorage['address']) {
+      && suggested[variable] != sessionStorage['address']) {
       suggestions.push(`<li>${variable}`);
       suggestions.push(`<span
         data-id="${variable}"
@@ -185,7 +185,7 @@ function render(suggested, selected) {
   selections.push('<ul class="selections">');
   for (var variable in selected) {
     if (selected.hasOwnProperty(variable)
-      && selected[variable] != localStorage['address']) {
+      && selected[variable] != sessionStorage['address']) {
       selections.push(`<li>${variable}`);
       selections.push(`<span
         data-id="${variable}"
@@ -204,7 +204,7 @@ function render(suggested, selected) {
 
 function parseAndFind(event) {
   var helper = event.target.value;
-  var usertype = localStorage['usertype'];
+  var usertype = sessionStorage['usertype'];
   find(usertype, helper, (error, result) => {
     if (error) {
       render(undefined, helpers);
