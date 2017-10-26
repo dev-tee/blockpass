@@ -54,7 +54,10 @@ function isSupervisor() {
 
 function checkPage() {
   var path = window.location.pathname;
-  if (path.search('index.html') == -1 && path.search('signup.html') == -1) {
+  if (path.search('/$') == -1
+    && path.search('index.html') == -1
+    && path.search('signup.html') == -1)
+  {
     if (isLoggedIn()) {
       if (path.search('/personal/') == -1 && path.search(localStorage['usertype']) == -1) {
         window.location.assign('../personal/courses.html');
@@ -91,7 +94,7 @@ blockpass.parseIDs = function() {
   for (var variable in blockpass.ids) {
     if (blockpass.ids.hasOwnProperty(variable) && blockpass.ids[variable] != null) {
       var id = blockpass.ids[variable];
-      
+
       var elements = document.getElementsByClassName(`${variable}dependentlink`);
       for (var i = 0; i < elements.length; i++) {
         if (elements[i].href.search('\\?') == -1) {

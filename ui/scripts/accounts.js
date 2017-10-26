@@ -46,6 +46,7 @@ function checkAvailability(id, value, callback) {
 function signin(usertype, id, password) {  
   var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
+    console.log(event.target.response);
     if (event.target.readyState == XMLHttpRequest.DONE
         && event.target.status == 200)
     {
@@ -72,6 +73,7 @@ function signup(name, usertype, id, password) {
     if (event.target.readyState == XMLHttpRequest.DONE
         && event.target.status == 200)
     {
+      console.log(event.target.response);
       if (event.target.response != 'OK') {
         alert("Fehler beim Registrieren.");
       } else {
