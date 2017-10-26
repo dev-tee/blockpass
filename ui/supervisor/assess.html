@@ -11,10 +11,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,600">
-
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" type="text/css" href="../css/normalize.css">
@@ -35,11 +31,30 @@
       blockpass.parseIDs();
 
       submissionid = blockpass.ids.submission;
+      testid = blockpass.ids.test;
+      assignmentid = blockpass.ids.assignment;
       if (submissionid == null) {
         alert("Keine Abgabe ausgewählt.")
         goHome();
       } else {
         document.getElementById('submissionid').innerHTML = submissionid;
+
+        var reference;
+        var referenceName;
+        if (testid != null) {
+          reference = 'test';
+          referenceName = 'Test';
+        } else if (assignmentid != null) {
+          reference = 'assignment';
+          referenceName = 'Aufgaben';
+        }
+
+        var link = document.getElementById('previouspage');
+        link.href = link.href.replace(/\/submissions.html/, `\/${reference}submissions.html`);
+
+        link = document.getElementById('reference');
+        link.href = link.href.replace(/\/details.html/, `\/${reference}details.html`);
+        link.innerHTML = link.innerHTML.replace(/details/, `${referenceName}details`);
       }
     }
 
@@ -48,13 +63,14 @@
       document.getElementById('maxpoints').value = relatedinfo[0];
       document.getElementById('submissiondetails').innerHTML = submissiondbInstance.getSubmission(0)[0];
 
-      if (relatedinfo[2] * 1000 > Date.now()) {
+      if (relatedinfo[2] * 1000 <= Date.now()) {
+        document.getElementById('form').hidden = false;
+      } else {
         document.getElementById('submissiondetails').outerHTML += '<span class="info">Benotung noch nicht möglich</span>';
-        document.getElementById('form').hidden = true;
       }
     }
 
-    function createAssessment() {
+    function createAssessment(event) {
       if (event.preventDefault) event.preventDefault();
 
       var description = document.getElementById('description').value;
@@ -77,9 +93,9 @@
     <ul>
       <li><a href="../personal/courses.html">Kurse</a>
       <li><a class="coursedependentlink" href="../personal/coursedetails.html">Kursdetails</a>
-      <li><a class="assignmentdependentlink coursedependentlink" href="../personal/assignmentdetails.html">Aufgabendetails</a>
-      <li><a id="previouspage" class="assignmentdependentlink coursedependentlink" href="../supervisor/assignmentsubmissions.html">Abgaben</a>
-      <li><a id="currentpage" class="assignmentdependentlink submissiondependentlink coursedependentlink" href="../supervisor/assess.html">Benoten</a>
+      <li><a id="reference" class="assignmentdependentlink testdependentlink coursedependentlink" href="../personal/details.html">details</a>
+      <li><a id="previouspage" class="assignmentdependentlink testdependentlink coursedependentlink" href="../supervisor/submissions.html">Abgaben</a>
+      <li><a id="currentpage" class="submissiondependentlink assignmentdependentlink testdependentlink coursedependentlink" href="../supervisor/assess.html">Benoten</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -92,7 +108,7 @@
         <span class="inlinetitle">Abgabe</span>
         <span id="submissionid" class="id"></span>
         <p id="submissiondetails"></p>
-        <form id="form">
+        <form id="form" hidden>
           <label id="label_obtainedpoints" for="obtainedpoints">Erreichte Punktezahl:</label>
           <input type="number" id="obtainedpoints" class="u-full-width" required>
           <label id="label_maxpoints" for="maxpoints">Maximale Punktezahl:</label>
