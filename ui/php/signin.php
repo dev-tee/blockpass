@@ -3,27 +3,39 @@
   include 'connect.php';
 
   $usertype = $_GET['usertype'];
-  $id = $_GET['id'];
-  $password = $_GET['password'];
-  $idcolumn;
+  if ($usertype != 'student' && $usertype != 'supervisor') {
+    echo "Fehler: Unbekannter Benutzertyp '{$usertype}'";
+    exit(1);
+  }
 
   if ($usertype == 'student') {
     $idcolumn = 'matrikelnr';
+    $idtype = 'i';
   } else if ($usertype == 'supervisor') {
     $idcolumn = 'uaccountid';
+    $idtype = 's';
   }
 
-  $query = "SELECT address FROM {$usertype}s WHERE {$idcolumn} = '{$id}' AND password = '{$password}'";
+  $id = $_GET['id'];
+  $password = $_GET['password'];
 
-  $result = $mysqli->query($query);
+  $query = $mysqli->prepare("SELECT address, pwhash FROM {$usertype} WHERE {$idcolumn} = ?");
+  if (!$query) {
+    echo $mysqli->error;
+    exit(1);
+  }
 
-  if ($result) {
-    if ($result->num_rows == 1) {
-      $row = $result->fetch_array();
-      echo "OK:{$row['address']}";
-    }
-  } else {
-    echo "Fehler: " . $query . PHP_EOL . $mysqli->error;
+  $query->bind_param("{$idtype}", $id);
+  $query->execute();
+  $query->bind_result($address, $pwhash);
+
+  if ($query->fetch() === FALSE) {
+    echo $mysqli->error;
+    exit(1);
+  }
+
+  if (password_verify($password, $pwhash)) {
+    echo "OK:{$address}";
   }
 
   include 'cleanup.php';

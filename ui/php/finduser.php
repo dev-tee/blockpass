@@ -3,28 +3,34 @@
   include 'connect.php';
 
   $usertype = $_GET['usertype'];
-  $searchterm = $_GET['searchterm'];
-  $idcolumn;
+  if ($usertype != 'student' && $usertype != 'supervisor') {
+    echo "Fehler: Unbekannter Benutzertyp '{$usertype}'";
+    exit(1);
+  }
 
   if ($usertype == 'student') {
     $idcolumn = 'matrikelnr';
+    $idtype = 'i';
   } else if ($usertype == 'supervisor') {
     $idcolumn = 'uaccountid';
+    $idtype = 's';
   }
 
-  $query = "SELECT {$idcolumn},address FROM {$usertype}s WHERE {$idcolumn} LIKE '%{$searchterm}%'";
+  $searchterm = $_GET['searchterm'];
 
-  $result = $mysqli->query($query);
+  $query = $mysqli->prepare("SELECT {$idcolumn}, address FROM {$usertype} WHERE {$idcolumn} LIKE CONCAT('%', ?, '%')");
+  if (!$query) {
+    echo $mysqli->error;
+    exit(1);
+  }
 
-  if ($result && $searchterm != '') {
-    echo "OK";
-    while ($row = $result->fetch_array()) {
-      $id = $row[$idcolumn];
-      $address = $row['address'];
-      echo ":{$id}+{$address}";
-    }
-  } else {
-    echo "Fehler: " . $query . PHP_EOL . $mysqli->error;
+  $query->bind_param("{$idtype}", $searchterm);
+  $query->execute();
+  $query->bind_result($id,$address);
+  
+  echo "OK";
+  while ($query->fetch()) {
+    echo ":{$id}+{$address}";
   }
 
   include 'cleanup.php';

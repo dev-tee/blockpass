@@ -3,18 +3,37 @@
   include 'connect.php';
 
   $usertype = $_POST['usertype'];
-  $id = $_POST['id'];
-  $password = $_POST['password'];
-  $address = $_POST['address'];
-
-  $query = "INSERT INTO {$usertype}s VALUES('{$id}', '{$address}', '{$password}')";
-  $result = $mysqli->query($query);
-
-  if ($result == true) {
-    echo "OK";
-  } else {
-    echo "Fehler: " . $query . PHP_EOL . $mysqli->error;
+  if ($usertype != 'student' && $usertype != 'supervisor') {
+    echo "Error: Unknown usertype '{$usertype}'";
+    exit(1);
   }
+
+  if ($usertype == 'student') {
+    $idcolumn = 'matrikelnr';
+    $idtype = 'i';
+  } else if ($usertype == 'supervisor') {
+    $idcolumn = 'uaccountid';
+    $idtype = 's';
+  }
+
+  $id = $_POST['id'];
+  $address = $_POST['address'];
+  $password = $_POST['password'];
+  $pwhash = password_hash($password, PASSWORD_BCRYPT);
+
+  $query = $mysqli->prepare("INSERT INTO {$usertype} VALUES(?, ?, ?)");
+  if (!$query) {
+    echo $mysqli->error;
+    exit(1);
+  }
+
+  $query->bind_param("{$idtype}ss", $id, $address, $pwhash);
+  if (!$query->execute()) {
+    echo $mysqli->error;
+    exit(1);
+  }
+
+  echo "OK";
 
   include 'cleanup.php';
 
