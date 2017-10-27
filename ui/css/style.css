@@ -16,7 +16,7 @@ nav
 }
 
 html {
-  background-color: #fafafa;
+  background-color: #f8f8f8;
 }
 
 nav ~ .container {
@@ -143,6 +143,29 @@ label[for='menutrigger'] {
   list-style-type: none;
 }
 
+.action {
+  float: left;
+  padding: 0rem 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid #bbb;
+  cursor: pointer;
+}
+
+.action:hover {
+  border-color: #888;
+}
+
+.selections, .suggestions {
+  list-style-type: none;
+}
+
+input.dateview {
+  background-color: transparent;
+  box-shadow: inset 0rem -0.25rem 0rem rgba(0,0,0,0.05);
+  text-align: center;
+}
+
 @media print {
   nav {
     display: none;
@@ -157,6 +180,14 @@ label[for='menutrigger'] {
     width: 100%;
     padding-left: 3.4rem;
     box-sizing: border-box;
+  }
+  nav ul li a:hover {
+    border-top: none;
+    padding-top: 2rem;
+    background-color: #ddd;
+  }
+  nav ul li+li:before {
+  content: '';
   }
   label[for='menutrigger'] {
     display: initial;
@@ -175,7 +206,8 @@ label[for='menutrigger'] {
     display: none;
   }
   #menutrigger:checked ~ #logout {
-    width: 50%;
+    width: 65%;
+    padding-left: 2rem;
     float: right;
   }
 }

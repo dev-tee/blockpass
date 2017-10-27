@@ -77,7 +77,13 @@
       }
 
       document.getElementById('duedate').setAttribute('data-time', time.getTime());
-      document.getElementById('duedate').value = time.toString();
+      document.getElementById('duedate').value = time.toLocaleString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' , timeZoneName: 'short'});
+
+      document.getElementById('day').value = time.getDate();
+      document.getElementById('month').value = time.getMonth() + 1;
+      document.getElementById('year').value = time.getFullYear();
+      document.getElementById('hour').value = time.getHours();
+      document.getElementById('minute').value = time.getMinutes();
     }
   </script>
 </head>
@@ -105,16 +111,20 @@
         <span id="courseid" class="id"></span>
         <form id="form">
           <label for="maxpoints">Maximalpunktezahl:</label>
-          <input type="number" id="maxpoints" placeholder="22" required>
+          <input class="u-full-width u-max-full-width" type="number" id="maxpoints" placeholder="22" required>
           <label for="duedate">Abgabedatum:</label>
-          <input type="text" id="duedate" data-time="59000" class="u-full-width" disabled>
-          <input type="number" id="day" placeholder="Tag" required>
-          <input type="number" id="month" placeholder="Monat" required>
-          <input type="number" id="year" placeholder="Jahr" required>
-          <input type="number" id="hour" placeholder="Stunde" required>
-          <input type="number" id="minute" placeholder="Minute" required>
+          <input class="u-full-width u-max-full-width dateview" type="text" id="duedate" data-time="59000" disabled>
+          <div class="row">
+            <input class="one-third column" type="number" id="day" placeholder="Tag" required>
+            <input class="one-third column" type="number" id="month" placeholder="Monat" required>
+            <input class="one-third column" type="number" id="year" placeholder="Jahr" required>
+          </div>
+          <div class="row">
+            <input class="one-half column" type="number" id="hour" placeholder="Stunde" required>
+            <input class="one-half column" type="number" id="minute" placeholder="Minute" required>
+          </div>
           <label for="description">Beschreibung:</label>
-          <textarea id="description" placeholder="Aufgabenstellung etc." required></textarea>
+          <textarea class="u-full-width u-max-full-width" id="description" placeholder="Aufgabenstellung etc." required></textarea>
           <button>Erstellen</button>
         </form>
       </div>
@@ -127,11 +137,11 @@
     document.getElementById('logout').addEventListener('click', logout);
     document.getElementById('form').addEventListener('submit', createAssignment);
 
-    document.getElementById('day').addEventListener('input', updateTime);
-    document.getElementById('month').addEventListener('input', updateTime);
-    document.getElementById('year').addEventListener('input', updateTime);
-    document.getElementById('hour').addEventListener('input', updateTime);
-    document.getElementById('minute').addEventListener('input', updateTime);
+    document.getElementById('day').addEventListener('change', updateTime);
+    document.getElementById('month').addEventListener('change', updateTime);
+    document.getElementById('year').addEventListener('change', updateTime);
+    document.getElementById('hour').addEventListener('change', updateTime);
+    document.getElementById('minute').addEventListener('change', updateTime);
 
     parseCourseID();
   </script>
