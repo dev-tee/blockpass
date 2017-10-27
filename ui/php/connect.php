@@ -9,7 +9,7 @@
 
   $mysqli = new mysqli($host, $user, $password, $database);
   if ($mysqli->connect_errno) {
-      echo "Fehler beim Verbinden mit MySQL-Server: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+      echo "Connection error: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
   }
 
 ?>

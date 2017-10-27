@@ -4,7 +4,7 @@
 
   $usertype = $_GET['usertype'];
   if ($usertype != 'student' && $usertype != 'supervisor') {
-    echo "Fehler: Unbekannter Benutzertyp '{$usertype}'";
+    echo "Error: Unknown usertype '{$usertype}'";
     exit(1);
   }
 
@@ -16,7 +16,12 @@
     $idtype = 's';
   }
 
+  // Empty search terms should not return anything.
   $searchterm = $_GET['searchterm'];
+  if (empty($searchterm)) {
+    // echo "Error: Empty search terms are not allowed.";
+    exit(1);
+  }
 
   $query = $mysqli->prepare("SELECT {$idcolumn}, address FROM {$usertype} WHERE {$idcolumn} LIKE CONCAT('%', ?, '%')");
   if (!$query) {

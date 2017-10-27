@@ -4,7 +4,7 @@
 
   $usertype = $_GET['usertype'];
   if ($usertype != 'student' && $usertype != 'supervisor') {
-    echo "Fehler: Unbekannter Benutzertyp '{$usertype}'";
+    echo "Error: Unknown usertype '{$usertype}'";
     exit(1);
   }
 
