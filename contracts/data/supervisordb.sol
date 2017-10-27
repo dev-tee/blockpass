@@ -6,8 +6,8 @@ import "../manager/contractmanager.sol";
 contract SupervisorDB is ManagedContract {
 
     struct Supervisor {
-        bytes32 name;
-        bytes32 uaccountID;
+        string name;
+        string uaccountID;
         uint index;
         bytes32[] courseSupervisionIDs;
         bytes32[] testSupervisionIDs;
@@ -33,7 +33,7 @@ contract SupervisorDB is ManagedContract {
         return isSupervisor(account) && supervisors[account].supervisorAssessmentIDs.length > refIndex;
     }
 
-    function addSupervisor(address account, bytes32 name, bytes32 uaccountID) public {
+    function addSupervisor(address account, string name, string uaccountID) public {
         require(!isSupervisor(account));
         supervisors[account].name = name;
         supervisors[account].uaccountID = uaccountID;
@@ -41,12 +41,12 @@ contract SupervisorDB is ManagedContract {
         indices.push(account);
     }
 
-    function getSupervisor(address account) public constant returns(bytes32 name, bytes32 uaccountID) {
+    function getSupervisor(address account) public constant returns(string name, string uaccountID) {
         require(isSupervisor(account));
         return(supervisors[account].name, supervisors[account].uaccountID);
     }
 
-    function getSupervisorAt(uint index) public constant returns(bytes32 name, bytes32 uaccountID) {
+    function getSupervisorAt(uint index) public constant returns(string name, string uaccountID) {
         return getSupervisor(indices[index]);
     }
 

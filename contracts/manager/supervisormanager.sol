@@ -39,27 +39,19 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
-    event AssignmentID(uint id);
-    event TestID(uint id);
-    event TestDateCheck(uint duedate, uint current);
-    event AssignmentDateCheck(uint duedate, uint current);
     modifier assessmentAllowed(uint submissionID) {
         var (, submissionReferenceType, submissionReferenceID) = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
                                                                                     .getSubmission(submissionID);
         if (submissionReferenceType == 0) {
             var (, assignmentDueDate, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
                                             .getAssignment(submissionReferenceID);
-            AssignmentID(assignmentCourseID);
             require(assignmentDueDate <= now);
-            AssignmentDateCheck(assignmentDueDate, now);
             require(CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
                 .exists(msg.sender, assignmentCourseID));
         } else if (submissionReferenceType == 1) {
             var (, testDueDate, testCourseID) = TestDB(ContractProvider(MAN).contracts("testdb"))
                                             .getTest(submissionReferenceID);
-            TestID(testCourseID);
             require(testDueDate <= now);
-            TestDateCheck(assignmentDueDate, now);
             require(TestSupervisionDB(ContractProvider(MAN).contracts("testsupervisiondb"))
                 .exists(msg.sender, submissionReferenceID)
                 || CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
@@ -82,7 +74,7 @@ contract SupervisorManager is ManagedContract {
     /// Create a new course named $(courseName) with a description, a number and a worth of $(courseECTSPoints) ECTS.
     function createCourse(
         string description,
-        bytes32 name,
+        string name,
         uint ectsPoints,
         address[] helpingSupervisors
     )

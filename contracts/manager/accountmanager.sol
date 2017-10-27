@@ -7,17 +7,17 @@ import "../data/supervisordb.sol";
 
 contract AccountManager is ManagedContract {
 
-    event RegisteredStudent(address, bytes32, uint);
-    event RegisteredSupervisor(address, bytes32, bytes32);
+    event RegisteredStudent(address, string, uint);
+    event RegisteredSupervisor(address, string, string);
 
-    function registerStudent(address account, bytes32 name, uint matrNr) public {
+    function registerStudent(address account, string name, uint matrNr) public {
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         StudentDB(studentDB).addStudent(account, name, matrNr);
 
         RegisteredStudent(account, name, matrNr);
     }
 
-    function registerSupervisor(address account, bytes32 name, bytes32 uaccountID) public {
+    function registerSupervisor(address account, string name, string uaccountID) public {
         address supervisorDB = ContractProvider(MAN).contracts("supervisordb");
         SupervisorDB(supervisorDB).addSupervisor(account, name, uaccountID);
 

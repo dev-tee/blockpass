@@ -8,7 +8,7 @@ contract CourseDB is ManagedContract {
     struct Course {
         string description;
         uint ectsPoints;
-        bytes32 name;
+        string name;
         uint[] assignmentIDs;
         uint[] testIDs;
         bytes32[] courseParticipationIDs;
@@ -37,7 +37,7 @@ contract CourseDB is ManagedContract {
         return exists(id) && courses[id].testIDs.length > refIndex;
     }
 
-    function addCourse(string description, bytes32 name, uint ectsPoints) public returns(uint id) {
+    function addCourse(string description, string name, uint ectsPoints) public returns(uint id) {
         id = courses.length++;
 
         Course storage c = courses[id];
@@ -46,7 +46,7 @@ contract CourseDB is ManagedContract {
         c.ectsPoints = ectsPoints;
     }
 
-    function getCourse(uint id) public constant returns(string description, bytes32 name, uint ectsPoints) {
+    function getCourse(uint id) public constant returns(string description, string name, uint ectsPoints) {
         require(exists(id));
         return(courses[id].description, courses[id].name, courses[id].ectsPoints);
     }

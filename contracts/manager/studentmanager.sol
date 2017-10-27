@@ -19,6 +19,19 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    modifier inTime(uint referenceType, uint referenceID) {
+        if (referenceType == 0) {
+            var (, assignmentDueDate, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+                                                            .getAssignment(referenceID);
+            require(assignmentDueDate >= now);
+        } else if (referenceType == 1) {
+            var (, testDueDate, testCourseID) = TestDB(ContractProvider(MAN).contracts("testdb"))
+                                                .getTest(referenceID);
+            require(testDueDate >= now);
+        }
+        _;
+    }
+
     modifier containsOnlyParticipatingStudents(address[] accounts, uint assignmentID) {
         var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
                                         .getAssignment(assignmentID);
@@ -29,7 +42,6 @@ contract StudentManager is ManagedContract {
                 && CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
                     .exists(accounts[i], assignmentCourseID));
         }
-
         _;
     }
 
@@ -119,6 +131,7 @@ contract StudentManager is ManagedContract {
         uint referenceID
     )
         internal
+        inTime(referenceType, referenceID)
         returns(uint submissionID)
     {
         submissionID = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))

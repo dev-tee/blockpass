@@ -6,7 +6,7 @@ import "../manager/contractmanager.sol";
 contract StudentDB is ManagedContract {
 
     struct Student {
-        bytes32 name;
+        string name;
         uint matrNr;
         uint index;
         bytes32[] testParticipationIDs;
@@ -33,7 +33,7 @@ contract StudentDB is ManagedContract {
         return isStudent(account) && students[account].studentSubmissionIDs.length > refIndex;
     }
 
-    function addStudent(address account, bytes32 name, uint matrNr) public {
+    function addStudent(address account, string name, uint matrNr) public {
         require(!isStudent(account));
         students[account].name = name;
         students[account].matrNr = matrNr;
@@ -41,12 +41,12 @@ contract StudentDB is ManagedContract {
         indices.push(account);
     }
 
-    function getStudent(address account) public constant returns(bytes32 name, uint matrNr) {
+    function getStudent(address account) public constant returns(string name, uint matrNr) {
         require(isStudent(account));
         return(students[account].name, students[account].matrNr);
     }
 
-    function getStudentAt(uint index) public constant returns(bytes32 name, uint matrNr) {
+    function getStudentAt(uint index) public constant returns(string name, uint matrNr) {
         return getStudent(indices[index]);
     }
 

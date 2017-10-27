@@ -34,20 +34,18 @@ contract DataManager is ManagedContract {
     function getAllCourses()
         public
         constant
-        returns (uint numCourses, uint[] ids, bytes32[] courseNames, uint[] ectsPoints)
+        returns (uint numCourses, uint[] ids, uint[] ectsPoints)
     {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         numCourses = CourseDB(coursedb).getNumCourses();
 
         ids = new uint[](numCourses);
-        courseNames = new bytes32[](numCourses);
         ectsPoints = new uint[](numCourses);
 
         for (uint i = 0; i < numCourses; ++i) {
-            var (, courseName, courseECTSPoints) = CourseDB(coursedb).getCourse(i);
+            var (, courseECTSPoints) = CourseDB(coursedb).getCourse(i);
 
             ids[i] = i;
-            courseNames[i] = courseName;
             ectsPoints[i] = courseECTSPoints;
         }
     }
@@ -55,23 +53,21 @@ contract DataManager is ManagedContract {
     function getAllTests()
         public
         constant
-        returns (uint numTests, uint[] ids, bytes32[] courseNames, uint[] dueDates)
+        returns (uint numTests, uint[] ids, uint[] courseIDs, uint[] dueDates)
     {
         address testdb = ContractProvider(MAN).contracts("testdb");
-        address coursedb = ContractProvider(MAN).contracts("coursedb");
         numTests = TestDB(testdb).getNumTests();
 
         ids = new uint[](numTests);
-        courseNames = new bytes32[](numTests);
         dueDates = new uint[](numTests);
+        courseIDs = new uint[](numTests);
 
         for (uint i = 0; i < numTests; ++i) {
             var (, testDueDate, testCourseID) = TestDB(testdb).getTest(i);
-            var (, courseName,) = CourseDB(coursedb).getCourse(testCourseID);
 
             ids[i] = i;
-            courseNames[i] = courseName;
             dueDates[i] = testDueDate;
+            courseIDs[i] = testCourseID;
         }
     }
 
@@ -144,7 +140,7 @@ contract DataManager is ManagedContract {
     function getPersonalCourses()
         public
         constant
-        returns (uint numCourses, uint[] ids, bytes32[] names, uint[] ectsPoints)
+        returns (uint numCourses, uint[] ids, uint[] ectsPoints)
     {
         address studentdb = ContractProvider(MAN).contracts("studentdb");
         address supervisordb = ContractProvider(MAN).contracts("supervisordb");
@@ -168,11 +164,10 @@ contract DataManager is ManagedContract {
             }
         }
 
-        names = new bytes32[](numCourses);
         ectsPoints = new uint[](numCourses);
 
         for (uint k = 0; k < numCourses; ++k) {
-            (, names[k], ectsPoints[k]) = CourseDB(coursedb).getCourse(ids[k]);
+            (, ectsPoints[k]) = CourseDB(coursedb).getCourse(ids[k]);
         }
     }
 
