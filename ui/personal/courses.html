@@ -47,8 +47,8 @@
       output.push('<ul>');
       for (var i = length - 1; i >= 0; i--) {
         var id = courses[1][i];
-        var name = web3.toAscii(courses[2][i]);
-        var ects = courses[3][i];
+        var name = coursedbInstance.getCourse(id)[1];
+        var ects = courses[2][i];
         var line = `<li><a href="../personal/coursedetails.html?courseid=${id}">${name}</a>`;
         var extra = `<span class="extra">${ects} ECTS</span>`;
         output.push(line);

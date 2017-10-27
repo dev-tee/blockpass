@@ -91,7 +91,11 @@
     }
 
     function showTests() {
-      var tests = datamanagerInstance.getPersonalTests();
+      var tests = datamanagerInstance.getCourseTests(courseid);
+      var personaltestIDs = datamanagerInstance.getPersonalTests()[1];
+      for (var i = 0; i < personaltestIDs.length; i++) {
+        personaltestIDs[i] = personaltestIDs[i].toNumber();
+      }
       if (tests[0] == 0) {
         return;
       }
@@ -102,40 +106,41 @@
       output.push(`<ul>`);
       
       for (var i = 0; i < tests[0]; i++) {
-        var id = tests[1][i];
+        var id = tests[1][i].toNumber();
         var maxpoints = tests[2][i];
         var duedate = new Date(tests[3][i].toNumber() * 1000);
-        var testcourseid = tests[4][i];
 
-        if (testcourseid != courseid) {
-          continue;
-        }
+        if (!personaltestIDs.includes(id)) {
 
-        output.push(`<li>`);
-        line = `<a href="../personal/testdetails.html?testid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
-        output.push(line);
-        
-        if (isStudent()) {
-          var submissions = studentmanagerInstance.getTestSubmissionIDs(id);
-          extra = getStudentSubmissionInfo(submissions, maxpoints);
-        } else if (isSupervisor()) {
-          var submissions = supervisormanagerInstance.getTestSubmissionIDs(id);
-          var extra = getSupervisorSubmissionInfo(submissions, duedate);
+          output.push(`<li>`);
+          line = `<span>${duedate.toLocaleString()}</span>`;
+          output.push(line);
+
+          if (isStudent()) {
+            extra = "Nicht angemeldet.";
+          } else if(isSupervisor()) {
+            extra = "Nicht verantwortlich.";
+          }
+        } else {
+          
+          output.push(`<li>`);
+          line = `<a href="../personal/testdetails.html?testid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
+          output.push(line);
+          
+          if (isStudent()) {
+            var submissions = studentmanagerInstance.getTestSubmissionIDs(id);
+            extra = getStudentSubmissionInfo(submissions, maxpoints);
+          } else if (isSupervisor()) {
+            var submissions = supervisormanagerInstance.getTestSubmissionIDs(id);
+            var extra = getSupervisorSubmissionInfo(submissions, duedate);
+          }
         }
         output.push(`<span class="extra">${extra}</span>`);
       }
 
       output.push(`</ul>`);
 
-      if (output.length == 3) {
-        if (isStudent()) {
-          document.getElementById('tests').innerHTML = 'Zu keinem Test für diesen Kurs angemeldet.';
-        } else if (isSupervisor()) {
-          document.getElementById('tests').innerHTML = 'Für keinen Test in diesem Kurs verantwortlich.';
-        }
-      } else {
-        document.getElementById('tests').innerHTML = output.join('');
-      }
+      document.getElementById('tests').innerHTML = output.join('');
     }
 
     function getStudentSubmissionInfo(submissions, maxpoints) {

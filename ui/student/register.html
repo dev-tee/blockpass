@@ -35,8 +35,8 @@
 
         for (var i = 0; i < courses[0]; i++) {
           var id = courses[1][i];
-          var name = web3.toAscii(courses[2][i]);
-          var ects = courses[3][i];
+          var name = coursedbInstance.getCourse(id)[1];
+          var ects = courses[2][i];
           line = `<a href="registrationdetails.html?courseid=${id}">${name}</a> [${ects}]<br>`;
           output.push(line);
         }
@@ -45,7 +45,8 @@
 
         for (var i = 0; i < tests[0]; i++) {
           var id = tests[1][i];
-          var name = web3.toAscii(tests[2][i]);
+          var courseid = tests[2][i];
+          var name = coursedbInstance.getCourse(courseid)[1];
           var duedate = new Date(tests[3][i].toNumber() * 1000);
           line = `<a href="registrationdetails.html?testid=${id}">${name}</a> [${duedate.toLocaleString()}]<br>`;
           output.push(line);
