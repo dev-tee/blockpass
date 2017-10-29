@@ -40,9 +40,57 @@
       }
     }
 
+    function filterSubmissions(submissions) {
+      var numsubmissions = 0;
+      var ids = [];
+      var assessedFlags = [];
+      var filteredSubmissions = [];
+      var filtermap = {};
+
+      var length = submissions[0];
+      for (var i = 0; i < length; ++i) {
+        var id = submissions[1][i];
+        var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(id);
+        var submissiondate = new Date(relatedinfo[1].toNumber() * 1000);
+
+        var numstudents = submissiondbInstance.getNumStudentSubmissions(id);
+        for (var j = 0; j < numstudents; ++j) {
+          var studentsubmissionid = submissiondbInstance.getStudentSubmissionIDAt(id, j);
+          var studentid = studentsubmissiondbInstance.getStudentSubmission(studentsubmissionid)[0];
+
+          if (filtermap.hasOwnProperty(studentid) && filtermap[studentid].submissiondate > submissiondate) {
+            continue;
+          }
+
+          filtermap[studentid] = {};
+          filtermap[studentid].submissiondate = submissiondate;
+          filtermap[studentid].submissionindex = i;
+        }
+      }
+
+
+      for (var variable in filtermap) {
+        if (filtermap.hasOwnProperty(variable)) {
+          if (ids.includes(submissions[1][index])) {
+            continue;
+          }
+          ++numsubmissions;
+          var index = filtermap[variable].submissionindex;
+          ids.push(submissions[1][index]);
+          assessedFlags.push(submissions[2][index]);
+        }
+      }
+
+      filteredSubmissions[0] = numsubmissions;
+      filteredSubmissions[1] = ids;
+      filteredSubmissions[2] = assessedFlags;
+
+      return filteredSubmissions;
+    }
+
     function listSubmissions() {
       var output = [];
-      var submissions = supervisormanagerInstance.getAssignmentSubmissionIDs(assignmentid);
+      var submissions = filterSubmissions(supervisormanagerInstance.getAssignmentSubmissionIDs(assignmentid));
       var length = submissions[0];
 
       output.push('<ul>');
@@ -50,7 +98,16 @@
         var id = submissions[1][i];
         var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(id);
         var submissiondate = new Date(relatedinfo[1].toNumber() * 1000);
-        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&assignmentid=${assignmentid}">${submissiondate.toLocaleString()}</a>`;
+
+        var numstudents = submissiondbInstance.getNumStudentSubmissions(id);
+        var students = [];
+        for (var j = 0; j < numstudents; ++j) {
+          var studentsubmissionid = submissiondbInstance.getStudentSubmissionIDAt(id, j);
+          var studentid = studentsubmissiondbInstance.getStudentSubmission(studentsubmissionid)[0];
+          students.push(studentdbInstance.getStudent(studentid)[0]);
+        }
+
+        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&assignmentid=${assignmentid}">${submissiondate.toLocaleString()}</a><br><span>${students.join()}</span>`;
         output.push(line);
         if (submissions[2][i]) {
           var extra = '<span class="extra">Bereits benotet</span>';

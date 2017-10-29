@@ -50,7 +50,16 @@
         var id = submissions[1][i];
         var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(id);
         var submissiondate = new Date(relatedinfo[1].toNumber() * 1000);
-        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&testid=${testid}">${submissiondate.toLocaleString()}</a>`;
+
+        var numstudents = submissiondbInstance.getNumStudentSubmissions(id);
+        var students = [];
+        for (var j = 0; j < numstudents; ++j) {
+          var studentsubmissionid = submissiondbInstance.getStudentSubmissionIDAt(id, j);
+          var studentid = studentsubmissiondbInstance.getStudentSubmission(studentsubmissionid)[0];
+          students.push(studentdbInstance.getStudent(studentid)[0]);
+        }
+
+        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&testid=${testid}">${submissiondate.toLocaleString()}</a><br><span>${students.join()}</span>`;
         output.push(line);
         if (submissions[2][i]) {
           var extra = '<span class="extra">Bereits benotet</span>';

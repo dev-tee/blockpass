@@ -45,6 +45,7 @@
       var length = submissions[0];
 
       var line;
+      var filtermap = {};
       for (var i = 0; i < length; ++i) {
         var id = submissions[1][i];
         var description = submissiondbInstance.getSubmission(id)[0];
@@ -53,8 +54,17 @@
         var maxpoints = submissiondetails[0];
         var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
         var obtainedpoints = assessmentdetails[3];
+
+        var students = [];
+        var numstudents = submissiondbInstance.getNumStudentSubmissions(id);
+        for (var j = 0; j < numstudents; ++j) {
+          var studentsubmissionid = submissiondbInstance.getStudentSubmissionIDAt(id, j);
+          var studentid = studentsubmissiondbInstance.getStudentSubmission(studentsubmissionid)[0];
+          students.push(studentdbInstance.getStudent(studentid)[0]);
+        }
         
         line = `Abgegeben: <span class="info">${submissiondate.toLocaleString()}</span><br>`;
+        line += `Von: <span>${students.join()}</span><br>`;
         line += `Maximale Punktezahl: <span class="info">${maxpoints}</span>`;
         line += `<p>${description}</p>`;
         if (assessmentdetails[0]) {
