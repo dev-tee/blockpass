@@ -19,6 +19,12 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    modifier notSubmittedYet(uint testID) {
+        var (numTestSubmissions, ) = getTestSubmissionIDs(testID);
+        require(numTestSubmissions == 0);
+        _;
+    }
+
     modifier inTime(uint referenceType, uint referenceID) {
         if (referenceType == 0) {
             var (, assignmentDueDate, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
@@ -120,6 +126,7 @@ contract StudentManager is ManagedContract {
         onlyStudent
         testExists(testID)
         testParticipationExists(testID)
+        notSubmittedYet(testID)
     {
         uploadSubmission(description, now, 1, testID);
     }
@@ -215,6 +222,138 @@ contract StudentManager is ManagedContract {
 
             var (, assessmentSubmissionID) = AssessmentDB(assessmentdb).getAssessment(id);
             assert(assessmentSubmissionID == submissionID);
+        }
+    }
+
+    function passedCourse(uint courseID)
+        public
+        constant
+        onlyStudent
+        courseExists(courseID)
+        returns(bool)
+    {
+        return passedCourseAssignments(courseID) && passedCourseTests(courseID);
+    }
+
+    function passedCourseAssignments(uint courseID)
+        internal
+        constant
+        returns(bool passed)
+    {
+        address coursedb = ContractProvider(MAN).contracts("coursedb");
+
+        uint numAssignments = CourseDB(coursedb).getNumAssignments(courseID);
+        uint numPassed = 0;
+
+        if (numAssignments == 0) {
+            passed = true;
+        }
+
+        for (uint i = 0; i < numAssignments; ++i) {
+            uint assignmentID = CourseDB(coursedb).getAssignmentIDAt(courseID, i);
+
+            if (passedAssignment(assignmentID)) {
+                ++numPassed;
+            }
+
+            if (numPassed * 2 >= numAssignments) {
+                passed = true;
+                break;
+            }
+        }
+    }
+
+    function passedCourseTests(uint courseID)
+        internal
+        constant
+        returns(bool passed)
+    {
+        address coursedb = ContractProvider(MAN).contracts("coursedb");
+
+        uint numTests = CourseDB(coursedb).getNumTests(courseID);
+        uint numPassed = 0;
+
+        if (numTests == 0) {
+            passed = true;
+        }
+
+        for (uint j = 0; j < numTests; ++j) {
+            uint testID = CourseDB(coursedb).getTestIDAt(courseID, j);
+
+            if (passedTest(testID)) {
+                ++numPassed;
+            }
+
+            if (numPassed * 2 >= numTests) {
+                passed = true;
+                break;
+            }
+        }
+    }
+
+    function passedAssignment(uint assignmentID)
+        public
+        constant
+        onlyStudent
+        assignmentExists(assignmentID)
+        returns(bool passed)
+    {
+        var (/*description*/, maxPoints, /*dueDate*/, /*courseID*/) =
+            AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
+            .getAssignment(assignmentID);
+        uint obtainedPoints = getAssignmentPerformance(assignmentID);
+
+        if (obtainedPoints * 2 >= maxPoints) {
+            passed = true;
+        }
+    }
+
+    function passedTest(uint testID)
+        public
+        constant
+        onlyStudent
+        testExists(testID)
+        returns(bool passed)
+    {
+        var (/*description*/, maxPoints, /*dueDate*/, /*courseID*/) =
+            TestDB(ContractProvider(MAN).contracts("testdb"))
+            .getTest(testID);
+        uint obtainedPoints = getTestPerformance(testID);
+
+        if (obtainedPoints * 2 >= maxPoints) {
+            passed = true;
+        }
+    }
+
+    function getAssignmentPerformance(uint assignmentID)
+        public
+        constant
+        onlyStudent
+        assignmentExists(assignmentID)
+        returns(uint obtainedPoints)
+    {
+        var(numAssignmentSubmissions, assignmentSubmissionIDs) = getAssignmentSubmissionIDs(assignmentID);
+        for (uint i = 0; i < numAssignmentSubmissions; ++i) {
+            var (assessed, /* numPriorAssessments */, /* id */, assignmentObtainedPoints) = getAssessment(assignmentSubmissionIDs[i]);
+            if (assessed && assignmentObtainedPoints > obtainedPoints) {
+                obtainedPoints = assignmentObtainedPoints;
+            }
+        }
+    }
+
+    function getTestPerformance(uint testID)
+        public
+        constant
+        onlyStudent
+        testExists(testID)
+        returns(uint obtainedPoints)
+    {
+        var(numTestSubmissions, testSubmissionIDs) = getTestSubmissionIDs(testID);
+        for (uint i = 0; i < numTestSubmissions; ++i) {
+            var (assessed, /* numPriorAssessments */, /* id */, testObtainedPoints) = getAssessment(testSubmissionIDs[i]);
+            if (assessed && testObtainedPoints > obtainedPoints) {
+                obtainedPoints = testObtainedPoints;
+            }
         }
     }
 }
