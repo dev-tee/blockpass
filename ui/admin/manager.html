@@ -1,8 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Contract Manager</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/credentials.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/init3.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
@@ -17,7 +38,9 @@
       document.getElementById('contracts').innerHTML = '<ul>' + output.join('') + '</ul>';
     }
 
-    function registerContracts() {
+    function registerContracts(event) {
+      if (event.preventDefault) event.preventDefault();
+
       for (var i = contractNames.length - 1; i >= 0; i--) {
         if (contractNames[i] == 'contractprovider' || contractNames[i] == 'contractmanager') {
           continue;
@@ -42,14 +65,31 @@
   </script>
 </head>
 <body>
-  <input id="account" type="text" required>
-  <input id="password" type="password">
-  <button type="button" onclick="registerContracts()">Registriere Contracts</button>
-  <div id="contracts"></div>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="column center-column credentials">
+        <form id="form">
+          <label for="account">Adresse:</label>
+          <input id="account" type="text" class="u-full-width" placeholder="0x00a329c0648769A73afAc7F9381E08FB43dBEA72" required>
+          <label for="password">Passwort:</label>
+          <input id="password" type="password" class="u-full-width" placeholder="*******">
+          <button id="register">Registriere Contracts</button>
+        </form>
+        <div id="contracts"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
-    document.addEventListener('init', event => {
-      listContracts();
-    });
+    document.getElementById('form').addEventListener('submit', registerContracts);
   </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>

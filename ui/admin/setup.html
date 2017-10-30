@@ -1,8 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Deployer</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/credentials.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+  <!-- Javascript
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/init3.js"></script>
   <script type="text/javascript">
@@ -67,16 +88,17 @@
 
     function parse(event) {
       blockpass = {};
+      blockpass.manageronly = document.getElementById('managercheck').checked;
+
       var reader = new FileReader();
-      reader.onload = (event) => {
-        blockpass.json = JSON.parse(event.target.result);
-        setupProgressbar();
-        watchDeployment();
-        setTimeout(deploy, 3 * 1000);
+      reader.onload = (readerevent) => {
+        blockpass.json = JSON.parse(readerevent.target.result);
+        
+        event.target.disabled = true;
+        document.getElementById('setup').hidden = false;
       };
       reader.readAsText(event.target.files[0]);
 
-      event.target.disabled = true;
     }
 
     function progress() {
@@ -90,7 +112,19 @@
     }
 
     function isDeployable(jsonvalue) {
+      if (blockpass.manageronly) {
+        return jsonvalue.search('Manager') != -1;
+      }
+
       return jsonvalue.search('Owned') == -1 && jsonvalue.search('ManagedContract') == -1;
+    }
+
+    function setup(event) {
+      if (event.preventDefault) event.preventDefault();
+
+      setupProgressbar();
+      watchDeployment();
+      setTimeout(deploy, 3 * 1000);
     }
 
     function setupProgressbar() {
@@ -104,6 +138,7 @@
       }
 
       var progress = document.getElementById('progressbar');
+      progress.hidden = false;
       progress.value = 0;
       progress.max = count;
     }
@@ -115,10 +150,11 @@
       blockpass.downloadElement.style.display = 'none';
 
       document.getElementById('download').hidden = false;
-      blockpass.filter.stopWatching();
     }
 
-    function download() {
+    function download(event) {
+      if (event.preventDefault) event.preventDefault();
+
       document.body.appendChild(blockpass.downloadElement);
       blockpass.downloadElement.click();
       document.body.removeChild(blockpass.downloadElement);
@@ -126,14 +162,39 @@
   </script>
 </head>
 <body>
-  <input id="account" type="text" required>
-  <input id="password" type="password">
-  <input id="combinedjson" type="file">
-  <progress id="progressbar" value="" max=""></progress>
-  <button id="download" hidden="true">Lade api.js</button>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="column center-column credentials">
+        <form id="form">
+          <label for="account">Adresse:</label>
+          <input id="account" type="text" class="u-full-width" placeholder="0x00a329c0648769A73afAc7F9381E08FB43dBEA72" required>
+          <label for="password">Passwort:</label>
+          <input id="password" type="password" class="u-full-width" placeholder="*******">
+          <label>
+            <input type="checkbox" id="managercheck">
+            <span class="label-body">Nur Manager-Contracts</span>
+          </label>
+          <input id="combinedjson" type="file" class="u-full-width">
+          <button id="setup" hidden>Aufsetzen</button>
+          <button id="download" type="button button-primary" hidden>Lade api.js</button>
+          <progress id="progressbar" class="u-full-width" value="" max="" hidden=""></progress>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript [EventListeners]
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
+    document.getElementById('form').addEventListener('submit', setup);
     document.getElementById('combinedjson').addEventListener('change', parse);
     document.getElementById('download').addEventListener('click', download);
   </script>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>
