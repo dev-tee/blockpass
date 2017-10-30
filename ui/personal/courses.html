@@ -51,6 +51,16 @@
         var ects = courses[2][i];
         var line = `<li><a href="../personal/coursedetails.html?courseid=${id}">${name}</a>`;
         var extra = `<span class="extra">${ects} ECTS</span>`;
+
+        var numsupervisors = coursedbInstance.getNumCourseSupervisions(id);
+        var supervisors = [];
+        for (var j = 0; j < numsupervisors; ++j) {
+          var coursesupervisionid = coursedbInstance.getCourseSupervisionIDAt(id, j);
+          var supervisorid = coursesupervisiondbInstance.getCourseSupervision(coursesupervisionid)[0];
+          supervisors.push(supervisordbInstance.getSupervisor(supervisorid)[0]);
+        }
+
+        extra += `<br>Von: <span class="info">${supervisors.join(', ')}</span>`;
         output.push(line);
         output.push(extra);
       }

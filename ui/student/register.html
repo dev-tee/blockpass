@@ -30,6 +30,7 @@
     function showList(event) {
       var output = [];
       var line;
+      var extra;
       if (event.target.value == 'course') {
         var courses = datamanagerInstance.getAllCourses();
 
@@ -37,8 +38,20 @@
           var id = courses[1][i];
           var name = coursedbInstance.getCourse(id)[1];
           var ects = courses[2][i];
-          line = `<a href="registrationdetails.html?courseid=${id}">${name}</a> [${ects}]<br>`;
+
+          var numsupervisors = coursedbInstance.getNumCourseSupervisions(id);
+          var supervisors = [];
+          for (var j = 0; j < numsupervisors; ++j) {
+            var coursesupervisionid = coursedbInstance.getCourseSupervisionIDAt(id, j);
+            var supervisorid = coursesupervisiondbInstance.getCourseSupervision(coursesupervisionid)[0];
+            supervisors.push(supervisordbInstance.getSupervisor(supervisorid)[0]);
+          }
+
+          line = `<a href="registrationdetails.html?courseid=${id}">${name}</a>`
+          line += `<span class="extra">${ects} ECTS</span><br>`;
+          extra = `Von: <span class="info">${supervisors.join(', ')}</span><br>`;
           output.push(line);
+          output.push(extra);
         }
       } else if (event.target.value = 'test') {
         var tests = datamanagerInstance.getAllTests();
@@ -48,7 +61,8 @@
           var courseid = tests[2][i];
           var name = coursedbInstance.getCourse(courseid)[1];
           var duedate = new Date(tests[3][i].toNumber() * 1000);
-          line = `<a href="registrationdetails.html?testid=${id}">${name}</a> [${duedate.toLocaleString()}]<br>`;
+          line = `<a href="registrationdetails.html?testid=${id}">${name}</a>`
+          line += `<span class="extra">[${duedate.toLocaleString()}]</span><br>`;
           output.push(line);
         }
       }
