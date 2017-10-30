@@ -86,9 +86,11 @@ function signup(name, usertype, id, password) {
         } else if (usertype == 'supervisor') {
           data = accountmanagerInstance.registerSupervisor.getData(address, name, id);
         }
-        signAndSend(data, accountmanagerInstance.address);
-
-        enter();
+        signAndSend(data, accountmanagerInstance.address, (error, result) => {
+          if (!error) {
+            enter();
+          }
+        });
       }
     }
   };

@@ -57,9 +57,11 @@
       // while JavaScript Date has millisecond resolution.
       duedate = Math.floor(duedate / 1000);
       var data = supervisormanagerInstance.createTest.getData(description, maxpoints, duedate, courseid, helpingsupervisors);
-      signAndSend(data, supervisormanagerInstance.address);
-
-      window.location.assign(document.getElementById('previouspage').href);
+      signAndSend(data, supervisormanagerInstance.address, (error, result) => {
+        if (!error) {
+          window.location.assign(document.getElementById('previouspage').href);
+        }
+      });
     }
 
     function updateTime(event) {

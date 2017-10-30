@@ -3,7 +3,6 @@
 // TODO: Actually use it!
 var blockpass = {};
 
-
 function init3() {
   // var web3Provider = "http://localhost:8545";
   var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
@@ -21,16 +20,55 @@ function init3() {
   }
 }
 
-function signAndSend(data, destination) {
+function signAndSend(data, destination, callback) {
   var tx = {
     "from": sessionStorage['address'],
     "to": destination,
     "data": data,
     "gasPrice": 0
   };
-  // tx.gas = web3.eth.estimateGas(tx);
-  // console.log("Estimated gas cost: " + tx.gas);
-  web3.personal.sendTransaction(tx, sessionStorage['password']);
+  tx.gas = web3.eth.estimateGas(tx);
+  console.log("Estimated gas cost: " + tx.gas);
+  tx.gas = Math.round(tx.gas * 1.25);
+  console.log("Heightened to: " + tx.gas);
+
+  var blockgaslimit = web3.eth.getBlock('latest').gasLimit;
+  if (tx.gas >= blockgaslimit * 0.8) {
+    alert("Kosten zu hoch. Transaktion zurzeit nicht möglich.");
+    return;
+  }
+  var transactionHash;
+
+  var row = document.createElement('div');
+  row.className = "row sticky-row";
+  var transactioninfo = document.createElement('div');
+  transactioninfo.className = "column center-column hover-column";
+
+  row.insertAdjacentElement('beforeend', transactioninfo);
+  document.getElementsByClassName('container')[0].insertAdjacentElement('beforeend', row);
+
+  blockpass.latestfilter = web3.eth.filter('latest');
+  blockpass.latestfilter.watch((error, result) => {
+    if (!error) {
+      var transactionHashes = web3.eth.getBlock(result).transactions;
+      console.log(transactionHashes);
+      console.log(transactionHash);
+      for (var i = 0; i < transactionHashes.length; ++i) {
+        if (transactionHashes[i] == transactionHash) {
+          transactioninfo.innerText = "Fertig";
+          blockpass.latestfilter.stopWatching();
+          callback(false, true);
+          break;
+        }
+      }
+    }
+  });
+
+  transactioninfo.innerText = "Sende Transaktion...";
+
+  transactionHash = web3.personal.sendTransaction(tx, sessionStorage['password']);
+
+  transactioninfo.innerText = `Warte auf Transaktion mit Hash: ${transactionHash}...`;
 }
 
 function logout() {

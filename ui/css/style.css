@@ -166,6 +166,21 @@ input.dateview {
   text-align: center;
 }
 
+.sticky-row {
+  position: sticky;
+  bottom: 0rem;
+}
+
+.hover-column {
+  width: 75%;
+  overflow: hidden;
+  padding: 2.5rem;
+  text-align: center;
+  background-color: white;
+  border-radius: 0.4rem;
+  box-shadow: 0rem 0rem 2.5rem rgba(0, 0, 0, 0.1);
+}
+
 @media print {
   nav {
     display: none;

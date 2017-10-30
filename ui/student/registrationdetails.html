@@ -64,9 +64,11 @@
       } else if (type == 'test') {
         data = studentmanagerInstance.registerForTest.getData(testid);
       }
-      signAndSend(data, studentmanagerInstance.address);
-      
-      window.location.assign('../personal/courses.html');
+      signAndSend(data, studentmanagerInstance.address, (error, result) => {
+        if (!error) {
+          window.location.assign('../personal/courses.html');
+        }
+      });
     }
   </script>
 </head>
