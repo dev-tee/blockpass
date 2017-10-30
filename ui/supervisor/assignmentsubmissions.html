@@ -71,11 +71,12 @@
 
       for (var variable in filtermap) {
         if (filtermap.hasOwnProperty(variable)) {
+          var index = filtermap[variable].submissionindex;
           if (ids.includes(submissions[1][index])) {
             continue;
           }
+
           ++numsubmissions;
-          var index = filtermap[variable].submissionindex;
           ids.push(submissions[1][index]);
           assessedFlags.push(submissions[2][index]);
         }
@@ -107,7 +108,7 @@
           students.push(studentdbInstance.getStudent(studentid)[0]);
         }
 
-        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&assignmentid=${assignmentid}">${submissiondate.toLocaleString()}</a><br><span>${students.join()}</span>`;
+        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&assignmentid=${assignmentid}">${submissiondate.toLocaleString()}</a><br><span>${students.join(', ')}</span>`;
         output.push(line);
         if (submissions[2][i]) {
           var extra = '<span class="extra">Bereits benotet</span>';

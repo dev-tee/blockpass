@@ -59,7 +59,7 @@
           students.push(studentdbInstance.getStudent(studentid)[0]);
         }
 
-        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&testid=${testid}">${submissiondate.toLocaleString()}</a><br><span>${students.join()}</span>`;
+        var line = `<li><a href="../supervisor/assess.html?submissionid=${id}&courseid=${courseid}&testid=${testid}">${submissiondate.toLocaleString()}</a><br><span>${students.join(', ')}</span>`;
         output.push(line);
         if (submissions[2][i]) {
           var extra = '<span class="extra">Bereits benotet</span>';
