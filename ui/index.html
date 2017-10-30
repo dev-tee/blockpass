@@ -51,7 +51,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="one-half column center-column credentials">
+      <div class="column center-column credentials">
         <h4>Anmelden</h4>
         <form id="form">
           <label for="usertype">Benutzertyp:</label>
@@ -62,7 +62,7 @@
           <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
           <input type="number" id="matrikelnr" class="u-full-width" required>
           <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:</label>
-          <input type="text" pattern="[a-z\d\.]+" maxlength="20" placeholder="abc.123" id="uaccountid" class="u-full-width" hidden disabled required>
+          <input type="text" pattern="[a-z\d\.]+" id="uaccountid" class="u-full-width" hidden disabled required>
           <label for="password">Passwort:</label>
           <input type="password" id="password" class="u-full-width" required>
           <button id="login" class="button-primary u-full-width">Anmelden</button>

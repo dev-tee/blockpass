@@ -176,6 +176,10 @@ input.dateview {
 }
 
 @media (max-width: 550px) {
+  nav {
+    max-height: 100%;
+    overflow-y: auto;
+  }
   nav ul li a {
     width: 100%;
     padding-left: 3.4rem;
