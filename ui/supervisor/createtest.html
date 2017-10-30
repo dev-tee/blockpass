@@ -25,7 +25,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/common.js"></script>
-  <script type="text/javascript" src="../scripts/accounts.js"></script>
+  <!-- <script type="text/javascript" src="../scripts/accounts.js"></script> -->
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
     function parseCourseID() {
@@ -46,7 +46,8 @@
       var maxpoints = document.getElementById('maxpoints').value;
       var description = document.getElementById('description').value;
       var duedate = document.getElementById('duedate').getAttribute('data-time');
-      var helpingsupervisors = getSelections();
+      // var helpingsupervisors = getSelections();
+      var helpingsupervisors = [];
 
       if (duedate <= Date.now()) {
         alert("Abgabedatum muss in der Zukunft liegen.");
@@ -111,8 +112,8 @@
         <span class="inlinetitle">Test für Kurs</span>
         <span id="courseid" class="id"></span>
         <form id="form">
-          <label for="helper">Hilfskräfte:</label>
-          <input class="u-full-width u-max-full-width" type="search" id="helper" placeholder="uaccountID-Suche" autocomplete="off">
+          <!-- <label for="helper">Hilfskräfte:</label> -->
+          <!-- <input class="u-full-width u-max-full-width" type="search" id="helper" placeholder="uaccountID-Suche" autocomplete="off"> -->
           <label for="maxpoints">Maximalpunktezahl:</label>
           <input class="u-full-width u-max-full-width" type="number" id="maxpoints" placeholder="22" required>
           <label for="duedate">Abgabedatum:</label>
@@ -146,8 +147,8 @@
     document.getElementById('hour').addEventListener('change', updateTime);
     document.getElementById('minute').addEventListener('change', updateTime);
 
-    var helper = document.getElementById('helper');
-    setupSearch(helper, 'supervisor');
+    // var helper = document.getElementById('helper');
+    // setupSearch(helper, 'supervisor');
 
     parseCourseID();
   </script>
