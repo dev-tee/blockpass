@@ -61,7 +61,7 @@
     function showDetails() {
       var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(submissionid);
       document.getElementById('maxpoints').value = relatedinfo[0];
-      document.getElementById('submissiondetails').innerHTML = submissiondbInstance.getSubmission(0)[0];
+      document.getElementById('submissiondetails').innerHTML = submissiondbInstance.getSubmission(submissionid)[0];
 
       if (relatedinfo[2] * 1000 <= Date.now()) {
         document.getElementById('form').hidden = false;
