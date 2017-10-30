@@ -56,7 +56,6 @@
           var numsubmissions = submissions[0].toNumber();
 
           var submissionoutput = [];
-          var topobtainedpoints = 0;
           for (var k = 0; k < numsubmissions; k++) {
             var id = submissions[1][k];
             var assessmentdetails = studentmanagerInstance.getAssessment(id);
@@ -65,16 +64,13 @@
             var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
             var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
 
-            if (assessmentdetails[0] && topobtainedpoints < obtainedpoints) {
-              topobtainedpoints = obtainedpoints;
-            }
-
             line = `<li>Abgabe vom ${submissiondate.toLocaleDateString()}
                     <span class="extra score">${obtainedpoints} / ${maxpoints}</span>`;
             submissionoutput.push(line);
           }
 
-          if (topobtainedpoints >= maxpoints/2) {
+          var topobtainedpoints = studentmanagerInstance.getAssignmentPerformance(assignmentid);
+          if (studentmanagerInstance.passedAssignment(assignmentid)) {
             ++numpassedassignments;
           }
 
@@ -101,7 +97,6 @@
           var numsubmissions = submissions[0].toNumber();
 
           var submissionoutput = [];
-          var topobtainedpoints = 0;
           for (var k = 0; k < numsubmissions; k++) {
             var id = submissions[1][k];
             var assessmentdetails = studentmanagerInstance.getAssessment(id);
@@ -110,16 +105,13 @@
             var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
             var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
 
-            if (assessmentdetails[0] && topobtainedpoints < obtainedpoints) {
-              topobtainedpoints = obtainedpoints;
-            }
-
             line = `<li>Abgabe vom ${submissiondate.toLocaleDateString()}
                     <span class="extra score">${obtainedpoints} / ${maxpoints}</span>`;
             submissionoutput.push(line);
           }
 
-          if (topobtainedpoints >= maxpoints/2) {
+          var topobtainedpoints = studentmanagerInstance.getTestPerformance(testid);
+          if (studentmanagerInstance.passedTest(testid)) {
             ++numpassedtests;
           }
 
@@ -133,21 +125,21 @@
           testoutput.push('</ul>');
         }
 
-        if (numpassedassignments >= numassignments/2) {
-          obtainedects += ects/2;
-        }
-        if (numpassedtests >= numtests/2) {
-          obtainedects += ects/2;
-        }
-
-        totalobtainedects += obtainedects;
+        var status = "-";
         totalects += ects;
+
+        if (numassignments || numtests) {
+          var passed = studentmanagerInstance.passedCourse(courseid);
+          status = passed ? "Bestanden" : "Nicht bestanden";
+          
+          totalobtainedects += passed ? ects : 0;
+        }
 
         line = `<li class="category">
                 <span class="categoryheader">${name}</span>`;
         output.push(line);
         line = `<div class="score">
-                <span>${obtainedects}</span> / <span>${ects} ECTS</span></div>`;
+                <span>${status}</span></div>`;
         output.push(line);
         output.push('<ul>');
 
