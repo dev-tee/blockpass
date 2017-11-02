@@ -36,13 +36,173 @@ loop number of own courses
 
   CourseDB --> DataManager: course
   deactivate CourseDB
-
 end
 
 DataManager --> App: courses
 deactivate DataManager
 
 loop number of own courses
+  App -> StudentManager: passedCourse(courseID)
+  activate StudentManager
+
+  StudentManager -> StudentManager: passedCourseAssignments(courseID)
+  activate StudentManager
+
+  group passed course assignments
+    StudentManager -> CourseDB: getNumAssignments(courseID)
+    activate CourseDB
+
+    CourseDB --> StudentManager: numAssignments
+    deactivate CourseDB
+
+    loop number of assignments
+      StudentManager -> CourseDB: getAssignmentIDAt(courseID, index)
+      activate CourseDB
+
+      CourseDB --> StudentManager: assignmentID
+      deactivate CourseDB
+
+      StudentManager -> StudentManager: passedAssignment(assignmentID)
+      activate StudentManager
+
+      group passed assignment
+        StudentManager -> AssignmentDB: getAssignment(assignmentID)
+        activate AssignmentDB
+
+        AssignmentDB --> StudentManager: assignment
+        deactivate AssignmentDB
+
+        StudentManager -> StudentManager: getAssignmentPerformance(assignmentID)
+        activate StudentManager
+
+        group assignment performance
+          StudentManager -> StudentManager: getAssignmentSubmissionIDs(assignmentID)
+          activate StudentManager
+
+          StudentManager -> StudentManager: getSubmissionIDs(referenceType = 0, assignmentID)
+          activate StudentManager
+
+          group referenced submission IDs
+            StudentManager -> StudentDB: getNumStudentSubmissions(senderStudentID)
+            activate StudentDB
+            
+            StudentDB --> StudentManager: numSubmissions
+            deactivate StudentDB
+
+            loop number of submissions
+              StudentManager -> StudentDB: getStudentSubmissionIDAt(senderStudentID, index)
+              activate StudentDB
+              
+              StudentDB --> StudentManager: studentsubmissionID
+              deactivate StudentDB
+
+              StudentManager -> StudentSubmissionDB: getStudentSubmission(studentsubmissionID)
+              activate StudentSubmissionDB
+
+              StudentSubmissionDB --> StudentManager: ...submissionID
+              deactivate StudentSubmissionDB
+
+              StudentManager -> SubmissionDB: getSubmission(submissionID)
+              activate SubmissionDB
+
+              SubmissionDB --> StudentManager: submission
+              deactivate SubmissionDB
+            end
+          end
+
+          StudentManager --> StudentManager: numReferencedSubmissions, ids
+          deactivate StudentManager
+
+          StudentManager --> StudentManager: submissions
+          deactivate StudentManager
+
+          loop number of submissions
+            StudentManager -> StudentManager: getAssessment(submissionID)
+            activate StudentManager
+
+            group best assessment
+              StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, 0)
+              activate SubmissionDB
+
+              SubmissionDB --> StudentManager: currentBestAssessmentID
+              deactivate SubmissionDB
+
+              StudentManager -> AssessmentDB: getAssessment(currentBestAssessmentID)
+              activate AssessmentDB
+
+              AssessmentDB --> StudentManager: currentBestAssessment
+              deactivate AssessmentDB
+
+              group find better assessment
+                StudentManager -> SubmissionDB: getNumAssessments(submissionID)
+                activate SubmissionDB
+
+                SubmissionDB --> StudentManager: numAssessments
+                deactivate SubmissionDB
+
+                loop number of assessments
+                  StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, index)
+                  activate SubmissionDB
+
+                  SubmissionDB --> StudentManager: assessmentID
+                  deactivate SubmissionDB
+
+                  StudentManager -> AssessmentDB: getAssessment(assessmentID)
+                  activate AssessmentDB
+
+                  AssessmentDB --> StudentManager: assessment
+                  deactivate AssessmentDB
+
+                  opt assessment.obtainedPoints > currentBestAssessment.obtainedPoints
+                    StudentManager -> StudentManager: remember assessment
+                  end
+                end
+              end
+            end
+
+            StudentManager --> StudentManager: assessment
+            deactivate StudentManager
+
+            opt assessment.assessed && assessment.obtainedPoints > obtainedPoints
+              StudentManager -> StudentManager: remember maximum of obtained points
+            end
+          end
+        end
+
+        StudentManager --> StudentManager: obtainedPoints
+        deactivate StudentManager
+        ||8||
+        
+        ref over StudentManager: decide whether we passed that assignment
+
+      end
+
+      StudentManager --> StudentManager: passedAssignment ?
+      deactivate StudentManager
+      ||8||
+    end
+
+    ref over StudentManager: decide whether we passed the courses assignments
+
+  end
+
+  StudentManager --> StudentManager: passedCourseAssignments ?
+  deactivate StudentManager
+
+  StudentManager --> StudentManager: passedCourseTests(courseID)
+  activate StudentManager
+
+  ref over StudentManager, TestDB, StudentDB, CourseDB, StudentSubmissionDB, SubmissionDB, AssessmentDB: passed course tests
+
+  StudentManager -> StudentManager: passedCourseTests ?
+  deactivate StudentManager
+  ||8||
+
+  ref over StudentManager: decide whether we passed the course
+
+  StudentManager --> App: passedCourse ?
+  deactivate StudentManager
+
   App -> DataManager: getCourseAssignments(courseID)
   activate DataManager
 
@@ -53,7 +213,6 @@ loop number of own courses
   deactivate CourseDB
 
   loop number of assignments
-
     DataManager -> CourseDB: getAssignmentIDAt(courseID, index);
     activate CourseDB
     
@@ -65,13 +224,27 @@ loop number of own courses
 
     AssignmentDB --> DataManager: assignment
     deactivate AssignmentDB
-  
   end
   
   DataManager --> App: assignments
   deactivate DataManager
 
   loop number of assignments
+    App -> StudentManager: getAssignmentPerformance(assignmentID)
+    activate StudentManager
+
+    ref over StudentManager, StudentDB, StudentSubmissionDB, SubmissionDB, AssessmentDB: assignment performance
+
+    StudentManager --> App: obtainedPoints
+    deactivate StudentManager
+
+    App -> StudentManager: passedAssignment(assignmentID)
+    activate StudentManager
+
+    ref over StudentManager, AssignmentDB, StudentDB, StudentSubmissionDB, SubmissionDB, AssessmentDB: passed assignment
+
+    StudentManager --> App: passedAssignment ?
+    deactivate StudentManager
     
     App -> StudentManager: getAssignmentSubmissionIDs(assignmentID)
     activate StudentManager
@@ -79,33 +252,7 @@ loop number of own courses
     StudentManager -> StudentManager: getSubmissionIDs(referenceType = 0, assignmentID)
     activate StudentManager
 
-    StudentManager -> StudentDB: getNumStudentSubmissions(senderStudentID)
-    activate StudentDB
-    
-    StudentDB --> StudentManager: numSubmissions
-    deactivate StudentDB
-
-    loop number of submissions
-      
-      StudentManager -> StudentDB: getStudentSubmissionIDAt(senderStudentID, index)
-      activate StudentDB
-      
-      StudentDB --> StudentManager: studentsubmissionID
-      deactivate StudentDB
-
-      StudentManager -> StudentSubmissionDB: getStudentSubmission(studentsubmissionID)
-      activate StudentSubmissionDB
-
-      StudentSubmissionDB --> StudentManager: ...submissionID
-      deactivate StudentSubmissionDB
-
-      StudentManager -> SubmissionDB: getSubmission(submissionID)
-      activate SubmissionDB
-
-      SubmissionDB --> StudentManager: submission
-      deactivate SubmissionDB
-
-    end
+    ref over StudentManager, StudentDB, StudentSubmissionDB, SubmissionDB: referenced submission IDs
 
     StudentManager --> StudentManager: numReferencedSubmissions, ids
     deactivate StudentManager
@@ -117,49 +264,9 @@ loop number of own courses
       App -> StudentManager: getAssessment(submissionID)
       activate StudentManager
 
-      StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, 0)
-      activate SubmissionDB
+      ref over StudentManager, SubmissionDB, AssessmentDB: best assessment
 
-      SubmissionDB --> StudentManager: firstAssessmentID
-      deactivate SubmissionDB
-
-      StudentManager -> AssessmentDB: getAssessment(firstAssessmentID)
-      activate AssessmentDB
-
-      AssessmentDB --> StudentManager: firstAssessment
-      deactivate AssessmentDB
-
-      group find better assessment
-
-        StudentManager -> SubmissionDB: getNumAssessments(submissionID)
-        activate SubmissionDB
-
-        SubmissionDB --> StudentManager: numAssessments
-        deactivate SubmissionDB
-
-        loop number of assessments
-
-          StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, index)
-          activate SubmissionDB
-
-          SubmissionDB --> StudentManager: assessmentID
-          deactivate SubmissionDB
-
-          StudentManager -> AssessmentDB: getAssessment(assessmentID)
-          activate AssessmentDB
-
-          AssessmentDB --> StudentManager: assessment
-          deactivate AssessmentDB
-
-          opt assessment.obtainedpoints > firstAssessment.obtainedpoints
-            StudentManager -> StudentManager: remember assessment
-          end
-
-        end
-
-      end
-
-      StudentManager --> App: bestAssessment
+      StudentManager --> App: assessment
       deactivate StudentManager
 
       App -> DataManager: getSubmissionRelatedInfo(submissionID)
@@ -172,13 +279,11 @@ loop number of own courses
       deactivate SubmissionDB
 
       alt referenceType == 0
-
         DataManager -> AssignmentDB: getAssignment(referenceID)
         activate AssignmentDB
 
         AssignmentDB --> DataManager: ...maxPoints, dueDate...
         deactivate AssignmentDB
-
       else referenceType == 1
       end
 
@@ -187,7 +292,7 @@ loop number of own courses
     end
   end
 
-  ref over App, DataManager, StudentManager: loop for tests as well
+  ref over App, DataManager, StudentManager, TestDB, StudentDB, StudentSubmissionDB, SubmissionDB, AssessmentDB: loop for tests as well
 
 end
 

@@ -1,0 +1,149 @@
+@startuml
+
+!include ../style.iuml
+
+title U7 Generate Report [Simplified]
+
+actor Student
+
+Student -> App: submit report generation request
+activate App
+
+App -> DataManager: getPersonalCourses()
+activate DataManager
+
+DataManager --> App: courses
+deactivate DataManager
+
+loop number of own courses
+  App -> StudentManager: passedCourse(courseID)
+  activate StudentManager
+
+  StudentManager -> StudentManager: passedCourseAssignments(courseID)
+  activate StudentManager
+
+  group passed course assignments
+
+    loop number of assignments
+      StudentManager -> StudentManager: passedAssignment(assignmentID)
+      activate StudentManager
+
+      group passed assignment
+        StudentManager -> StudentManager: getAssignmentPerformance(assignmentID)
+        activate StudentManager
+
+        group assignment performance
+          StudentManager -> StudentManager: getAssignmentSubmissionIDs(assignmentID)
+          activate StudentManager
+
+          StudentManager --> StudentManager: submissions
+          deactivate StudentManager
+
+          loop number of submissions
+            StudentManager -> StudentManager: getAssessment(submissionID)
+            activate StudentManager
+
+            group best assessment
+              StudentManager -> StudentManager: retrieve ID of first assessment
+              StudentManager -> StudentManager: find better assessment
+            end
+
+            StudentManager --> StudentManager: best assessment
+            deactivate StudentManager
+
+            opt assessment.assessed && assessment.obtainedPoints > obtainedPoints
+              StudentManager -> StudentManager: remember maximum of obtained points
+            end
+          end
+        end
+
+        StudentManager --> StudentManager: obtainedPoints
+        deactivate StudentManager
+        ||8||
+        
+        ref over StudentManager: decide whether we passed that assignment
+
+      end
+
+      StudentManager --> StudentManager: passedAssignment ?
+      deactivate StudentManager
+      ||8||
+    end
+
+    ref over StudentManager: decide whether we passed the courses assignments
+
+  end
+
+  StudentManager --> StudentManager: passedCourseAssignments ?
+  deactivate StudentManager
+
+  StudentManager --> StudentManager: passedCourseTests(courseID)
+  activate StudentManager
+
+  ref over StudentManager: passed course tests
+
+  StudentManager -> StudentManager: passedCourseTests ?
+  deactivate StudentManager
+  ||8||
+
+  ref over StudentManager: decide whether we passed the course
+
+  StudentManager --> App: passedCourse ?
+  deactivate StudentManager
+
+  App -> DataManager: getCourseAssignments(courseID)
+  activate DataManager
+  
+  DataManager --> App: assignments
+  deactivate DataManager
+
+  loop number of assignments
+    App -> StudentManager: getAssignmentPerformance(assignmentID)
+    activate StudentManager
+
+    ref over StudentManager: assignment performance
+
+    StudentManager --> App: obtainedPoints
+    deactivate StudentManager
+
+    App -> StudentManager: passedAssignment(assignmentID)
+    activate StudentManager
+
+    ref over StudentManager: passed assignment
+
+    StudentManager --> App: passedAssignment ?
+    deactivate StudentManager
+    
+    App -> StudentManager: getAssignmentSubmissionIDs(assignmentID)
+    activate StudentManager
+
+    StudentManager --> App: submissions
+    deactivate StudentManager
+
+    loop number of submissions
+      App -> StudentManager: getAssessment(submissionID)
+      activate StudentManager
+
+      ref over StudentManager: best assessment
+
+      StudentManager --> App: assessment
+      deactivate StudentManager
+
+      App -> DataManager: getSubmissionRelatedInfo(submissionID)
+      activate DataManager
+
+      DataManager --> App: maxPoints, submissionDate, dueDate
+      deactivate DataManager
+    end
+  end
+
+  ref over App, DataManager, StudentManager: loop for tests as well
+
+end
+
+
+deactivate StudentManager
+
+hide footbox
+
+@enduml
