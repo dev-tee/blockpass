@@ -7,8 +7,8 @@
 title SupervisorDB
 
 class Supervisor << Struct >> {
-  name: bytes32
-  uaccountID: bytes32
+  name: string
+  uaccountID: string
   index: uint
   courseSupervisionIDs: bytes32[]
   testSupervisionIDs: bytes32[]
@@ -20,9 +20,9 @@ class SupervisorDB << Contract >> {
   -supervisors: mapping {address => Supervisor}
   __
   +isSupervisor(account: address) : bool {constant}
-  +addSupervisor(account: address, name: bytes32, uaccountID: bytes32)
-  +getSupervisor(account: address) : Tuple { name: bytes32, uaccountID: bytes32 } {constant}
-  +getSupervisorAt(index: uint) : Tuple { name: bytes32, uaccountID: bytes32 } {constant}
+  +addSupervisor(account: address, name: string, uaccountID: string)
+  +getSupervisor(account: address) : Tuple { name: string, uaccountID: string } {constant}
+  +getSupervisorAt(index: uint) : Tuple { name: string, uaccountID: string } {constant}
   +getNumSupervisors() : uint {constant}
   .. Setter for combined values ..
   +addCourseSupervisionID(account: address, id: bytes32) {permission: "coursesupervisiondb"}

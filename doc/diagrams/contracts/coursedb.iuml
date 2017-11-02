@@ -9,7 +9,7 @@ title CourseDB
 class Course << Struct >> {
   description: string
   ectsPoints: uint
-  name: bytes32
+  name: string
   assignmentIDs: uint[]
   testIDs: uint[]
   courseParticipationIDs: bytes32[]
@@ -19,8 +19,8 @@ class Course << Struct >> {
 class CourseDB << Contract >> {
   -courses: Course[]
   __
-  +addCourse(description: string, name: bytes32, ectsPoints: uint) : uint
-  +getCourse(id: uint) : Tuple { description: string, name: bytes32, ectsPoints: uint } {constant}
+  +addCourse(description: string, name: string, ectsPoints: uint) : uint
+  +getCourse(id: uint) : Tuple { description: string, name: string, ectsPoints: uint } {constant}
   +getNumCourses() : uint {constant}
   .. Setter for combined values ..
   +addCourseParticipationID(courseID: uint, id: bytes32) {permission: "courseparticipationdb" }

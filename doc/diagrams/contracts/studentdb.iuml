@@ -7,7 +7,7 @@
 title StudentDB
 
 class Student << Struct >> {
-  name: bytes32
+  name: string
   matrNr: uint
   index: uint
   testParticipationIDs: bytes32[]
@@ -20,9 +20,9 @@ class StudentDB << Contract >> {
   -students: mapping {address => Student}
   __
   +isStudent(account: address) : bool {constant}
-  +addStudent(account: address, name: bytes32, matrNr: uint)
-  +getStudent(account: address) : Tuple { name: bytes32, matrNr: uint } {constant}
-  +getStudentAt(index: uint) : Tuple { name: bytes32, matrNr: uint } {constant}
+  +addStudent(account: address, name: string, matrNr: uint)
+  +getStudent(account: address) : Tuple { name: string, matrNr: uint } {constant}
+  +getStudentAt(index: uint) : Tuple { name: string, matrNr: uint } {constant}
   +getNumStudents() : uint {constant}
   .. Setter for combined values ..
   +addTestParticipationID(account: address, id: bytes32) {permission: "testparticipationdb"}

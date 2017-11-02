@@ -8,11 +8,11 @@ title AccountManager
 
 class AccountManager << Contract >> {
   __
-  +registerStudent(account: address, name: bytes32, matrNr: uint)
-  +registerSupervisor(account: address, name: bytes32, uaccountID: bytes32)
+  +registerStudent(account: address, name: string, matrNr: uint)
+  +registerSupervisor(account: address, name: string, uaccountID: string)
   .. Events ..
-  +RegisteredStudent(address, bytes32, uint)
-  +RegisteredSupervisor(address, bytes32, bytes32)
+  +RegisteredStudent(address, string, uint)
+  +RegisteredSupervisor(address, string, string)
 }
 
 AccountManager -down-|> ManagedContract

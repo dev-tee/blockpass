@@ -8,7 +8,7 @@ title SupervisorManager
 
 class SupervisorManager << Contract >> {
   __
-  +createCourse(description: string, name: bytes32, ectsPoints: uint, helpingSupervisors: address[]) {onlySupervisor} {containsOnlySupervisors: helpingSupervisors}
+  +createCourse(description: string, name: string, ectsPoints: uint, helpingSupervisors: address[]) {onlySupervisor} {containsOnlySupervisors: helpingSupervisors}
   +createAssignment(description: string, maxPoints: uint, dueDate: uint, courseID: uint) {onlySupervisor} {isOwnCourse: courseID}
   +createTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint, helpingSupervisors: address[]) isOwnCourse(courseID) {onlySupervisor} {containsOnlySupervisors: helpingSupervisors}
   +assess(description: string, obtainedPoints: uint, submissionID: uint) {onlySupervisor} {assessmentAllowed: submissionID}

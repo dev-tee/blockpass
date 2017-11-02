@@ -11,10 +11,16 @@ class StudentManager << Contract >> {
   +registerForCourse(courseID: uint) {onlyStudent} {courseExists: courseID}
   +registerForTest(testID: uint) {onlyStudent} {testExists: testID}
   +uploadAssignmentSubmission(description: string, assignmentID: uint, remainingGroupMembers: address[]) {onlyStudent} {assignmentExists: assignmentID} {containsOnlyParticipatingStudents: remainingGroupMembers, assignmentID} {courseParticipationExists: assignmentID}
-  +uploadTestSubmission(description: string, testID: uint) {onlyStudent} {testExists: testID} {testParticipationExists: testID}
+  +uploadTestSubmission(description: string, testID: uint) {onlyStudent} {testExists: testID} {testParticipationExists: testID} {notYetSubmitted: testID}
+  -uploadSubmission(description: string, referenceType: uint, referenceID: uint) {inTime: referenceType, referenceID}
   +getAssignmentSubmissionIDs(assignmentID: uint) : Tuple { numAssignmentSubmissions: uint, assignmentSubmissionIDs: uint[] } {constant} {onlyStudent} {assignmentExists: assignmentID}
   +getTestSubmissionIDs(testID: uint) : Tuple { numTestSubmissions: uint, testSubmissionIDs: uint[] } {constant} {onlyStudent} {testExists: testID}
   +getAssessment(submissionID: uint) : Tuple { bool assessed, numPriorAssessments: uint, id: uint, obtainedPoints: uint } {constant} {onlyStudent} {submissionExists: submissionID}
+  +passedCourse(courseID: uint) : bool
+  +passedAssignment(assignmentID: uint) : bool {onlyStudent} {assignmentExists: assignmentID}
+  +passedTest(testID: uint) : bool {onlyStudent} {testExists: testID}
+  +getAssignmentPerformance(assignmentID: uint) : uint {onlyStudent} {assignmentExists: assignmentID}
+  +getTestPerformance(testID: uint) : uint {onlyStudent} {testExists: testID}
   .. Modifier ..
   #onlyStudent()
   #containsOnlyParticipatingStudents(accounts: address[], assignmentID: uint)
@@ -24,6 +30,8 @@ class StudentManager << Contract >> {
   #submissionExists(submissionID: uint)
   #courseParticipationExists(assignmentID: uint)
   #testParticipationExists(testID: uint)
+  #notYetSubmitted(testID: uint)
+  #inTime(referenceType: uint, referenceID: uint)
 }
 
 StudentManager -down-|> ManagedContract
