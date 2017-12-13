@@ -1,5 +1,7 @@
+// Define the project's namespace.
 var blockpass = {};
 
+// Initialise the connection to the ethereum node.
 blockpass.init3 = function() {
   // var web3Provider = "http://localhost:8545";
   var web3Provider = "http://blockpass.cs.univie.ac.at:8545";

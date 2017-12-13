@@ -12,12 +12,15 @@ import "../data/combined/supervisorassessmentdb.sol";
 
 contract SupervisorManager is ManagedContract {
 
+    // Modifier that ensures that only a registered
+    // supervisor account is calling the tagged function.
     modifier onlySupervisor() {
         require(SupervisorDB(ContractProvider(MAN).contracts("supervisordb"))
             .isSupervisor(msg.sender));
         _;
     }
 
+    // Modifier that ensures that all the accounts are supervisor accounts.
     modifier containsOnlySupervisors(address[] accounts) {
         bool valid = true;
         address supervisordb = ContractProvider(MAN).contracts("supervisordb");
@@ -33,12 +36,20 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a supervisor is
+    // actually responsible for a specific course.
     modifier isOwnCourse(uint courseID) {
         require(CourseSupervisionDB(ContractProvider(MAN).contracts("coursesupervisiondb"))
             .exists(msg.sender, courseID));
         _;
     }
 
+    // Modifier that ensures that a supervisor is
+    // actually allowed to assess a submission
+    // by ensuring that the supervisors is actually
+    // in charge of the test, assignment or course.
+    // It is also only possible after the deadline
+    // has passed.
     modifier assessmentAllowed(uint submissionID) {
         var (, submissionReferenceType, submissionReferenceID) = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
                                                                                     .getSubmission(submissionID);
@@ -60,6 +71,8 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that the referenced task
+    // - assignment or test - actually exists.
     modifier referenceExists(uint referenceType, uint referenceID) {
         if (referenceType == 0) {
             require(AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
@@ -71,7 +84,8 @@ contract SupervisorManager is ManagedContract {
         _;
     }
 
-    /// Create a new course named $(courseName) with a description, a number and a worth of $(courseECTSPoints) ECTS.
+    // Create a new course with the option to add
+    // other supervisors that oversee the course.
     function createCourse(
         string description,
         string name,
@@ -85,6 +99,7 @@ contract SupervisorManager is ManagedContract {
         address coursedb = ContractProvider(MAN).contracts("coursedb");
         uint courseID = CourseDB(coursedb).addCourse(description, name, ectsPoints);
 
+        // Link the course to the other supervisors as well.
         address coursesupervisiondb = ContractProvider(MAN).contracts("coursesupervisiondb");
         for (uint i = 0; i < helpingSupervisors.length; ++i) {
             CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(helpingSupervisors[i], courseID);
@@ -92,6 +107,7 @@ contract SupervisorManager is ManagedContract {
         CourseSupervisionDB(coursesupervisiondb).addCourseSupervision(msg.sender, courseID);
     }
 
+    // Create a new assignment for a specific course.
     function createAssignment(
         string description,
         uint maxPoints,
@@ -106,6 +122,8 @@ contract SupervisorManager is ManagedContract {
             .addAssignment(description, maxPoints, dueDate, courseID);
     }
 
+    // Create a new test for a specific course with the option
+    // to add other supervisors that oversee the test.
     function createTest(
         string description,
         uint maxPoints,
@@ -121,6 +139,7 @@ contract SupervisorManager is ManagedContract {
         uint testID = TestDB(ContractProvider(MAN).contracts("testdb"))
             .addTest(description, maxPoints, dueDate, courseID);
 
+        // Link the test to the other supervisors as well.
         address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");
         for (uint i = 0; i < helpingSupervisors.length; ++i) {
             TestSupervisionDB(testsupervisiondb).addTestSupervision(helpingSupervisors[i], testID);
@@ -128,6 +147,7 @@ contract SupervisorManager is ManagedContract {
         TestSupervisionDB(testsupervisiondb).addTestSupervision(msg.sender, testID);
     }
 
+    // Create an assessment - points obtained and text - for a specific submission.
     function assess(string description, uint obtainedPoints, uint submissionID)
         public
         onlySupervisor
@@ -140,6 +160,7 @@ contract SupervisorManager is ManagedContract {
             .addSupervisorAssessment(msg.sender, assessmentID);
     }
 
+    // Get the information about all submissions for a specific assignment.
     function getAssignmentSubmissionIDs(uint assignmentID)
         public
         constant
@@ -148,6 +169,7 @@ contract SupervisorManager is ManagedContract {
         return getSubmissionIDs(0, assignmentID);
     }
 
+    // Get the information about all submissions for a specific test.
     function getTestSubmissionIDs(uint testID)
         public
         constant
@@ -156,6 +178,8 @@ contract SupervisorManager is ManagedContract {
         return getSubmissionIDs(1, testID);
     }
 
+    // Type-agnostic internal implementation of the function for getting
+    // all submission for a specific task - assignment, or test.
     function getSubmissionIDs(uint referenceType, uint referenceID)
         internal
         constant
@@ -168,6 +192,9 @@ contract SupervisorManager is ManagedContract {
 
         uint numAssessments;
         uint submissionID;
+
+        // Depending on the referenced type, loop through either all assignments or all tests
+        // and return all submissions as well as whether they have already been assessed.
         if (referenceType == 0) {
             numSubmissions = AssignmentDB(assignmentdb).getNumSubmissions(referenceID);
             ids = new uint[](numSubmissions);

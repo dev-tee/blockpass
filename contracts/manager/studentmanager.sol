@@ -10,21 +10,30 @@ import "../data/assignmentdb.sol";
 import "../data/assessmentdb.sol";
 import "../data/combined/studentsubmissiondb.sol";
 
+// This contract is responsible for all data
+// that can be accessed by student accounts.
+
 
 contract StudentManager is ManagedContract {
 
+    // Modifier that ensures that only a registered
+    // student account is calling the tagged function.
     modifier onlyStudent() {
         require(StudentDB(ContractProvider(MAN).contracts("studentdb"))
             .isStudent(msg.sender));
         _;
     }
 
+    // Modifier that ensures that a student hasn't
+    // already made a submission for a given test.
     modifier notSubmittedYet(uint testID) {
         var (numTestSubmissions, ) = getTestSubmissionIDs(testID);
         require(numTestSubmissions == 0);
         _;
     }
 
+    // Modifier that ensures that a student can't
+    // make a submission after the deadline.
     modifier inTime(uint referenceType, uint referenceID) {
         if (referenceType == 0) {
             var (, assignmentDueDate, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
@@ -38,6 +47,8 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that the student accounts are
+    // registered for the course the assignment belongs to.
     modifier containsOnlyParticipatingStudents(address[] accounts, uint assignmentID) {
         var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
                                         .getAssignment(assignmentID);
@@ -51,30 +62,36 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a given course exists.
     modifier courseExists(uint courseID) {
         require(CourseDB(ContractProvider(MAN).contracts("coursedb"))
             .exists(courseID));
         _;
     }
 
+    // Modifier that ensures that a given test exists.
     modifier testExists(uint testID) {
         require(TestDB(ContractProvider(MAN).contracts("testdb"))
             .exists(testID));
         _;
     }
 
+    // Modifier that ensures that a given assignment exists.
     modifier assignmentExists(uint assignmentID) {
         require(AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
             .exists(assignmentID));
         _;
     }
 
+    // Modifier that ensures that a given submission exists.
     modifier submissionExists(uint submissionID) {
         require(SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
             .exists(submissionID));
         _;
     }
 
+    // Modifier that ensures that a student is registered
+    // for the course the assignment belongs to.
     modifier courseParticipationExists(uint assignmentID) {
         var (, assignmentCourseID) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
                                         .getAssignment(assignmentID);
@@ -83,22 +100,27 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a student is registered for this test.
     modifier testParticipationExists(uint testID) {
         require(TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
             .exists(msg.sender, testID));
         _;
     }
 
+    // Register a student for a course.
     function registerForCourse(uint courseID) onlyStudent courseExists(courseID) {
         CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
             .addCourseParticipation(msg.sender, courseID);
     }
 
+    // Register a student for a test.
     function registerForTest(uint testID) onlyStudent testExists(testID) {
         TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
             .addTestParticipation(msg.sender, testID);
     }
 
+    // Upload a submission for an assignment with the option
+    // to add students that collaborated on this submission.
     function uploadAssignmentSubmission(
         string description,
         uint assignmentID,
@@ -112,12 +134,14 @@ contract StudentManager is ManagedContract {
     {
         uint submissionID = uploadSubmission(description, now, 0, assignmentID);
 
+        // Link the submission to the other students as well.
         address studentsubmissiondb = ContractProvider(MAN).contracts("studentsubmissiondb");
         for (uint i = 0; i < remainingGroupMembers.length; ++i) {
             StudentSubmissionDB(studentsubmissiondb).addStudentSubmission(remainingGroupMembers[i], submissionID);
         }
     }
 
+    // Upload a submission for a test.
     function uploadTestSubmission(
         string description,
         uint testID
@@ -131,6 +155,8 @@ contract StudentManager is ManagedContract {
         uploadSubmission(description, now, 1, testID);
     }
 
+    // Type-agnostic internal implementation of submission upload
+    // that is called by the public upload functions.
     function uploadSubmission(
         string description,
         uint submittedDate,
@@ -148,6 +174,7 @@ contract StudentManager is ManagedContract {
             .addStudentSubmission(msg.sender, submissionID);
     }
 
+    // Get the information about a student's every submission for a specific assignment.
     function getAssignmentSubmissionIDs(uint assignmentID)
         public
         constant
@@ -158,6 +185,7 @@ contract StudentManager is ManagedContract {
         return getSubmissionIDs(0, assignmentID);
     }
 
+    // Get the information about a student's every submission for a specific test.
     function getTestSubmissionIDs(uint testID)
         public
         constant
@@ -168,6 +196,11 @@ contract StudentManager is ManagedContract {
         return getSubmissionIDs(1, testID);
     }
 
+    // Type-agnostic internal implementation of the function for getting
+    // a student's every submission for a specific task - assignment, or test.
+    //
+    // The number of relevant values needs to be inferred from numReferencedSubmissions
+    // since the array of ids is oversized because of some return value limitations.
     function getSubmissionIDs(uint referenceType, uint referenceID)
         internal
         constant
@@ -177,14 +210,19 @@ contract StudentManager is ManagedContract {
         address studentdb = ContractProvider(MAN).contracts("studentdb");
         address studentsubmissiondb = ContractProvider(MAN).contracts("studentsubmissiondb");
 
+        // Create an oversized array but provide a way
+        // to check for the actual number of relevant values.
         uint totalSubmissions = StudentDB(studentdb).getNumStudentSubmissions(msg.sender);
         ids = new uint[](totalSubmissions);
         numReferencedSubmissions = 0;
 
+        // Look through all submissions from the student and return the requested ones.
         for (uint i = 0; i < totalSubmissions; ++i) {
             bytes32 studentsubmissionID = StudentDB(studentdb).getStudentSubmissionIDAt(msg.sender, i);
+
             var (, submissionID) = StudentSubmissionDB(studentsubmissiondb).getStudentSubmission(studentsubmissionID);
             var (, submissionReferenceType, submissionReferenceID) = SubmissionDB(submissiondb).getSubmission(submissionID);
+
             if (submissionReferenceType == referenceType && submissionReferenceID == referenceID) {
                 ids[numReferencedSubmissions] = submissionID;
                 ++numReferencedSubmissions;
@@ -192,6 +230,7 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Get the best assessment for a specific submission a student has made.
     function getAssessment(uint submissionID)
         public
         constant
@@ -204,9 +243,12 @@ contract StudentManager is ManagedContract {
 
         uint numAssessments = SubmissionDB(submissiondb).getNumAssessments(submissionID);
         if (numAssessments > 0) {
+
+            // Save the very first assessment as the best one.
             id = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, 0);
             (, obtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(id);
 
+            // Iterate through the remaining assessments to find better ones.
             for (uint i = 1; i < numAssessments; ++i) {
                 uint assessmentID = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, i);
                 var (, assessmentObtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(assessmentID);
@@ -225,6 +267,7 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Check whether a student has passed a specific course.
     function passedCourse(uint courseID)
         public
         constant
@@ -235,6 +278,8 @@ contract StudentManager is ManagedContract {
         return passedCourseAssignments(courseID) && passedCourseTests(courseID);
     }
 
+    // Check whether a student has passed the assignment portion of a specific course.
+    // Currently requires passing >=50% of the course's assignments.
     function passedCourseAssignments(uint courseID)
         internal
         constant
@@ -263,6 +308,8 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Check whether a student has passed the test portion of a specific course.
+    // Currently requires passing >=50% of the course's tests.
     function passedCourseTests(uint courseID)
         internal
         constant
@@ -291,6 +338,8 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Check whether a student has passed a specific assignment.
+    // Currently requires having >=50% of the obtainable points.
     function passedAssignment(uint assignmentID)
         public
         constant
@@ -308,6 +357,8 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Check whether a student has passed a specific test.
+    // Currently requires having >=50% of the obtainable points.
     function passedTest(uint testID)
         public
         constant
@@ -325,6 +376,7 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Get the student's performance - points obtained - for a specific assignment.
     function getAssignmentPerformance(uint assignmentID)
         public
         constant
@@ -341,6 +393,7 @@ contract StudentManager is ManagedContract {
         }
     }
 
+    // Get the student's performance - points obtained - for a specific test.
     function getTestPerformance(uint testID)
         public
         constant

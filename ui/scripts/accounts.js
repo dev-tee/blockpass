@@ -1,9 +1,12 @@
+// Cache the pre-verified login information
+// in session storage variant of web storage.
 function cacheCredentials(address, password, usertype) {
   sessionStorage['address'] = address;
   sessionStorage['password'] = password;
   sessionStorage['usertype'] = usertype;
 }
 
+// Navigate to the logged in users landing page.
 function enter() {
   if (!isLoggedIn()) {
     return;
@@ -12,6 +15,9 @@ function enter() {
   window.location.assign(home);
 }
 
+// Verify credentials by signing a message and checking it afterwards.
+//
+// UNUSED BECAUSE:
 // Call with optional password parameter
 // not supported in parity v1.6.10-stable.
 function checkCredentials(address, password) {
@@ -25,6 +31,7 @@ function checkCredentials(address, password) {
   return address == recoveredAddress;
 }
 
+// Check whether a specific userid has not been taken yet.
 function checkAvailability(id, value, callback) {
   var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
@@ -43,6 +50,7 @@ function checkAvailability(id, value, callback) {
   xhr.send();
 }
 
+// Check credentials and log the user in on success.
 function signin(usertype, id, password) {  
   var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
@@ -67,6 +75,8 @@ function signin(usertype, id, password) {
   xhr.send();
 }
 
+// Sign the user up with the provided credentials
+// and log them in on success.
 function signup(name, usertype, id, password) {
   var xhr = createXMLHttpRequest();
   xhr.onreadystatechange = (event) => {
@@ -102,6 +112,7 @@ function signup(name, usertype, id, password) {
   xhr.send(requestData);
 }
 
+// Search for another registered user's id.
 function find(usertype, searchterm, callback) {
   if (!isLoggedIn()) {
     console.error('Log in to use this feature.');
@@ -139,22 +150,7 @@ function find(usertype, searchterm, callback) {
   xhr.send();
 }
 
-function removeSelection(that) {
-  var address = that.getAttribute('data-address');
-  var id = that.getAttribute('data-id');
-  
-  delete helpers[id];
-  render(undefined, helpers);
-}
-
-function addSelection(that) {
-  var address = that.getAttribute('data-address');
-  var id = that.getAttribute('data-id');
-
-  helpers[id] = address;
-  render(undefined, helpers);
-}
-
+// List the user-ids a user has added to their selection.
 function getSelections() {
   var addresses = [];
   for (var variable in helpers) {
@@ -167,6 +163,25 @@ function getSelections() {
   return addresses;
 }
 
+// Remove a user from the selection.
+function removeSelection(that) {
+  var address = that.getAttribute('data-address');
+  var id = that.getAttribute('data-id');
+  
+  delete helpers[id];
+  render(undefined, helpers);
+}
+
+// Add a user to the selection.
+function addSelection(that) {
+  var address = that.getAttribute('data-address');
+  var id = that.getAttribute('data-id');
+
+  helpers[id] = address;
+  render(undefined, helpers);
+}
+
+// Render the ui for searching and selecting other users.
 function render(suggested, selected) {
   var suggestions = [];
   suggestions.push('<ul class="suggestions">');
@@ -204,6 +219,7 @@ function render(suggested, selected) {
   renderelement.innerHTML = suggestions.join('') + selections.join('');
 }
 
+// Parse input and update search ui with results.
 function parseAndFind(event) {
   var helper = event.target.value;
   var usertype = sessionStorage['usertype'];
@@ -216,6 +232,7 @@ function parseAndFind(event) {
   });
 }
 
+// Initialise the user interface for searching for other user's ids.
 function setupSearch(element) {
   helpers = {};
   renderelement = document.createElement('div');
@@ -223,6 +240,7 @@ function setupSearch(element) {
   element.addEventListener('input', parseAndFind);
 }
 
+// Create a generic XMLHttpRequest with a predefined timeout.
 function createXMLHttpRequest() {
   var xhr = new XMLHttpRequest();
   xhr.timeout = 4 * 1000;
@@ -232,12 +250,14 @@ function createXMLHttpRequest() {
   return xhr;
 }
 
+// Show or hide input elements based on the current state.
 function showLabelledInput(id, state) {
   document.getElementById(id).hidden = !state;
   document.getElementById(id).disabled = !state;
   document.getElementById('label_' + id).hidden = !state;
 }
 
+// Switch to the ID that is relevant for the current user type.
 function switchID(event) {
   if (event.target.value == 'student') {
     showLabelledInput('matrikelnr', true);

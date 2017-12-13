@@ -28,6 +28,9 @@
   <script type="text/javascript" src="../scripts/init3.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
+
+    // List all contracts the api knows about.
+    // This does not mean the contract manager knows about them as well.
     function listContracts() {
       var output = [];
       for (var i = contractNames.length - 1; i >= 0; i--) {
@@ -38,6 +41,7 @@
       document.getElementById('contracts').innerHTML = '<ul>' + output.join('') + '</ul>';
     }
 
+    // Register all contracts with the contract manager.
     function registerContracts(event) {
       if (event.preventDefault) event.preventDefault();
 
@@ -51,6 +55,8 @@
       }
     }
 
+    // Send the transaction with the specified data.
+    // Sign it using the address and password in the form.
     function send(data) {
       var tx = {
         "from": document.getElementById('account').value,

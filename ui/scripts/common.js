@@ -1,8 +1,8 @@
-// Create common object
-// to prevent littering global namespace.
+// Define the project's namespace.
 // TODO: Actually use it!
 var blockpass = {};
 
+// Initialise the connection to the ethereum node.
 function init3() {
   // var web3Provider = "http://localhost:8545";
   var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
@@ -20,6 +20,9 @@ function init3() {
   }
 }
 
+// Sign a transaction with the specified data and destination.
+// Uses the password and address cached in web storage.
+// Displays an overlay while the transaction is being mined.
 function signAndSend(data, destination, callback) {
   var tx = {
     "from": sessionStorage['address'],
@@ -71,6 +74,8 @@ function signAndSend(data, destination, callback) {
   transactioninfo.innerText = `Warte auf Transaktion mit Hash: ${transactionHash}...`;
 }
 
+// Logout the current user by clearing web storage
+// and navigating to the home page.
 function logout() {
   sessionStorage.clear();
   web3.eth.defaultAccount = undefined;
@@ -78,18 +83,26 @@ function logout() {
   window.location.assign('../index.html');
 }
 
+// Check whether the user is currently logged in
+// by looking at the cached values in web storage.
 function isLoggedIn() {
   return Boolean(sessionStorage['address']) && Boolean(sessionStorage['password']);
 }
 
+// Check whether the user is a student by
+// looking at the cached values in web storage.
 function isStudent() {
   return sessionStorage['usertype'] == 'student';
 }
 
+// Check whether the user is a supervisor by
+// looking at the cached values in web storage.
 function isSupervisor() {
   return sessionStorage['usertype'] == 'supervisor';
 }
 
+// Check whether the requested page is accessible by the user.
+// Redirect for faulty requests.
 function checkPage() {
   var path = window.location.pathname;
   if (path.search('/$') == -1
@@ -112,6 +125,7 @@ function checkPage() {
   }
 }
 
+// Navigate the user to the home page.
 function goHome() {
   if (!isLoggedIn()) {
     return;
@@ -120,6 +134,8 @@ function goHome() {
   window.location.assign(home);
 }
 
+// Parse IDs that are located in the url string and update
+// the values on the rendered page that depend on them.
 blockpass.parseIDs = function() {
   var searchParameters = new URLSearchParams(window.location.search);
   blockpass.ids = {
@@ -146,8 +162,5 @@ blockpass.parseIDs = function() {
   }
 }
 
-// Check whether the user is logged in.
-// Redirect if that is not the case.
 checkPage();
-// Finally call our initialisation sequence.
 init3();

@@ -13,9 +13,16 @@ import "../data/combined/testparticipationdb.sol";
 import "../data/combined/coursesupervisiondb.sol";
 import "../data/combined/testsupervisiondb.sol";
 
+// This contract is responsible for all data
+// that can be accessed by either both
+// student and supervisor accounts
+// or by the general public.
+
 
 contract DataManager is ManagedContract {
 
+    // Modifier that ensures that only a registered account
+    // - student or supervisor - can call the tagged function.
     modifier onlyRegistered() {
         require(SupervisorDB(ContractProvider(MAN).contracts("supervisordb"))
             .isSupervisor(msg.sender)
@@ -25,12 +32,17 @@ contract DataManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a given submission exists.
     modifier submissionExists(uint submissionID) {
         require(SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
             .exists(submissionID));
         _;
     }
 
+    // Return all courses.
+    //
+    // This might get really large if there are a lot of courses,
+    // over time especially so.
     function getAllCourses()
         public
         constant
@@ -50,6 +62,10 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Return all tests.
+    //
+    // This might get really large if there are a lot of tests,
+    // over time especially so.
     function getAllTests()
         public
         constant
@@ -71,6 +87,7 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Return all assignments of a course.
     function getCourseAssignments(uint courseID)
         public
         constant
@@ -94,6 +111,7 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Return all tests of a course.
     function getCourseTests(uint courseID)
         public
         constant
@@ -117,6 +135,9 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Get the information that is connected to a submission.
+    // Includes the maximum of obtainable points for the corresponding assignment
+    // as well as its due date and the submission time.
     function getSubmissionRelatedInfo(uint submissionID)
         public
         constant
@@ -137,6 +158,8 @@ contract DataManager is ManagedContract {
         submissionDate = submittedDate;
     }
 
+    // Return all courses that the requesting account is associated with.
+    // May be courses a student participates in or courses a supervisor oversees.
     function getPersonalCourses()
         public
         constant
@@ -171,6 +194,8 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Return all tests that the requesting account is associated with.
+    // May be tests a student signed up for or tests a supervisor oversees.
     function getPersonalTests()
         public
         constant
@@ -182,6 +207,8 @@ contract DataManager is ManagedContract {
         address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");
         address testdb = ContractProvider(MAN).contracts("testdb");
 
+        // Depending on whether the message sender is a student or supervisor account
+        // loop through all participations or supervisions of tests to get the ids.
         if (StudentDB(studentdb).isStudent(msg.sender)) {
             numTests = StudentDB(studentdb).getNumTestParticipations(msg.sender);
             ids = new uint[](numTests);
@@ -202,6 +229,7 @@ contract DataManager is ManagedContract {
         dueDates = new uint[](numTests);
         courseIDs = new uint[](numTests);
 
+        // Use the ids to finally get the test's information.
         for (uint k = 0; k < numTests; ++k) {
             (, maxPoints[k], dueDates[k], courseIDs[k]) = TestDB(testdb).getTest(ids[k]);
         }

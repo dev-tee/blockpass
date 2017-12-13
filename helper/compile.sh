@@ -1,9 +1,13 @@
 #!/bin/bash
 
+# Define our default folder and file names.
 OUT="out"
 JSON="$OUT/combined.json"
 API="$OUT/api.js"
 
+# Check for folders and files.
+# Create them if the are missing.
+# Clear everything out if they exist.
 if [[ ! -d $OUT ]]; then
   echo "Creating output directory..."
   mkdir out

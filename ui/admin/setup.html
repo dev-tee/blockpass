@@ -27,6 +27,9 @@
   <script type="text/javascript" src="../scripts/web3.js"></script>
   <script type="text/javascript" src="../scripts/init3.js"></script>
   <script type="text/javascript">
+
+    // Deploy all contracts that are specified in the json.
+    // Sign the transations using the address and password in the form.
     function deploy() {
       blockpass.api = "\n"
       + "contractInstances = [];\n"
@@ -49,6 +52,8 @@
       }
     }
 
+    // Listen for new deployments of contracts specified in the json.
+    // Update their adressess and the api file whenever one gets mined.
     function watchDeployment() {
       blockpass.filter = web3.eth.filter('latest');
       blockpass.filter.watch((error, result) => {
@@ -86,6 +91,7 @@
       });
     }
 
+    // Parse the uploaded json file and unlock other functions on success.
     function parse(event) {
       blockpass = {};
       blockpass.manageronly = document.getElementById('managercheck').checked;
@@ -101,6 +107,7 @@
 
     }
 
+    // Update the progress bar and unlock download on reaching completion.
     function progress() {
       var progress = document.getElementById('progressbar');
       ++progress.value;
@@ -111,6 +118,8 @@
       }
     }
 
+    // Checks whether a json entry contains deployable information.
+    // Can also restrict deployment to manager contracts for updates.
     function isDeployable(jsonvalue) {
       if (blockpass.manageronly) {
         return jsonvalue.search('Manager') != -1;
@@ -119,6 +128,7 @@
       return jsonvalue.search('Owned') == -1 && jsonvalue.search('ManagedContract') == -1;
     }
 
+    // Setup the deployment of contracts and watchers before starting the process.
     function setup(event) {
       if (event.preventDefault) event.preventDefault();
 
@@ -127,6 +137,7 @@
       setTimeout(deploy, 3 * 1000);
     }
 
+    // Setup the progessbar with information from the json file.
     function setupProgressbar() {
       var count = 0;
       for (var variable in blockpass.json.contracts) {
@@ -143,6 +154,7 @@
       progress.max = count;
     }
 
+    // Setup and activate the api download functionality.
     function setupDownload() {
       blockpass.downloadElement = document.createElement('a');
       blockpass.downloadElement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(blockpass.api));
@@ -152,6 +164,7 @@
       document.getElementById('download').hidden = false;
     }
 
+    // Download the api file.
     function download(event) {
       if (event.preventDefault) event.preventDefault();
 
