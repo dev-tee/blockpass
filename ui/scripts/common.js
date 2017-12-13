@@ -137,12 +137,20 @@ function goHome() {
 // Parse IDs that are located in the url string and update
 // the values on the rendered page that depend on them.
 blockpass.parseIDs = function() {
-  var searchParameters = new URLSearchParams(window.location.search);
+  var parameters = {};
+  var searchParameters = window.location.search.substr(1).split('&');
+  for (var i = 0; i < searchParameters.length; i++) {
+    var tuple = searchParameters[i].split('=');
+    var key = tuple[0];
+    var value = tuple[1];
+    parameters[key] = value;
+  }
+
   blockpass.ids = {
-    course: searchParameters.get('courseid'),
-    assignment: searchParameters.get('assignmentid'),
-    test: searchParameters.get('testid'),
-    submission: searchParameters.get('submissionid')
+    course: parameters['courseid'],
+    assignment: parameters['assignmentid'],
+    test: parameters['testid'],
+    submission: parameters['submissionid']
   }
 
   for (var variable in blockpass.ids) {
