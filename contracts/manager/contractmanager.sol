@@ -55,8 +55,8 @@ contract ContractManager is Owned {
     // This mapping holds all references to individual contracts.
     mapping (bytes32 => address) public contracts;
 
-    // Add a new contract to the system.
-    function addContract(bytes32 contractName, address contractAddress) onlyOwner returns (bool) {
+    // Add a new contract to the system or update an existing one.
+    function setContract(bytes32 contractName, address contractAddress) onlyOwner returns (bool) {
         // Add contract only if we can set the manager on it.
         if (ManagedContract(contractAddress).setContractManagerAddress(this)) {
             contracts[contractName] = contractAddress;
