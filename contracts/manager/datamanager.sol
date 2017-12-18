@@ -235,4 +235,39 @@ contract DataManager is ManagedContract {
         }
     }
 
+    // Get the best assessment for a specific submission.
+    function getAssessment(uint submissionID)
+        public
+        constant
+        submissionExists(submissionID)
+        returns (bool assessed, uint numPriorAssessments, uint id, uint obtainedPoints)
+    {
+        address submissiondb = ContractProvider(MAN).contracts("submissiondb");
+        address assessmentdb = ContractProvider(MAN).contracts("assessmentdb");
+
+        uint numAssessments = SubmissionDB(submissiondb).getNumAssessments(submissionID);
+        if (numAssessments > 0) {
+
+            // Save the very first assessment as the best one.
+            id = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, 0);
+            (, obtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(id);
+
+            // Iterate through the remaining assessments to find better ones.
+            for (uint i = 1; i < numAssessments; ++i) {
+                uint assessmentID = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, i);
+                var (, assessmentObtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(assessmentID);
+
+                if (assessmentObtainedPoints > obtainedPoints) {
+                    obtainedPoints = assessmentObtainedPoints;
+                    id = assessmentID;
+                }
+            }
+
+            assessed = true;
+            numPriorAssessments = numAssessments - 1;
+
+            var (, assessmentSubmissionID) = AssessmentDB(assessmentdb).getAssessment(id);
+            assert(assessmentSubmissionID == submissionID);
+        }
+    }
 }

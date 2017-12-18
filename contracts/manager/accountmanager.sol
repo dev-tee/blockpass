@@ -11,6 +11,16 @@ import "../data/supervisordb.sol";
 
 contract AccountManager is ManagedContract {
 
+    // Modifier that ensures that an account has not
+    // been registered as a student or supervisor yet.
+    modifier accountNotRegisteredYet(address account) {
+        require(!StudentDB(ContractProvider(MAN).contracts("studentdb"))
+                    .isStudent(account)
+            && !SupervisorDB(ContractProvider(MAN).contracts("supervisordb"))
+                    .isSupervisor(account));
+        _;
+    }
+
     // This event is fired when a student account has been registered successfully.
     event RegisteredStudent(address, string, uint);
 
@@ -19,7 +29,7 @@ contract AccountManager is ManagedContract {
 
     // Register an ethereum address as a student account
     // with the name and matrikel number that was provided.
-    function registerStudent(address account, string name, uint matrNr) public {
+    function registerStudent(address account, string name, uint matrNr) public accountNotRegisteredYet(account) {
         address studentDB = ContractProvider(MAN).contracts("studentdb");
         StudentDB(studentDB).addStudent(account, name, matrNr);
 
@@ -28,7 +38,7 @@ contract AccountManager is ManagedContract {
 
     // Register an ethereum address as a supervisor account
     // with the name and uaccount id that was provided.
-    function registerSupervisor(address account, string name, string uaccountID) public {
+    function registerSupervisor(address account, string name, string uaccountID) public accountNotRegisteredYet(account) {
         address supervisorDB = ContractProvider(MAN).contracts("supervisordb");
         SupervisorDB(supervisorDB).addSupervisor(account, name, uaccountID);
 

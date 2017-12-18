@@ -9,6 +9,7 @@ import "../data/testdb.sol";
 import "../data/assignmentdb.sol";
 import "../data/assessmentdb.sol";
 import "../data/combined/studentsubmissiondb.sol";
+import "../manager/datamanager.sol";
 
 // This contract is responsible for all data
 // that can be accessed by student accounts.
@@ -100,6 +101,14 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a student is not registered
+    // for this course yet.
+    modifier courseParticipationDoesntExistYet(uint courseID) {
+        require(!CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
+            .exists(msg.sender, courseID));
+        _;
+    }
+
     // Modifier that ensures that a student is registered for this test.
     modifier testParticipationExists(uint testID) {
         require(TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
@@ -107,14 +116,22 @@ contract StudentManager is ManagedContract {
         _;
     }
 
+    // Modifier that ensures that a student is not registered
+    // for this test yet.
+    modifier testParticipationDoesntExistYet(uint testID) {
+        require(!TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
+            .exists(msg.sender, testID));
+        _;
+    }
+
     // Register a student for a course.
-    function registerForCourse(uint courseID) onlyStudent courseExists(courseID) {
+    function registerForCourse(uint courseID) onlyStudent courseExists(courseID) courseParticipationDoesntExistYet(courseID) {
         CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
             .addCourseParticipation(msg.sender, courseID);
     }
 
     // Register a student for a test.
-    function registerForTest(uint testID) onlyStudent testExists(testID) {
+    function registerForTest(uint testID) onlyStudent testExists(testID) testParticipationDoesntExistYet(testID) {
         TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
             .addTestParticipation(msg.sender, testID);
     }
@@ -227,43 +244,6 @@ contract StudentManager is ManagedContract {
                 ids[numReferencedSubmissions] = submissionID;
                 ++numReferencedSubmissions;
             }
-        }
-    }
-
-    // Get the best assessment for a specific submission a student has made.
-    function getAssessment(uint submissionID)
-        public
-        constant
-        onlyStudent
-        submissionExists(submissionID)
-        returns (bool assessed, uint numPriorAssessments, uint id, uint obtainedPoints)
-    {
-        address submissiondb = ContractProvider(MAN).contracts("submissiondb");
-        address assessmentdb = ContractProvider(MAN).contracts("assessmentdb");
-
-        uint numAssessments = SubmissionDB(submissiondb).getNumAssessments(submissionID);
-        if (numAssessments > 0) {
-
-            // Save the very first assessment as the best one.
-            id = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, 0);
-            (, obtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(id);
-
-            // Iterate through the remaining assessments to find better ones.
-            for (uint i = 1; i < numAssessments; ++i) {
-                uint assessmentID = SubmissionDB(submissiondb).getAssessmentIDAt(submissionID, i);
-                var (, assessmentObtainedPoints,) = AssessmentDB(assessmentdb).getAssessment(assessmentID);
-
-                if (assessmentObtainedPoints > obtainedPoints) {
-                    obtainedPoints = assessmentObtainedPoints;
-                    id = assessmentID;
-                }
-            }
-
-            assessed = true;
-            numPriorAssessments = numAssessments - 1;
-
-            var (, assessmentSubmissionID) = AssessmentDB(assessmentdb).getAssessment(id);
-            assert(assessmentSubmissionID == submissionID);
         }
     }
 
@@ -384,9 +364,11 @@ contract StudentManager is ManagedContract {
         assignmentExists(assignmentID)
         returns(uint obtainedPoints)
     {
+        address datamanager = ContractProvider(MAN).contracts("datamanager");
+
         var(numAssignmentSubmissions, assignmentSubmissionIDs) = getAssignmentSubmissionIDs(assignmentID);
         for (uint i = 0; i < numAssignmentSubmissions; ++i) {
-            var (assessed, /* numPriorAssessments */, /* id */, assignmentObtainedPoints) = getAssessment(assignmentSubmissionIDs[i]);
+            var (assessed, /* numPriorAssessments */, /* id */, assignmentObtainedPoints) = DataManager(datamanager).getAssessment(assignmentSubmissionIDs[i]);
             if (assessed && assignmentObtainedPoints > obtainedPoints) {
                 obtainedPoints = assignmentObtainedPoints;
             }
@@ -401,9 +383,11 @@ contract StudentManager is ManagedContract {
         testExists(testID)
         returns(uint obtainedPoints)
     {
+        address datamanager = ContractProvider(MAN).contracts("datamanager");
+
         var(numTestSubmissions, testSubmissionIDs) = getTestSubmissionIDs(testID);
         for (uint i = 0; i < numTestSubmissions; ++i) {
-            var (assessed, /* numPriorAssessments */, /* id */, testObtainedPoints) = getAssessment(testSubmissionIDs[i]);
+            var (assessed, /* numPriorAssessments */, /* id */, testObtainedPoints) = DataManager(datamanager).getAssessment(testSubmissionIDs[i]);
             if (assessed && testObtainedPoints > obtainedPoints) {
                 obtainedPoints = testObtainedPoints;
             }
