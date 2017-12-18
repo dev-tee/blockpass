@@ -43,16 +43,78 @@
 
     // Register all contracts with the contract manager.
     function registerContracts(event) {
+      for (var i = contractNames.length - 1; i >= 0; i--) {
+        if (shouldBeRegistered(contractNames[i])) {
+          var data = contractmanagerInstance.setContract.getData(contractNames[i], contractInstances[i].address);
+          console.log("Registering: " + contractNames[i] + " at " + contractInstances[i].address);
+          send(data);
+        }
+      }
+    }
+
+    // Listen for new registrations of contracts and update the progress bar.
+    function watchRegistration() {
+      blockpass.registrationfilter = web3.eth.filter('latest');
+      blockpass.registrationfilter.watch((error, result) => {
+        if (error) {
+          console.error(error);
+        } else {
+          var transactionHashes = web3.eth.getBlock(result).transactions;
+          for (var i = 0; i < transactionHashes.length; i++) {
+            var position = blockpass.registrationHashes.indexOf(transactionHashes[i]);
+            if (position != -1) {
+              blockpass.registrationHashes.splice(position, 1);
+              progress();
+            }
+          }
+        }
+      });
+    }
+
+    // Update the progress bar and hide upon reaching completion.
+    function progress() {
+      var progress = document.getElementById('progressbar');
+      ++progress.value;
+
+      if (progress.value >= progress.max) {
+        blockpass.registrationfilter.stopWatching();
+        setTimeout(() => {
+          document.getElementById('progressbar').hidden = true;
+        }, 1 * 1000);
+      }
+    }
+
+    // Checks whether a contract should be registered on the contract manager.
+    function shouldBeRegistered(contractname) {
+      return contractname == 'contractprovider' ? false : true;
+    }
+
+    // Setup the registration of contracts and watchers before starting the process.
+    function setup(event) {
       if (event.preventDefault) event.preventDefault();
 
+      // Disable button to prevent registering twice.
+      document.getElementById('register').disabled = true;
+      blockpass.registrationHashes = [];
+
+      setupProgressbar();
+      watchRegistration();
+      setTimeout(registerContracts, 3 * 1000);
+    }
+
+    // Setup the progessbar with information from the api file.
+    function setupProgressbar() {
+      var count = 0;
       for (var i = contractNames.length - 1; i >= 0; i--) {
-        if (contractNames[i] == 'contractprovider' || contractNames[i] == 'contractmanager') {
-          continue;
+        if (shouldBeRegistered(contractNames[i])) {
+          ++count;
         }
-        var data = contractmanagerInstance.setContract.getData(contractNames[i], contractInstances[i].address);
-        console.log("Registering: " + contractNames[i] + " at " + contractInstances[i].address);
-        send(data);
       }
+
+      var progress = document.getElementById('progressbar');
+      progress.hidden = false;
+      progress.value = 0;
+      progress.max = count;
     }
 
     // Send the transaction with the specified data.
@@ -66,7 +128,13 @@
       };
       tx.gas = web3.eth.estimateGas(tx);
       console.log("Estimated gas cost: " + tx.gas);
-      web3.personal.sendTransaction(tx, document.getElementById('password').value);
+      web3.personal.sendTransaction(tx, document.getElementById('password').value, (error, result) => {
+        if (!error) {
+          blockpass.registrationHashes.push(result);
+        } else {
+          console.log(error);
+        }
+      });
     }
   </script>
 </head>
@@ -83,6 +151,7 @@
           <label for="password">Passwort:</label>
           <input id="password" type="password" class="u-full-width" placeholder="*******">
           <button id="register">Registriere Contracts</button>
+          <progress id="progressbar" class="u-full-width" value="" max="" hidden=""></progress>
         </form>
         <div id="contracts"></div>
       </div>
@@ -92,7 +161,7 @@
   <!-- Javascript [EventListeners]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
-    document.getElementById('form').addEventListener('submit', registerContracts);
+    document.getElementById('form').addEventListener('submit', setup);
   </script>
 
   <!-- End Document

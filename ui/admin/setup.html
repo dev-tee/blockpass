@@ -107,7 +107,7 @@
 
     }
 
-    // Update the progress bar and unlock download on reaching completion.
+    // Update the progress bar and unlock download upon reaching completion.
     function progress() {
       var progress = document.getElementById('progressbar');
       ++progress.value;
@@ -131,6 +131,9 @@
     // Setup the deployment of contracts and watchers before starting the process.
     function setup(event) {
       if (event.preventDefault) event.preventDefault();
+
+      // Disable button to prevent deploying twice.
+      document.getElementById('setup').disabled = true;
 
       setupProgressbar();
       watchDeployment();
