@@ -98,17 +98,13 @@
         var maxpoints = tests[2][i];
         var duedate = new Date(tests[3][i].toNumber() * 1000);
 
-        if (!personaltestIDs.includes(id)) {
+        if (isStudent() && !personaltestIDs.includes(id)) {
 
           output.push(`<li>`);
           line = `<span>${duedate.toLocaleString()}</span>`;
           output.push(line);
 
-          if (isStudent()) {
-            extra = "Nicht angemeldet.";
-          } else if(isSupervisor()) {
-            extra = "Nicht verantwortlich.";
-          }
+          extra = "Nicht angemeldet.";
         } else {
           
           output.push(`<li>`);
