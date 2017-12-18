@@ -45,6 +45,8 @@
       var description = document.getElementById('description').value;
 
       var data = studentmanagerInstance.uploadTestSubmission.getData(description, testid);
+
+      blockInput();
       signAndSend(data, studentmanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign(document.getElementById('previouspage').href);

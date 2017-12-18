@@ -57,6 +57,8 @@
       // while JavaScript Date has millisecond resolution.
       duedate = Math.floor(duedate / 1000);
       var data = supervisormanagerInstance.createTest.getData(description, maxpoints, duedate, courseid, helpingsupervisors);
+
+      blockInput();
       signAndSend(data, supervisormanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign(document.getElementById('previouspage').href);

@@ -77,6 +77,8 @@
       var obtainedpoints = document.getElementById('obtainedpoints').value;
 
       var data = supervisormanagerInstance.assess.getData(description, obtainedpoints, submissionid);
+
+      blockInput();
       signAndSend(data, supervisormanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign(document.getElementById('previouspage').href);

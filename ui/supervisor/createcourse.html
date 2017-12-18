@@ -37,6 +37,8 @@
       var helpingsupervisors = getSelections();
 
       var data = supervisormanagerInstance.createCourse.getData(description, name, ectspoints, helpingsupervisors);
+
+      blockInput();
       signAndSend(data, supervisormanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign(document.getElementById('previouspage').href);

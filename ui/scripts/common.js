@@ -42,20 +42,6 @@ function signAndSend(data, destination, callback) {
   }
   var transactionHash;
 
-  // Disable the form or button that sent us this request.
-  var form = document.getElementById("form");
-  if (form != null) {
-    var elements = form.elements;
-    for (var i = 0, len = elements.length; i < len; ++i) {
-        elements[i].disabled = true;
-    }
-  } else {
-    var button = document.getElementById("register");
-    if (button != null) {
-      button.disabled = true;
-    }
-  }
-
   var row = document.createElement('div');
   row.className = "row sticky-row";
   var transactioninfo = document.createElement('div');
@@ -86,6 +72,22 @@ function signAndSend(data, destination, callback) {
   transactionHash = web3.personal.sendTransaction(tx, sessionStorage['password']);
 
   transactioninfo.innerText = `Warte auf Transaktion mit Hash: ${transactionHash}...`;
+}
+
+function blockInput() {
+  // Disable the form or button on the current page to prevent duplicate transactions.
+  var form = document.getElementById("form");
+  if (form != null) {
+    var elements = form.elements;
+    for (var i = 0, len = elements.length; i < len; ++i) {
+        elements[i].disabled = true;
+    }
+  } else {
+    var button = document.getElementById("register");
+    if (button != null) {
+      button.disabled = true;
+    }
+  }
 }
 
 // Logout the current user by clearing web storage

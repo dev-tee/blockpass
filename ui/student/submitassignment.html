@@ -47,6 +47,8 @@
       var remainingMembers = getSelections();
 
       var data = studentmanagerInstance.uploadAssignmentSubmission.getData(description, assignmentid, remainingMembers);
+
+      blockInput();
       signAndSend(data, studentmanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign(document.getElementById('previouspage').href);

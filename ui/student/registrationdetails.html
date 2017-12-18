@@ -64,6 +64,7 @@
       } else if (type == 'test') {
         data = studentmanagerInstance.registerForTest.getData(testid);
       }
+      blockInput();
       signAndSend(data, studentmanagerInstance.address, (error, result) => {
         if (!error) {
           window.location.assign('../personal/courses.html');
