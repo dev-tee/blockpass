@@ -15,7 +15,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" type="text/css" href="./css/normalize.css">
   <link rel="stylesheet" type="text/css" href="./css/skeleton.css">
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/credentials.css">
 
   <!-- Favicon
@@ -39,6 +38,10 @@
         id = document.getElementById('matrikelnr').value;
       } else if (usertype == 'supervisor') {
         id = document.getElementById('uaccountid').value;
+      } else {
+        // Catch erroneous events.
+        // Makes Firefox's onChange more reliable.
+        console.log("Unknown ID.");
       }
       signin(usertype, id, password);
     }
