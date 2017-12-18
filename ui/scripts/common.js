@@ -42,6 +42,20 @@ function signAndSend(data, destination, callback) {
   }
   var transactionHash;
 
+  // Disable the form or button that sent us this request.
+  var form = document.getElementById("form");
+  if (form != null) {
+    var elements = form.elements;
+    for (var i = 0, len = elements.length; i < len; ++i) {
+        elements[i].disabled = true;
+    }
+  } else {
+    var button = document.getElementById("register");
+    if (button != null) {
+      button.disabled = true;
+    }
+  }
+
   var row = document.createElement('div');
   row.className = "row sticky-row";
   var transactioninfo = document.createElement('div');
@@ -167,6 +181,40 @@ blockpass.parseIDs = function() {
         elements[i].href += `${variable}id=${id}`;
       }
     }
+  }
+}
+
+// Show information about the current user.
+// Activate buttons with userdependent functions.
+function showUserPanel() {
+  var usertype = "";
+  var useridtype = "";
+  var username = "";
+  var userid = "";
+  var functions;
+  if (isSupervisor()) {
+    usertype = "LV-LeiterIn";
+    useridtype = "uaccount-ID";
+    username = supervisordbInstance.getSupervisor(sessionStorage.address)[0];
+    userid = supervisordbInstance.getSupervisor(sessionStorage.address)[1];
+
+    functions = document.getElementById('supervisorfunctions');
+  }
+  else if (isStudent()) {
+    usertype = "StudentIn";
+    useridtype = "MatrNr";
+    username = studentdbInstance.getStudent(sessionStorage.address)[0];
+    userid = studentdbInstance.getStudent(sessionStorage.address)[1];
+
+    functions = document.getElementById('studentfunctions');
+  }
+  document.getElementById('usertype').innerHTML = usertype;
+  document.getElementById('useridtype').innerHTML = useridtype;
+  document.getElementById('username').innerHTML = username;
+  document.getElementById('userid').innerHTML = userid;
+
+  if (functions != null) {
+    functions.hidden = false;
   }
 }
 

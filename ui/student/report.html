@@ -192,7 +192,15 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
+        </div>
+      </div>
+      <div class="two-thirds column">
         <span class="inlinetitle">Leistungen</span>
         <div id="report">
           <div class="summary">
@@ -212,10 +220,11 @@
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
+    showUserPanel();
     generate();
     var categories = document.getElementsByClassName('categoryheader');
     for (var i = 0; i < categories.length; i++) {

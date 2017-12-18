@@ -75,7 +75,15 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
+        </div>
+      </div>
+      <div class="two-thirds column">
         <span class="inlinetitle">Aufgabe</span>
         <span id="assignmentid" class="id"></span>
         <form id="form">
@@ -91,11 +99,12 @@
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
     document.getElementById('form').addEventListener('submit', submitAssignment);
+    showUserPanel();
 
     var helper = document.getElementById('helper');
     setupSearch(helper, 'supervisor');

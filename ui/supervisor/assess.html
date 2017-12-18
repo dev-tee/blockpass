@@ -106,7 +106,15 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
+        </div>
+      </div>
+      <div class="two-thirds column">
         <span class="inlinetitle">Abgabe</span>
         <span id="submissionid" class="id"></span>
         <p id="submissiondetails"></p>
@@ -123,11 +131,12 @@
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
     document.getElementById('form').addEventListener('submit', createAssessment);
+    showUserPanel();
     parseSubmissionID();
     showDetails();
   </script>

@@ -110,11 +110,19 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
+        </div>
+      </div>
+      <div class="two-thirds column">
         <span class="inlinetitle">Test für Kurs</span>
         <span id="courseid" class="id"></span>
         <form id="form">
-          <!-- <label for="helper">Hilfskräfte:</label> -->
+          <!-- <label for="helper">weitere LV-LeiterInnen:</label> -->
           <!-- <input class="u-full-width u-max-full-width" type="search" id="helper" placeholder="uaccountID-Suche" autocomplete="off"> -->
           <label for="maxpoints">Maximalpunktezahl:</label>
           <input class="u-full-width u-max-full-width" type="number" id="maxpoints" placeholder="22" required>
@@ -137,7 +145,7 @@
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
@@ -148,6 +156,8 @@
     document.getElementById('year').addEventListener('change', updateTime);
     document.getElementById('hour').addEventListener('change', updateTime);
     document.getElementById('minute').addEventListener('change', updateTime);
+
+    showUserPanel();
 
     // var helper = document.getElementById('helper');
     // setupSearch(helper, 'supervisor');

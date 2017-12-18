@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,300,600');
 
-.center-column:only-child {
+.column.center-column {
   margin: auto;
   float: none;
 }
@@ -181,12 +181,75 @@ input.dateview {
   box-shadow: 0rem 0rem 2.5rem rgba(0, 0, 0, 0.1);
 }
 
+.userpanel {
+  border: 0.1rem solid #E1E1E1;
+}
+
+#userinfo {
+  background-color: white;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+#userfunctions {
+  background-color: #333;
+}
+
+a.function {
+  display: block;
+  padding: 0.5rem 2rem;
+  color: #ccc;
+  text-transform: lowercase;
+  text-decoration: none;
+  border-top: 0.1rem solid #444;
+  cursor: pointer;
+}
+
+a.function:first-child {
+  border-top: none;
+}
+
+a.function:hover {
+  color: #eee;
+  background-color: #444;
+}
+
+#usertype, #useridtype {
+  color: #ccc;
+  font-weight: bold;
+}
+
 @media print {
   nav {
     display: none;
   }
+  .userpanel {
+    display: none;
+  }
   .center-column:only-child {
     width: 100%;
+  }
+}
+
+@media (min-width: 550px) {
+  .one-fourth.column {
+    width: 22%;
+  }
+  .one-fifth.column {
+    width: 17.6666666667%;
+  }
+  .one-sixth.column {
+    width: 13.3333333333%;
+  }
+  .pull-by-one.column {
+    margin-left: -8.66666666667%;
+  }
+}
+
+@media (max-width: 1000px) {
+  nav ul li a {
+    padding: 2rem 0.75rem;
   }
 }
 

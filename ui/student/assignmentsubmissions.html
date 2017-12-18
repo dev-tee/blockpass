@@ -101,7 +101,15 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
+        </div>
+      </div>
+      <div class="two-thirds column">
         <span class="inlinetitle">Aufgabe</span>
         <span id="assignmentid" class="id"></span>
         <div id="submissions"></div>
@@ -109,10 +117,11 @@
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
+    showUserPanel();
     parseAssignmentID();
     listSubmissions();
   </script>

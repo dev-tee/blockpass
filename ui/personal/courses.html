@@ -27,18 +27,6 @@
   <script type="text/javascript" src="../scripts/common.js"></script>
   <script type="text/javascript" src="../scripts/api.js"></script>
   <script type="text/javascript">
-    function showUserDependentUI() {
-      var elements = [];
-      if (isSupervisor()) {
-        elements = document.getElementsByClassName('supervisorfunctions');
-      } else if (isStudent()) {
-        elements = document.getElementsByClassName('studentfunctions');
-      }
-      for (var i = 0; i < elements.length; i++) {
-        elements[i].hidden = false;
-      }
-    }
-
     function listCourses() {
       var output = [];
       var courses = datamanagerInstance.getPersonalCourses();
@@ -87,24 +75,34 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
-      <div class="two-thirds column center-column">
-        <div class="supervisorfunctions" hidden>
-          <a class="button" href="../supervisor/createcourse.html">Neuer Kurs</a>
+      <div class="one-fourth column pull-by-one userpanel">
+        <div id="userinfo">
+          <span id="usertype"></span> <br>
+          <span id="username"></span> <br>
+          <span id="useridtype"></span> <br>
+          <span id="userid"></span>
         </div>
-        <div class="studentfunctions" hidden>
-          <a class="button" href="../student/register.html">Neue Anmeldung</a>
-          <a class="button" href="../student/report.html">Leistungen</a>
+        <div id="userfunctions">
+          <div id="supervisorfunctions" hidden>
+            <a class="function" href="../supervisor/createcourse.html">Neuer Kurs</a>
+          </div>
+          <div id="studentfunctions" hidden>
+            <a class="function" href="../student/register.html">Neue Anmeldung</a>
+            <a class="function" href="../student/report.html">Leistungen</a>
+          </div>
         </div>
+      </div>
+      <div class="two-thirds column">
         <div id="courses"></div>
       </div>
     </div>
   </div>
 
-  <!-- Javascript [EventListeners]
+  <!-- Javascript [Listeners & Renderers]
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript">
     document.getElementById('logout').addEventListener('click', logout);
-    showUserDependentUI();
+    showUserPanel();
     listCourses();
   </script>
 
