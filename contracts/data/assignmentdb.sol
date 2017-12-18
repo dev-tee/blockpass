@@ -14,6 +14,7 @@ contract AssignmentDB is ManagedContract {
     // Additionally it has references to submissions and a course.
     struct Assignment {
         string description;
+        string name;
         uint maxPoints;
         uint dueDate;
         uint courseID;
@@ -44,6 +45,7 @@ contract AssignmentDB is ManagedContract {
     // Add a new assignment to our contract.
     function addAssignment(
         string description,
+        string name,
         uint maxPoints,
         uint dueDate,
         uint courseID
@@ -59,6 +61,7 @@ contract AssignmentDB is ManagedContract {
 
         Assignment storage assignment = assignments[id];
         assignment.description = description;
+        assignment.name = name;
         assignment.maxPoints = maxPoints;
         assignment.dueDate = dueDate;
         assignment.courseID = courseID;
@@ -68,10 +71,10 @@ contract AssignmentDB is ManagedContract {
     function getAssignment(uint id)
         public
         constant
-        returns(string description, uint maxPoints, uint dueDate, uint courseID)
+        returns(string description, string name, uint maxPoints, uint dueDate, uint courseID)
     {
         require(exists(id));
-        return(assignments[id].description, assignments[id].maxPoints, assignments[id].dueDate, assignments[id].courseID);
+        return(assignments[id].description, assignments[id].name, assignments[id].maxPoints, assignments[id].dueDate, assignments[id].courseID);
     }
 
     // Return the number of assignments saved in the contract.

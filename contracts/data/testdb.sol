@@ -15,6 +15,7 @@ contract TestDB is ManagedContract {
     // Additionally it has references to supervisors, students, submissions and a course.
     struct Test {
         string description;
+        string name;
         uint maxPoints;
         uint dueDate;
         uint courseID;
@@ -58,6 +59,7 @@ contract TestDB is ManagedContract {
     // Add a new test to our contract.
     function addTest(
         string description,
+        string name,
         uint maxPoints,
         uint dueDate,
         uint courseID
@@ -73,15 +75,16 @@ contract TestDB is ManagedContract {
 
         Test storage test = tests[id];
         test.description = description;
+        test.name = name;
         test.maxPoints = maxPoints;
         test.dueDate = dueDate;
         test.courseID = courseID;
     }
 
     // Get the data of a test with a given id.
-    function getTest(uint id) public constant returns(string description, uint maxPoints, uint dueDate, uint courseID) {
+    function getTest(uint id) public constant returns(string description, string name, uint maxPoints, uint dueDate, uint courseID) {
         require(exists(id));
-        return(tests[id].description, tests[id].maxPoints, tests[id].dueDate, tests[id].courseID);
+        return(tests[id].description, tests[id].name, tests[id].maxPoints, tests[id].dueDate, tests[id].courseID);
     }
 
     // Return the number of tests saved in the contract.

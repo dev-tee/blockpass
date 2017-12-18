@@ -103,7 +103,8 @@ contract DataManager is ManagedContract {
 
         for (uint i = 0; i < numAssignments; ++i) {
             uint assignmentID = CourseDB(coursedb).getAssignmentIDAt(courseID, i);
-            var (, assignmentMaxPoints, assignmentDueDate,) = AssignmentDB(assignmentdb).getAssignment(assignmentID);
+            var (/*description*/, /*name*/, assignmentMaxPoints, assignmentDueDate, /*courseID*/) = 
+                AssignmentDB(assignmentdb).getAssignment(assignmentID);
 
             ids[i] = assignmentID;
             maxPoints[i] = assignmentMaxPoints;
@@ -127,7 +128,8 @@ contract DataManager is ManagedContract {
 
         for (uint i = 0; i < numTests; ++i) {
             uint testID = CourseDB(coursedb).getTestIDAt(courseID, i);
-            var (, testMaxPoints, testDueDate,) = TestDB(testdb).getTest(testID);
+            var (/*description*/, /*name*/, testMaxPoints, testDueDate, /*courseID*/) =
+                TestDB(testdb).getTest(testID);
 
             ids[i] = testID;
             maxPoints[i] = testMaxPoints;
@@ -148,11 +150,13 @@ contract DataManager is ManagedContract {
         var (, submittedDate, referenceType, referenceID) = SubmissionDB(ContractProvider(MAN).contracts("submissiondb"))
                                                 .getSubmission(submissionID);
         if (referenceType == 0) {
-            (, maxPoints, dueDate,) = AssignmentDB(ContractProvider(MAN).contracts("assignmentdb")).
-                                        getAssignment(referenceID);
+            (/*description*/, /*name*/, maxPoints, dueDate, /*courseID*/) = 
+                AssignmentDB(ContractProvider(MAN).contracts("assignmentdb")).
+                getAssignment(referenceID);
         } else if (referenceType == 1) {
-            (, maxPoints, dueDate,) = TestDB(ContractProvider(MAN).contracts("testdb")).
-                                        getTest(referenceID);
+            (/*description*/, /*name*/, maxPoints, dueDate, /*courseID*/) = 
+                TestDB(ContractProvider(MAN).contracts("testdb")).
+                getTest(referenceID);
         }
 
         submissionDate = submittedDate;

@@ -327,7 +327,7 @@ contract StudentManager is ManagedContract {
         assignmentExists(assignmentID)
         returns(bool passed)
     {
-        var (/*description*/, maxPoints, /*dueDate*/, /*courseID*/) =
+        var (/*description*/, /*name*/, maxPoints, /*dueDate*/, /*courseID*/) =
             AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
             .getAssignment(assignmentID);
         uint obtainedPoints = getAssignmentPerformance(assignmentID);
@@ -346,7 +346,7 @@ contract StudentManager is ManagedContract {
         testExists(testID)
         returns(bool passed)
     {
-        var (/*description*/, maxPoints, /*dueDate*/, /*courseID*/) =
+        var (/*description*/, /*name*/, maxPoints, /*dueDate*/, /*courseID*/) =
             TestDB(ContractProvider(MAN).contracts("testdb"))
             .getTest(testID);
         uint obtainedPoints = getTestPerformance(testID);

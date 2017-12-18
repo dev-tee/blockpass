@@ -110,6 +110,7 @@ contract SupervisorManager is ManagedContract {
     // Create a new assignment for a specific course.
     function createAssignment(
         string description,
+        string name,
         uint maxPoints,
         uint dueDate,
         uint courseID
@@ -119,13 +120,14 @@ contract SupervisorManager is ManagedContract {
         isOwnCourse(courseID)
     {
         AssignmentDB(ContractProvider(MAN).contracts("assignmentdb"))
-            .addAssignment(description, maxPoints, dueDate, courseID);
+            .addAssignment(description, name, maxPoints, dueDate, courseID);
     }
 
     // Create a new test for a specific course with the option
     // to add other supervisors that oversee the test.
     function createTest(
         string description,
+        string name,
         uint maxPoints,
         uint dueDate,
         uint courseID,
@@ -137,7 +139,7 @@ contract SupervisorManager is ManagedContract {
         containsOnlySupervisors(helpingSupervisors)
     {
         uint testID = TestDB(ContractProvider(MAN).contracts("testdb"))
-            .addTest(description, maxPoints, dueDate, courseID);
+            .addTest(description, name, maxPoints, dueDate, courseID);
 
         // Link the test to the other supervisors as well.
         address testsupervisiondb = ContractProvider(MAN).contracts("testsupervisiondb");
