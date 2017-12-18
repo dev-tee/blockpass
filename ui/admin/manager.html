@@ -49,7 +49,7 @@
         if (contractNames[i] == 'contractprovider' || contractNames[i] == 'contractmanager') {
           continue;
         }
-        var data = contractmanagerInstance.addContract.getData(contractNames[i], contractInstances[i].address);
+        var data = contractmanagerInstance.setContract.getData(contractNames[i], contractInstances[i].address);
         console.log("Registering: " + contractNames[i] + " at " + contractInstances[i].address);
         send(data);
       }
