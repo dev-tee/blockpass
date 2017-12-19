@@ -86,7 +86,7 @@
 
     // Checks whether a contract should be registered on the contract manager.
     function shouldBeRegistered(contractname) {
-      return contractname == 'contractprovider' ? false : true;
+      return (contractname == 'contractprovider' || contractname == 'contractmanager') ? false : true;
     }
 
     // Setup the registration of contracts and watchers before starting the process.
