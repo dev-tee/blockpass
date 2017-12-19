@@ -14,8 +14,8 @@ contract CourseDB is ManagedContract {
     // Additionally it has references to assignments, tests, students and supervisors.
     struct Course {
         string description;
-        uint ectsPoints;
         string name;
+        uint ectsPoints;
         uint[] assignmentIDs;
         uint[] testIDs;
         bytes32[] courseParticipationIDs;

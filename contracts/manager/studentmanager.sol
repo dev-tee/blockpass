@@ -1,6 +1,7 @@
 pragma solidity ^0.4.3;
 
 import "./contractmanager.sol";
+import "./datamanager.sol";
 import "../data/combined/courseparticipationdb.sol";
 import "../data/combined/testparticipationdb.sol";
 import "../data/submissiondb.sol";
@@ -9,7 +10,6 @@ import "../data/testdb.sol";
 import "../data/assignmentdb.sol";
 import "../data/assessmentdb.sol";
 import "../data/combined/studentsubmissiondb.sol";
-import "../manager/datamanager.sol";
 
 // This contract is responsible for all data
 // that can be accessed by student accounts.
@@ -103,7 +103,7 @@ contract StudentManager is ManagedContract {
 
     // Modifier that ensures that a student is not registered
     // for this course yet.
-    modifier courseParticipationDoesntExistYet(uint courseID) {
+    modifier noCourseParticipationYet(uint courseID) {
         require(!CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
             .exists(msg.sender, courseID));
         _;
@@ -118,20 +118,20 @@ contract StudentManager is ManagedContract {
 
     // Modifier that ensures that a student is not registered
     // for this test yet.
-    modifier testParticipationDoesntExistYet(uint testID) {
+    modifier noTestParticipationYet(uint testID) {
         require(!TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
             .exists(msg.sender, testID));
         _;
     }
 
     // Register a student for a course.
-    function registerForCourse(uint courseID) onlyStudent courseExists(courseID) courseParticipationDoesntExistYet(courseID) {
+    function registerForCourse(uint courseID) onlyStudent courseExists(courseID) noCourseParticipationYet(courseID) {
         CourseParticipationDB(ContractProvider(MAN).contracts("courseparticipationdb"))
             .addCourseParticipation(msg.sender, courseID);
     }
 
     // Register a student for a test.
-    function registerForTest(uint testID) onlyStudent testExists(testID) testParticipationDoesntExistYet(testID) {
+    function registerForTest(uint testID) onlyStudent testExists(testID) noTestParticipationYet(testID) {
         TestParticipationDB(ContractProvider(MAN).contracts("testparticipationdb"))
             .addTestParticipation(msg.sender, testID);
     }

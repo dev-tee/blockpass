@@ -43,7 +43,7 @@ contract ManagedContract {
 // and provides an abstraction layer for getting the addresses
 // of other contracts the contract manager contract knows.
 interface ContractProvider {
-    function contracts(bytes32 name) public returns (address);
+    function contracts(bytes32 name) public constant returns (address);
 }
 
 
