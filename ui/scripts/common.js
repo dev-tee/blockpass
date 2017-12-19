@@ -69,9 +69,10 @@ function signAndSend(data, destination, callback) {
 
   transactioninfo.innerText = "Sende Transaktion...";
 
-  transactionHash = web3.personal.sendTransaction(tx, sessionStorage['password']);
-
-  transactioninfo.innerText = `Warte auf Transaktion mit Hash: ${transactionHash}...`;
+  setTimeout(() => {
+    transactionHash = web3.personal.sendTransaction(tx, sessionStorage['password']);
+    transactioninfo.innerText = `Warte auf Transaktion mit Hash: ${transactionHash}...`;
+  }, 1 * 1000);
 }
 
 function blockInput() {
