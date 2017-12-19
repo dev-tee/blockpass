@@ -35,11 +35,13 @@
         alert("Kein Kurs ausgewählt.")
         goHome();
       } else {
-        document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+        // document.getElementById('courseid').innerHTML = courseid;
       }
     }
 
     function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+
       showAssignments();
       showTests();
     }
@@ -60,9 +62,10 @@
         var id = assignments[1][i];
         var maxpoints = assignments[2][i];
         var duedate = new Date(assignments[3][i].toNumber() * 1000);
+        var name = assignmentdbInstance.getAssignment(id)[1];
 
         output.push(`<li>`);
-        line = `<a href="../personal/assignmentdetails.html?assignmentid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
+        line = `<a href="../personal/assignmentdetails.html?assignmentid=${id}&courseid=${courseid}">${name}</a>`;
         output.push(line);
         if (isStudent()) {
           var submissions = studentmanagerInstance.getAssignmentSubmissionIDs(id);
@@ -97,6 +100,7 @@
         var id = tests[1][i].toNumber();
         var maxpoints = tests[2][i];
         var duedate = new Date(tests[3][i].toNumber() * 1000);
+        var name = testdbInstance.getTest(id)[1];
 
         if (isStudent() && !personaltestIDs.includes(id)) {
 
@@ -108,7 +112,7 @@
         } else {
           
           output.push(`<li>`);
-          line = `<a href="../personal/testdetails.html?testid=${id}&courseid=${courseid}">${duedate.toLocaleString()}</a>`;
+          line = `<a href="../personal/testdetails.html?testid=${id}&courseid=${courseid}">${name}</a>`;
           output.push(line);
           
           if (isStudent()) {
@@ -132,7 +136,7 @@
 
       if (submissions[0] > 0) {
         for (var i = 0; i < submissions[0]; ++i) {
-          var assessmentdetails = studentmanagerInstance.getAssessment(submissions[1][i]);
+          var assessmentdetails = datamanagerInstance.getAssessment(submissions[1][i]);
           if (assessmentdetails[0]) {
             var obtainedpoints = assessmentdetails[3];
             extra = `${obtainedpoints}/${maxpoints} Punkten`;
@@ -203,7 +207,7 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle" id="coursename"></span>
+        <h3 id="coursename"></h3>
         <div id="coursedetails">
           <div id="assignments"></div>
           <div id="tests"></div>

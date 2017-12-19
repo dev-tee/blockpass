@@ -60,10 +60,6 @@
         id = document.getElementById('matrikelnr').value;
       } else if (usertype == 'supervisor') {
         id = document.getElementById('uaccountid').value;
-      } else {
-        // Catch erroneous events.
-        // Makes Firefox's onChange more reliable.
-        console.log("Unknown ID.");
       }
 
       blockInput();
@@ -79,17 +75,17 @@
   <div class="container">
     <div class="row">
       <div class="column center-column credentials">
-        <h4>Registrieren</h4>
+        <h3>Registrieren</h3>
         <form id="form">
           <label for="name">Name:</label>
           <input type="text" id="name" class="u-full-width" placeholder="Maria Muster" required>
           <label for="usertype">Benutzertyp:</label>
           <select id="usertype" class="u-full-width">
-            <option value="student" selected>Student</option>
-            <option value="supervisor">Lehrveranstalter</option>
+            <option value="student" selected>StudentIn</option>
+            <option value="supervisor">LehrveranstalterIn</option>
           </select>
           <label id="label_matrikelnr" for="matrikelnr">Matrikelnummer:</label>
-          <input type="number" id="matrikelnr" class="u-full-width" placeholder="12345678" required>
+          <input type="number" min="0" max="99999999" step="1" id="matrikelnr" class="u-full-width" placeholder="12345678" required>
           <label id="label_uaccountid" for="uaccountid" hidden>u:account-ID:
             <span class="info">(Groß- &amp; Kleinbuchstaben sowie Punkte und Zahlen erlaubt)</span>
           </label>

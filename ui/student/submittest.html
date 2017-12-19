@@ -31,12 +31,18 @@
       blockpass.parseIDs();
 
       testid = blockpass.ids.test;
-      if (testid == null) {
+      courseid = blockpass.ids.course;
+      if (testid == null || courseid == null) {
         alert("Keine Aufgabe ausgewählt.")
         goHome();
       } else {
-        document.getElementById('testid').innerHTML = testid;
+        // document.getElementById('testid').innerHTML = testid;
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('testname').innerHTML = testdbInstance.getTest(testid)[1];
     }
 
     function submitTest(event) {
@@ -84,8 +90,8 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Test</span>
-        <span id="testid" class="id"></span>
+        <h3 id="coursename"></h3>
+        <span id="testname" class="subhead"></span>
         <form id="form">
           <label for="description">Beschreibung:</label>
           <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
@@ -102,6 +108,7 @@
     document.getElementById('form').addEventListener('submit', submitTest);
     showUserPanel();
     parseTestID();
+    showDetails();
   </script>
 
   <!-- End Document

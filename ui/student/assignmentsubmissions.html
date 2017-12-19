@@ -31,12 +31,18 @@
       blockpass.parseIDs();
       
       assignmentid = blockpass.ids.assignment;
-      if (assignmentid == null) {
+      courseid = blockpass.ids.course;
+      if (assignmentid == null || courseid == null) {
         alert("Keine Aufgabe ausgewählt.")
         goHome();
       } else {
-        document.getElementById('assignmentid').innerHTML = assignmentid;
+        // document.getElementById('assignmentid').innerHTML = assignmentid;
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('assignmentname').innerHTML = assignmentdbInstance.getAssignment(assignmentid)[1];
     }
 
     function listSubmissions() {
@@ -49,7 +55,7 @@
       for (var i = 0; i < length; ++i) {
         var id = submissions[1][i];
         var description = submissiondbInstance.getSubmission(id)[0];
-        var assessmentdetails = studentmanagerInstance.getAssessment(id);
+        var assessmentdetails = datamanagerInstance.getAssessment(id);
         var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
         var maxpoints = submissiondetails[0];
         var submissiondate = new Date(submissiondetails[1].toNumber() * 1000);
@@ -63,9 +69,14 @@
           students.push(studentdbInstance.getStudent(studentid)[0]);
         }
         
-        line = `Abgegeben: <span class="info">${submissiondate.toLocaleString()}</span><br>`;
-        line += `Von: <span>${students.join(', ')}</span><br>`;
-        line += `Maximale Punktezahl: <span class="info">${maxpoints}</span>`;
+        line = `<span>Abgegeben:</span> <br>`;
+        line += `<p>
+          <span>${submissiondate.toLocaleDateString()} um ${submissiondate.toLocaleTimeString()}</span> <br>
+          <span>von ${students.join(', ')}</span>
+        </p>`;
+        line += `<span>Maximale Punktezahl:</span> <br>`;
+        line += `<p>${maxpoints}</p>`;
+        line += `<span>Abgabetext:</span>`;
         line += `<p>${description}</p>`;
         if (assessmentdetails[0]) {
           var assessmentdescription = assessmentdbInstance.getAssessment(assessmentdetails[2])[0];
@@ -75,6 +86,10 @@
           line += `<p>Noch keine Benotung</p>`;
         }
         output.push(line);
+      }
+
+      if (output.length == 0) {
+        output.push("Noch keine Abgabe.");
       }
 
       document.getElementById('submissions').innerHTML = output.join('');
@@ -110,8 +125,8 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Aufgabe</span>
-        <span id="assignmentid" class="id"></span>
+        <h3 id="coursename"></h3>
+        <span id="assignmentname" class="subhead"></span>
         <div id="submissions"></div>
       </div>
     </div>
@@ -123,6 +138,7 @@
     document.getElementById('logout').addEventListener('click', logout);
     showUserPanel();
     parseAssignmentID();
+    showDetails();
     listSubmissions();
   </script>
 

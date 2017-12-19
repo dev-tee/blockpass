@@ -35,8 +35,12 @@
         alert("Kein Kurs ausgewählt.")
         goHome();
       } else {
-        document.getElementById('courseid').innerHTML = courseid;
+        // document.getElementById('coursename').innerHTML += coursedbInstance.getCourse(courseid)[1];
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
     }
 
     function createAssignment(event) {
@@ -44,6 +48,7 @@
       
       var maxpoints = document.getElementById('maxpoints').value;
       var description = document.getElementById('description').value;
+      var name = document.getElementById('name').value;
       var duedate = document.getElementById('duedate').getAttribute('data-time');
 
       if (duedate <= Date.now()) {
@@ -54,7 +59,7 @@
       // Ethereum time counts in seconds
       // while JavaScript Date has millisecond resolution.
       duedate = Math.floor(duedate / 1000);
-      var data = supervisormanagerInstance.createAssignment.getData(description, maxpoints, duedate, courseid);
+      var data = supervisormanagerInstance.createAssignment.getData(description, name, maxpoints, duedate, courseid);
 
       blockInput();
       signAndSend(data, supervisormanagerInstance.address, (error, result) => {
@@ -119,11 +124,11 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Aufgabe für Kurs</span>
-        <span id="courseid" class="id"></span>
+        <h3 id="coursename">&nbsp;</h3>
+        <span id="assignmentname" class="subhead">Neue Aufgabe</span>
         <form id="form">
           <label for="maxpoints">Maximalpunktezahl:</label>
-          <input class="u-full-width u-max-full-width" type="number" id="maxpoints" placeholder="22" required>
+          <input class="u-full-width u-max-full-width" type="number" min="1" step="1" id="maxpoints" placeholder="22" required>
           <label for="duedate">Abgabedatum:</label>
           <input class="u-full-width u-max-full-width dateview" type="text" id="duedate" data-time="59000" disabled>
           <div class="row">
@@ -135,6 +140,8 @@
             <input class="one-half column" type="number" id="hour" placeholder="Stunde" required>
             <input class="one-half column" type="number" id="minute" placeholder="Minute" required>
           </div>
+          <label for="name">Bezeichnung:</label>
+          <input class="u-full-width u-max-full-width" type="text" id="name" placeholder="Aufgabe zu Sortieralgorithmen" required>
           <label for="description">Beschreibung:</label>
           <textarea class="u-full-width u-max-full-width" id="description" placeholder="Aufgabenstellung etc." required></textarea>
           <button>Erstellen</button>
@@ -157,6 +164,7 @@
 
     showUserPanel();
     parseCourseID();
+    showDetails();
   </script>
 
   <!-- End Document

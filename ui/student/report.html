@@ -58,7 +58,7 @@
           var submissionoutput = [];
           for (var k = 0; k < numsubmissions; k++) {
             var id = submissions[1][k];
-            var assessmentdetails = studentmanagerInstance.getAssessment(id);
+            var assessmentdetails = datamanagerInstance.getAssessment(id);
             var obtainedpoints = assessmentdetails[3].toNumber();
             
             var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
@@ -99,7 +99,7 @@
           var submissionoutput = [];
           for (var k = 0; k < numsubmissions; k++) {
             var id = submissions[1][k];
-            var assessmentdetails = studentmanagerInstance.getAssessment(id);
+            var assessmentdetails = datamanagerInstance.getAssessment(id);
             var obtainedpoints = assessmentdetails[3].toNumber();
             
             var submissiondetails = datamanagerInstance.getSubmissionRelatedInfo(id);
@@ -201,7 +201,7 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Leistungen</span>
+        <h3>Leistungen</h3>
         <div id="report">
           <div class="summary">
             <span class="">Zusammenfassung</span>

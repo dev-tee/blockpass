@@ -41,13 +41,12 @@
     }
 
     function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
 
-      // show date
-      // show id
-      // show description
-      // show numSubmissions
-      // show submissions
       document.getElementById('assignmentdetails').innerHTML = assignmentdbInstance.getAssignment(assignmentid)[0];
+      document.getElementById('assignmentname').innerHTML = assignmentdbInstance.getAssignment(assignmentid)[1];
+      document.getElementById('assignmentduedate').innerHTML += new Date(assignmentdbInstance.getAssignment(assignmentid)[3] * 1000).toLocaleDateString();
+      document.getElementById('assignmentduetime').innerHTML += new Date(assignmentdbInstance.getAssignment(assignmentid)[3] * 1000).toLocaleTimeString();
     }
   </script>
 </head>
@@ -88,8 +87,16 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Aufgabe</span>
+        <h3 id="coursename"></h3>
+        <span id="assignmentname" class="subhead"></span>
+        <span>Abzugeben am:</span>
+        <p>
+          <span id="assignmentduedate"></span>
+           um 
+          <span id="assignmentduetime"></span>
+        </p>
         <!-- <span id="assignmentid" class="id"></span> -->
+        <span>Beschreibung:</span>
         <p id="assignmentdetails"></p>
       </div>
     </div>

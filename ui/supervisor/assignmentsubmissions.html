@@ -32,12 +32,17 @@
 
       assignmentid = blockpass.ids.assignment;
       courseid = blockpass.ids.course;
-      if (assignmentid == null) {
+      if (assignmentid == null || courseid == null) {
         alert("Keine Aufgabe ausgewählt.")
         goHome();
       } else {
-        document.getElementById('assignmentid').innerHTML = assignmentid;
+        // document.getElementById('assignmentid').innerHTML = assignmentid;
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('assignmentname').innerHTML = assignmentdbInstance.getAssignment(assignmentid)[1];
     }
 
     function filterSubmissions(submissions) {
@@ -117,6 +122,10 @@
       }
       output.push('</ul>');
 
+      if (output.length == 2) {
+        output.push("Noch keine Abgaben.");
+      }
+
       document.getElementById('submissions').innerHTML = output.join('');
     }
   </script>
@@ -150,8 +159,9 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Aufgabe</span>
-        <span id="assignmentid" class="id"></span>
+        <h3 id="coursename"></h3>
+        <span id="assignmentname" class="subhead"></span>
+        <!-- <span id="assignmentid" class="id"></span> -->
         <div id="submissions"></div>
       </div>
     </div>
@@ -163,6 +173,7 @@
     document.getElementById('logout').addEventListener('click', logout);
     showUserPanel();
     parseAssignmentID();
+    showDetails();
     listSubmissions();
   </script>
 

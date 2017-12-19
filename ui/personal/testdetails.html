@@ -41,13 +41,12 @@
     }
 
     function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
 
-      // show date
-      // show id
-      // show description
-      // show numSubmissions
-      // show submissions
       document.getElementById('testdetails').innerHTML = testdbInstance.getTest(testid)[0];
+      document.getElementById('testname').innerHTML = testdbInstance.getTest(testid)[1];
+      document.getElementById('testduedate').innerHTML += new Date(testdbInstance.getTest(testid)[3] * 1000).toLocaleDateString();
+      document.getElementById('testduetime').innerHTML += new Date(testdbInstance.getTest(testid)[3] * 1000).toLocaleTimeString();
     }
   </script>
 </head>
@@ -88,8 +87,16 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Test</span>
+        <h3 id="coursename"></h3>
+        <span id="testname" class="subhead"></span>
+        <span>Abzugeben am:</span>
+        <p id="duedate">
+          <span id="testduedate"></span>
+           um 
+          <span id="testduetime"></span>
+        </p>
         <!-- <span id="testid" class="id"></span> -->
+        <span>Beschreibung:</span>
         <p id="testdetails"></p>
       </div>
     </div>

@@ -36,8 +36,13 @@
         alert("Kein Test ausgewählt.")
         goHome();
       } else {
-        document.getElementById('testid').innerHTML = testid;
+        // document.getElementById('testid').innerHTML = testid;
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('testname').innerHTML = testdbInstance.getTest(testid)[1];
     }
 
     function listSubmissions() {
@@ -67,6 +72,10 @@
         }
       }
       output.push('</ul>');
+
+      if (output.length == 2) {
+        output.push("Noch keine Abgaben.");
+      }
 
       document.getElementById('submissions').innerHTML = output.join('');
     }
@@ -101,8 +110,8 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Test</span>
-        <span id="testid" class="id"></span>
+        <h3 id="coursename"></h3>
+        <span id="testname" class="subhead"></span>
         <div id="submissions"></div>
       </div>
     </div>
@@ -114,6 +123,7 @@
     document.getElementById('logout').addEventListener('click', logout);
     showUserPanel();
     parseTestID();
+    showDetails();
     listSubmissions();
   </script>
 

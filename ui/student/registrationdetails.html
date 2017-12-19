@@ -45,14 +45,25 @@
     }
 
     function showDetails() {
-      // show number of remaining seats
+      
       // activate/deactivate registration button
       if (type == 'course') {
         document.getElementById('type').innerHTML = 'Kurs'
-        document.getElementById('id').innerHTML = courseid;
+        document.getElementById('name').innerHTML = coursedbInstance.getCourse(courseid)[1];
+        document.getElementById('description').innerHTML = coursedbInstance.getCourse(courseid)[0];
       } else if (type == 'test') {
         document.getElementById('type').innerHTML = 'Test'
-        document.getElementById('id').innerHTML = testid;
+        document.getElementById('name').innerHTML = testdbInstance.getTest(testid)[1];
+        document.getElementById('description').innerHTML = testdbInstance.getTest(testid)[0];
+
+        var duedate = `
+        <span>Abzugeben am:</span>
+        <p id="duedate">
+          <span id="testduedate">${new Date(testdbInstance.getTest(testid)[3] * 1000).toLocaleDateString()}</span>
+           um 
+          <span id="testduetime">${new Date(testdbInstance.getTest(testid)[3] * 1000).toLocaleTimeString()}</span>
+        </p>`;
+        document.getElementById('name').insertAdjacentHTML('afterend', duedate);
       }
       // show description
     }
@@ -83,6 +94,7 @@
     <ul>
       <li><a href="../personal/courses.html">Kurse</a>
       <li><a href="../student/register.html">Anmeldung</a>
+      <li><a class="coursedependentlink testdependentlink" href="../student/registrationdetails.html">Anmeldungsdetails</a>
     </ul>
     <a id="logout" href="#">Abmelden</a>
   </nav>
@@ -100,8 +112,9 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span id="type" class="title"></span>
-        <span id="id" class="id"></span>
+        <h3 id="type"></h3>
+        <span id="name" class="subhead"></span>
+        <span>Beschreibung:</span> <br>
         <p id="description"></p>
         <button id="register">Verbindlich anmelden</button>
       </div>

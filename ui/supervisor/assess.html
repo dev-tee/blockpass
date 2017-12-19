@@ -33,11 +33,12 @@
       submissionid = blockpass.ids.submission;
       testid = blockpass.ids.test;
       assignmentid = blockpass.ids.assignment;
+      courseid = blockpass.ids.course;
       if (submissionid == null) {
         alert("Keine Abgabe ausgewählt.")
         goHome();
       } else {
-        document.getElementById('submissionid').innerHTML = submissionid;
+        // document.getElementById('submissionid').innerHTML = submissionid;
 
         var reference;
         var referenceName;
@@ -60,14 +61,33 @@
 
     function showDetails() {
       var relatedinfo = datamanagerInstance.getSubmissionRelatedInfo(submissionid);
-      document.getElementById('maxpoints').value = relatedinfo[0];
-      document.getElementById('submissiondetails').innerHTML = submissiondbInstance.getSubmission(submissionid)[0];
+      document.getElementById('maxpoints').innerHTML = relatedinfo[0].toNumber();
+
+      var numstudents = submissiondbInstance.getNumStudentSubmissions(submissionid);
+      var students = [];
+      for (var i = 0; i < numstudents; ++i) {
+        var studentsubmissionid = submissiondbInstance.getStudentSubmissionIDAt(submissionid, i);
+        var studentid = studentsubmissiondbInstance.getStudentSubmission(studentsubmissionid)[0];
+        students.push(studentdbInstance.getStudent(studentid)[0]);
+      }
+      document.getElementById('submitters').innerHTML = `${students.join(', ')}`;
+      document.getElementById('submissiondetails').innerHTML = `${submissiondbInstance.getSubmission(submissionid)[0]}`;
 
       if (relatedinfo[2] * 1000 <= Date.now()) {
         document.getElementById('form').hidden = false;
       } else {
         document.getElementById('submissiondetails').outerHTML += '<span class="info">Benotung noch nicht möglich</span>';
       }
+
+      if (assignmentid != null) {
+        name = assignmentdbInstance.getAssignment(assignmentid)[1];
+      } else if (testid != null) {
+        name = testdbInstance.getTest(testid)[1];
+      }
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('name').innerHTML = name;
+      document.getElementById('currentobtainedpoints').innerHTML = datamanagerInstance.getAssessment(submissionid)[3].toNumber();
+      document.getElementById('obtainedpoints').max = relatedinfo[0].toNumber();
     }
 
     function createAssessment(event) {
@@ -117,14 +137,22 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Abgabe</span>
-        <span id="submissionid" class="id"></span>
+        <h3 id="coursename">&nbsp;</h3>
+        <span id="name" class="subhead">&nbsp;</span>
+        <!-- <span id="submissionid" class="id"></span> -->
+        <span>Abegeben von:</span>
+        <p id="submitters"></p>
+        <span>Aktuelle Benotung:</span>
+        <p id="currentassessment">
+          <span id="currentobtainedpoints">0</span>
+           von 
+          <span id="maxpoints"></span>
+        </p>
+        <span>Abgabe:</span>
         <p id="submissiondetails"></p>
         <form id="form" hidden>
           <label id="label_obtainedpoints" for="obtainedpoints">Erreichte Punktezahl:</label>
-          <input type="number" id="obtainedpoints" class="u-full-width u-max-full-width" required>
-          <label id="label_maxpoints" for="maxpoints">Maximale Punktezahl:</label>
-          <input type="number" id="maxpoints" class="u-full-width u-max-full-width" disabled>
+          <input type="number" min="0" step="1" id="obtainedpoints" class="u-full-width u-max-full-width" required>
           <label for="description">Beschreibung:</label>
           <textarea id="description" class="u-full-width u-max-full-width" placeholder="Abgabetext..." required></textarea>
           <button>Erstellen</button>

@@ -32,12 +32,18 @@
       blockpass.parseIDs();
 
       assignmentid = blockpass.ids.assignment;
-      if (assignmentid == null) {
+      courseid = blockpass.ids.course;
+      if (assignmentid == null || courseid == null) {
         alert("Keine Aufgabe ausgewählt.")
         goHome();
       } else {
-        document.getElementById('assignmentid').innerHTML = assignmentid;
+        // document.getElementById('assignmentid').innerHTML = assignmentid;
       }
+    }
+
+    function showDetails() {
+      document.getElementById('coursename').innerHTML = coursedbInstance.getCourse(courseid)[1];
+      document.getElementById('assignmentname').innerHTML = assignmentdbInstance.getAssignment(assignmentid)[1];
     }
 
     function submitAssignment(event) {
@@ -86,8 +92,8 @@
         </div>
       </div>
       <div class="two-thirds column">
-        <span class="inlinetitle">Aufgabe</span>
-        <span id="assignmentid" class="id"></span>
+        <h3 id="coursename"></h3>
+        <span id="assignmentname" class="subhead"></span>
         <form id="form">
           <label for="helper">Gruppenmitglieder:
             <span class="info">(leer bei Einzelarbeit)</span>
@@ -112,6 +118,7 @@
     setupSearch(helper, 'supervisor');
 
     parseAssignmentID();
+    showDetails();
   </script>
 
   <!-- End Document
