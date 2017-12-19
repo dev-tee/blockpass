@@ -68,14 +68,19 @@
           students.push(studentdbInstance.getStudent(studentid)[0]);
         }
 
-        line = `Abgegeben: <span>${submissiondate.toLocaleString()}</span><br>`;
-        line += `Von: <span>${students.join(', ')}</span><br>`;
-        line += `Maximale Punktezahl: <span>${maxpoints}</span>`;
+        line = `<span>Abgegeben:</span> <br>`;
+        line += `<p>
+          <span>${submissiondate.toLocaleDateString()} um ${submissiondate.toLocaleTimeString()}</span> <br>
+          <span>von ${students.join(', ')}</span>
+        </p>`;
+        line += `<span>Maximale Punktezahl: ${maxpoints}</span> <br>`;
         line += `<span>Abgabetext:</span>`;
         line += `<p>${description}</p>`;
         if (assessmentdetails[0]) {
+          line += `<hr>`;
           var assessmentdescription = assessmentdbInstance.getAssessment(assessmentdetails[2])[0];
-          line += `Erreichte Punkte: <span class="info">${obtainedpoints}</span>`;
+          line += `<span>Erreichte Punktezahl: ${obtainedpoints}</span> <br>`;
+          line += `<span>Details:</span>`;
           line += `<p>${assessmentdescription}</p>`;
         } else {
           line += `<p>Noch keine Benotung</p>`;
