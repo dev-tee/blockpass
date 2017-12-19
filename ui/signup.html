@@ -28,22 +28,35 @@
   <script type="text/javascript" src="./scripts/accounts.js"></script>
   <script type="text/javascript" src="./scripts/api.js"></script>
   <script type="text/javascript">
+    var timeoutID;
+    var className;
     function checkID(event) {
       var id = event.target.id;
       var value = event.target.value;
+      if (className == null) {
+        className = event.target.className;
+      }
 
-      if (value != '') {
-        checkAvailability(id, value, (available) => {
-          var className = event.target.className.replace(/\ invalid/g, '');
-          if (available) {
-            event.target.className = className;
-            event.target.setCustomValidity("");
-          } else {
-            event.target.className = className + ' invalid';
-            event.target.setCustomValidity("Bereits vergeben");
-          }
-        });
+      if (value != "") {
+        event.target.className = className + ' checking';
+        event.target.setCustomValidity("Überprüfung läuft");
+
+        if (timeoutID) {
+          clearTimeout(timeoutID);
+        }
+        timeoutID = setTimeout(() => {
+          checkAvailability(id, value, (available) => {
+            if (available) {
+              event.target.className = className + ' valid';
+              event.target.setCustomValidity("");
+            } else {
+              event.target.className = className + ' invalid';
+              event.target.setCustomValidity("Bereits vergeben");
+            }
+          });
+        }, 2 * 1000);
       } else {
+        event.target.className = className;
         event.target.setCustomValidity("");
       }
     }
