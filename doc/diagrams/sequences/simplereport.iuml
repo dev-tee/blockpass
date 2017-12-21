@@ -40,16 +40,16 @@ loop number of own courses
           deactivate StudentManager
 
           loop number of submissions
-            StudentManager -> StudentManager: getAssessment(submissionID)
-            activate StudentManager
+            StudentManager -> DataManager: getAssessment(submissionID)
+            activate DataManager
 
             group best assessment
-              StudentManager -> StudentManager: retrieve ID of first assessment
-              StudentManager -> StudentManager: find better assessment
+              DataManager -> DataManager: retrieve ID of first assessment
+              DataManager -> DataManager: find better assessment
             end
 
-            StudentManager --> StudentManager: best assessment
-            deactivate StudentManager
+            DataManager --> StudentManager: best assessment
+            deactivate DataManager
 
             opt assessment.assessed && assessment.obtainedPoints > obtainedPoints
               StudentManager -> StudentManager: remember maximum of obtained points
@@ -121,13 +121,13 @@ loop number of own courses
     deactivate StudentManager
 
     loop number of submissions
-      App -> StudentManager: getAssessment(submissionID)
-      activate StudentManager
+      App -> DataManager: getAssessment(submissionID)
+      activate DataManager
 
-      ref over StudentManager: best assessment
+      ref over DataManager: best assessment
 
-      StudentManager --> App: assessment
-      deactivate StudentManager
+      DataManager --> App: assessment
+      deactivate DataManager
 
       App -> DataManager: getSubmissionRelatedInfo(submissionID)
       activate DataManager

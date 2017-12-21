@@ -8,14 +8,13 @@ title StudentManager
 
 class StudentManager << Contract >> {
   __
-  +registerForCourse(courseID: uint) {onlyStudent} {courseExists: courseID}
-  +registerForTest(testID: uint) {onlyStudent} {testExists: testID}
+  +registerForCourse(courseID: uint) {onlyStudent} {courseExists: courseID} {noCourseParticipationYet: courseID}
+  +registerForTest(testID: uint) {onlyStudent} {testExists: testID} {noTestParticipationYet: testID}
   +uploadAssignmentSubmission(description: string, assignmentID: uint, remainingGroupMembers: address[]) {onlyStudent} {assignmentExists: assignmentID} {containsOnlyParticipatingStudents: remainingGroupMembers, assignmentID} {courseParticipationExists: assignmentID}
   +uploadTestSubmission(description: string, testID: uint) {onlyStudent} {testExists: testID} {testParticipationExists: testID} {notYetSubmitted: testID}
   -uploadSubmission(description: string, referenceType: uint, referenceID: uint) {inTime: referenceType, referenceID}
   +getAssignmentSubmissionIDs(assignmentID: uint) : Tuple { numAssignmentSubmissions: uint, assignmentSubmissionIDs: uint[] } {constant} {onlyStudent} {assignmentExists: assignmentID}
   +getTestSubmissionIDs(testID: uint) : Tuple { numTestSubmissions: uint, testSubmissionIDs: uint[] } {constant} {onlyStudent} {testExists: testID}
-  +getAssessment(submissionID: uint) : Tuple { bool assessed, numPriorAssessments: uint, id: uint, obtainedPoints: uint } {constant} {onlyStudent} {submissionExists: submissionID}
   +passedCourse(courseID: uint) : bool
   +passedAssignment(assignmentID: uint) : bool {onlyStudent} {assignmentExists: assignmentID}
   +passedTest(testID: uint) : bool {onlyStudent} {testExists: testID}
@@ -30,6 +29,8 @@ class StudentManager << Contract >> {
   #submissionExists(submissionID: uint)
   #courseParticipationExists(assignmentID: uint)
   #testParticipationExists(testID: uint)
+  #noCourseParticipationYet(courseID: uint)
+  #noTestParticipationYet(testID: uint)
   #notYetSubmitted(testID: uint)
   #inTime(referenceType: uint, referenceID: uint)
 }

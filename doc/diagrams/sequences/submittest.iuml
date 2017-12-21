@@ -11,7 +11,7 @@ activate App
 
 App -> App: validate()
 
-App -> StudentManager: uploadTestSubmission(description, testID, remainingGroupMembers)
+App -> StudentManager: uploadTestSubmission(description, testID)
 activate StudentManager
 deactivate App
 

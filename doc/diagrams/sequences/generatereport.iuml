@@ -117,51 +117,51 @@ loop number of own courses
           deactivate StudentManager
 
           loop number of submissions
-            StudentManager -> StudentManager: getAssessment(submissionID)
-            activate StudentManager
+            StudentManager -> DataManager: getAssessment(submissionID)
+            activate DataManager
 
             group best assessment
-              StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, 0)
+              DataManager -> SubmissionDB: getAssessmentIDAt(submissionID, 0)
               activate SubmissionDB
 
-              SubmissionDB --> StudentManager: currentBestAssessmentID
+              SubmissionDB --> DataManager: currentBestAssessmentID
               deactivate SubmissionDB
 
-              StudentManager -> AssessmentDB: getAssessment(currentBestAssessmentID)
+              DataManager -> AssessmentDB: getAssessment(currentBestAssessmentID)
               activate AssessmentDB
 
-              AssessmentDB --> StudentManager: currentBestAssessment
+              AssessmentDB --> DataManager: currentBestAssessment
               deactivate AssessmentDB
 
               group find better assessment
-                StudentManager -> SubmissionDB: getNumAssessments(submissionID)
+                DataManager -> SubmissionDB: getNumAssessments(submissionID)
                 activate SubmissionDB
 
-                SubmissionDB --> StudentManager: numAssessments
+                SubmissionDB --> DataManager: numAssessments
                 deactivate SubmissionDB
 
                 loop number of assessments
-                  StudentManager -> SubmissionDB: getAssessmentIDAt(submissionID, index)
+                  DataManager -> SubmissionDB: getAssessmentIDAt(submissionID, index)
                   activate SubmissionDB
 
-                  SubmissionDB --> StudentManager: assessmentID
+                  SubmissionDB --> DataManager: assessmentID
                   deactivate SubmissionDB
 
-                  StudentManager -> AssessmentDB: getAssessment(assessmentID)
+                  DataManager -> AssessmentDB: getAssessment(assessmentID)
                   activate AssessmentDB
 
-                  AssessmentDB --> StudentManager: assessment
+                  AssessmentDB --> DataManager: assessment
                   deactivate AssessmentDB
 
                   opt assessment.obtainedPoints > currentBestAssessment.obtainedPoints
-                    StudentManager -> StudentManager: remember assessment
+                    DataManager -> DataManager: remember assessment
                   end
                 end
               end
             end
 
-            StudentManager --> StudentManager: assessment
-            deactivate StudentManager
+            DataManager --> StudentManager: assessment
+            deactivate DataManager
 
             opt assessment.assessed && assessment.obtainedPoints > obtainedPoints
               StudentManager -> StudentManager: remember maximum of obtained points

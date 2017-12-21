@@ -8,8 +8,8 @@ title CourseDB
 
 class Course << Struct >> {
   description: string
-  ectsPoints: uint
   name: string
+  ectsPoints: uint
   assignmentIDs: uint[]
   testIDs: uint[]
   courseParticipationIDs: bytes32[]

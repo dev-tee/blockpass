@@ -15,6 +15,7 @@ class DataManager << Contract >> {
   +getSubmissionRelatedInfo(submissionID: uint) onlyRegistered submissionExists(submissionID) : Tuple { maxPoints: uint, submissionDate: uint, dueDate: uint } {constant}
   +getPersonalCourses() : Tuple { numCourses: uint, ids: uint[], ectsPoints: uint[] } {constant}
   +getPersonalTests() : Tuple { numTests: uint, ids: uint[], maxPoints: uint[], dueDates: uint[], courseIDs: uint[] } {constant}
+  +getAssessment(submissionID: uint) : Tuple { bool assessed, numPriorAssessments: uint, id: uint, obtainedPoints: uint } {constant} {submissionExists: submissionID}
   .. Modifier ..
   #onlyRegistered()
   #submissionExists(submissionID: uint)

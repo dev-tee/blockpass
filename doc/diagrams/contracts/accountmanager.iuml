@@ -13,6 +13,8 @@ class AccountManager << Contract >> {
   .. Events ..
   +RegisteredStudent(address, string, uint)
   +RegisteredSupervisor(address, string, string)
+  .. Modifiers ..
+  #accountNotRegisteredYet(account: address)
 }
 
 AccountManager -down-|> ManagedContract

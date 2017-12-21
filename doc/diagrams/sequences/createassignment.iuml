@@ -11,11 +11,11 @@ activate App
 
 App -> App: validate()
 
-App -> SupervisorManager: createAssignment(description, maxPoints, dueDate, courseID)
+App -> SupervisorManager: createAssignment(description, name, maxPoints, dueDate, courseID)
 activate SupervisorManager
 deactivate App
 
-SupervisorManager -> AssignmentDB: addAssignment(description, maxPoints, dueDate, courseID)
+SupervisorManager -> AssignmentDB: addAssignment(description, name, maxPoints, dueDate, courseID)
 activate AssignmentDB
 
 create Assignment

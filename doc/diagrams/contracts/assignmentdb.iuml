@@ -9,6 +9,7 @@ title AssignmentDB
 
 class Assignment << Struct >> {
   description: string
+  name: string
   maxPoints: uint
   dueDate: uint
   courseID: uint
@@ -18,8 +19,8 @@ class Assignment << Struct >> {
 class AssignmentDB << Contract >> {
   -assignments: Assignment[]
   __
-  +addAssignment(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
-  +getAssignment(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +addAssignment(description: string, name: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getAssignment(id: uint) : Tuple { description: string, name: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
   +getNumAssignments() : uint {constant}
   .. Setter for combined values ..
   +addSubmissionID(assignmentID: uint, id: uint) {permission: "submissiondb"}

@@ -9,6 +9,7 @@ title TestDB
 
 class Test << Struct >> {
   description: string
+  name: string
   maxPoints: uint
   dueDate: uint
   courseID: uint
@@ -20,8 +21,8 @@ class Test << Struct >> {
 class TestDB << Contract >> {
   -tests: Test[]
   __
-  +addTest(description: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
-  +getTest(id: uint) : Tuple { description: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
+  +addTest(description: string, name: string, maxPoints: uint, dueDate: uint, courseID: uint) : uint
+  +getTest(id: uint) : Tuple { description: string, name: string, maxPoints: uint, dueDate: uint, courseID: uint } {constant}
   +getNumTests() : uint {constant}
   .. Setter for combined values ..
   +addTestParticipationID(testID: uint, id: bytes32) {permission: "testparticipationdb"}
