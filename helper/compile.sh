@@ -22,7 +22,7 @@ else
 fi
 
 echo "Compiling..."
-find ../contracts -name "*.sol" -exec solc --combined-json abi,bin {} + > $JSON
+find ../contracts -name "*.sol" -exec solc --optimize --combined-json abi,bin {} + > $JSON
 echo "Done..."
 
 echo
