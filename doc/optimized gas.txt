@@ -1,0 +1,314 @@
+
+======= ../contracts/data/assessmentdb.sol:AssessmentDB =======
+Gas estimation:
+construction:
+   526 + 496200 = 496726
+external:
+   addAssessment(string,uint256,uint256):	infinite
+   addSupervisorAssessmentID(uint256,bytes32):	infinite
+   exists(uint256):	526
+   getAssessment(uint256):	infinite
+   getNumAssessments():	588
+   getNumSupervisorAssessments(uint256):	1049
+   getSupervisorAssessmentIDAt(uint256,uint256):	2026
+   setContractManagerAddress(address):	21296
+   supervisorAssessmentExists(uint256,uint256):	1052
+
+======= ../contracts/data/assignmentdb.sol:AssignmentDB =======
+Gas estimation:
+construction:
+   628 + 599400 = 600028
+external:
+   addAssignment(string,string,uint256,uint256,uint256):	infinite
+   addSubmissionID(uint256,uint256):	infinite
+   exists(uint256):	526
+   getAssignment(uint256):	infinite
+   getNumAssignments():	588
+   getNumSubmissions(uint256):	1027
+   getSubmissionIDAt(uint256,uint256):	2754
+   setContractManagerAddress(address):	21296
+   submissionExists(uint256,uint256):	2044
+
+======= ../contracts/data/combined/courseparticipationdb.sol:CourseParticipationDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addCourseParticipation(address,uint256):	infinite
+   exists(address,uint256):	2364
+   getCourseParticipation(bytes32):	2691
+   getCourseParticipationAt(uint256):	3282
+   setContractManagerAddress(address):	21257
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/combined/coursesupervisiondb.sol:CourseSupervisionDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addCourseSupervision(address,uint256):	infinite
+   exists(address,uint256):	2342
+   getCourseSupervision(bytes32):	2691
+   getCourseSupervisionAt(uint256):	3282
+   setContractManagerAddress(address):	21257
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/combined/studentsubmissiondb.sol:StudentSubmissionDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addStudentSubmission(address,uint256):	infinite
+   exists(address,uint256):	2342
+   getStudentSubmission(bytes32):	2779
+   getStudentSubmissionAt(uint256):	3260
+   setContractManagerAddress(address):	21235
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/combined/supervisorassessmentdb.sol:SupervisorAssessmentDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addSupervisorAssessment(address,uint256):	infinite
+   exists(address,uint256):	2364
+   getSupervisorAssessment(bytes32):	2691
+   getSupervisorAssessmentAt(uint256):	3282
+   setContractManagerAddress(address):	21257
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/combined/testparticipationdb.sol:TestParticipationDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addTestParticipation(address,uint256):	infinite
+   exists(address,uint256):	2364
+   getTestParticipation(bytes32):	2691
+   getTestParticipationAt(uint256):	3282
+   setContractManagerAddress(address):	21257
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/combined/testsupervisiondb.sol:TestSupervisionDB =======
+Gas estimation:
+construction:
+   351 + 318000 = 318351
+external:
+   addTestSupervision(address,uint256):	infinite
+   exists(address,uint256):	2364
+   getTestSupervision(bytes32):	2691
+   getTestSupervisionAt(uint256):	3260
+   setContractManagerAddress(address):	21279
+internal:
+   exists(bytes32):	infinite
+
+======= ../contracts/data/coursedb.sol:CourseDB =======
+Gas estimation:
+construction:
+   990 + 960000 = 960990
+external:
+   addAssignmentID(uint256,uint256):	infinite
+   addCourse(string,string,uint256):	infinite
+   addCourseParticipationID(uint256,bytes32):	infinite
+   addCourseSupervisionID(uint256,bytes32):	infinite
+   addTestID(uint256,uint256):	infinite
+   assignmentExists(uint256,uint256):	1338
+   courseParticipationExists(uint256,uint256):	1096
+   courseSupervisionExists(uint256,uint256):	1492
+   exists(uint256):	592
+   getAssignmentIDAt(uint256,uint256):	2290
+   getCourse(uint256):	infinite
+   getCourseParticipationIDAt(uint256,uint256):	2070
+   getCourseSupervisionIDAt(uint256,uint256):	2004
+   getNumAssignments(uint256):	1423
+   getNumCourseParticipations(uint256):	1203
+   getNumCourseSupervisions(uint256):	1357
+   getNumCourses():	852
+   getNumTests(uint256):	1269
+   getTestIDAt(uint256,uint256):	2136
+   setContractManagerAddress(address):	21319
+   testExists(uint256,uint256):	1404
+
+======= ../contracts/data/studentdb.sol:StudentDB =======
+Gas estimation:
+construction:
+   788 + 759600 = 760388
+external:
+   addCourseParticipationID(address,bytes32):	infinite
+   addStudent(address,string,uint256):	infinite
+   addStudentSubmissionID(address,bytes32):	infinite
+   addTestParticipationID(address,bytes32):	infinite
+   courseParticipationExists(address,uint256):	2234
+   getCourseParticipationIDAt(address,uint256):	2876
+   getNumCourseParticipations(address):	2360
+   getNumStudentSubmissions(address):	2008
+   getNumStudents():	698
+   getNumTestParticipations(address):	2294
+   getStudent(address):	infinite
+   getStudentAt(uint256):	infinite
+   getStudentSubmissionIDAt(address,uint256):	2832
+   getTestParticipationIDAt(address,uint256):	2788
+   isStudent(address):	1776
+   setContractManagerAddress(address):	21362
+   studentSubmissionExists(address,uint256):	2344
+   testParticipationExists(address,uint256):	2102
+
+======= ../contracts/data/submissiondb.sol:SubmissionDB =======
+Gas estimation:
+construction:
+   749 + 719400 = 720149
+external:
+   addAssessmentID(uint256,uint256):	infinite
+   addStudentSubmissionID(uint256,bytes32):	infinite
+   addSubmission(string,uint256,uint256,uint256):	infinite
+   assessmentExists(uint256,uint256):	1096
+   exists(uint256):	636
+   getAssessmentIDAt(uint256,uint256):	1916
+   getNumAssessments(uint256):	1269
+   getNumStudentSubmissions(uint256):	1137
+   getNumSubmissions():	698
+   getStudentSubmissionIDAt(uint256,uint256):	2136
+   getSubmission(uint256):	infinite
+   setContractManagerAddress(address):	21384
+   studentSubmissionExists(uint256,uint256):	1118
+
+======= ../contracts/data/supervisordb.sol:SupervisorDB =======
+Gas estimation:
+construction:
+   886 + 852000 = 852886
+external:
+   addCourseSupervisionID(address,bytes32):	infinite
+   addSupervisor(address,string,string):	infinite
+   addSupervisorAssessmentID(address,bytes32):	infinite
+   addTestSupervisionID(address,bytes32):	infinite
+   courseSupervisionExists(address,uint256):	2256
+   getCourseSupervisionIDAt(address,uint256):	3096
+   getNumCourseSupervisions(address):	2382
+   getNumSupervisorAssessments(address):	2030
+   getNumSupervisors():	434
+   getNumTestSupervisions(address):	2184
+   getSupervisor(address):	infinite
+   getSupervisorAssessmentIDAt(address,uint256):	3074
+   getSupervisorAt(uint256):	infinite
+   getTestSupervisionIDAt(address,uint256):	3030
+   isSupervisor(address):	1732
+   setContractManagerAddress(address):	21318
+   supervisorAssessmentExists(address,uint256):	2278
+   testSupervisionExists(address,uint256):	2344
+
+======= ../contracts/data/testdb.sol:TestDB =======
+Gas estimation:
+construction:
+   938 + 907200 = 908138
+external:
+   addSubmissionID(uint256,uint256):	infinite
+   addTest(string,string,uint256,uint256,uint256):	infinite
+   addTestParticipationID(uint256,bytes32):	infinite
+   addTestSupervisionID(uint256,bytes32):	infinite
+   exists(uint256):	658
+   getNumSubmissions(uint256):	1027
+   getNumTestParticipations(uint256):	1313
+   getNumTestSupervisions(uint256):	1115
+   getNumTests():	654
+   getSubmissionIDAt(uint256,uint256):	2842
+   getTest(uint256):	infinite
+   getTestParticipationIDAt(uint256,uint256):	2048
+   getTestSupervisionIDAt(uint256,uint256):	1982
+   setContractManagerAddress(address):	21406
+   submissionExists(uint256,uint256):	2176
+   testParticipationExists(uint256,uint256):	1074
+   testSupervisionExists(uint256,uint256):	1096
+
+======= ../contracts/manager/accountmanager.sol:AccountManager =======
+Gas estimation:
+construction:
+   602 + 573400 = 574002
+external:
+   registerStudent(address,string,uint256):	infinite
+   registerSupervisor(address,string,string):	infinite
+   setContractManagerAddress(address):	21235
+
+======= ../contracts/manager/contractmanager.sol:ContractManager =======
+Gas estimation:
+construction:
+   20523 + 130600 = 151123
+external:
+   contracts(bytes32):	643
+   getContract(bytes32):	627
+   owner():	527
+   setContract(bytes32,address):	infinite
+
+======= ../contracts/manager/contractmanager.sol:ContractProvider =======
+Gas estimation:
+
+======= ../contracts/manager/contractmanager.sol:ManagedContract =======
+Gas estimation:
+construction:
+   107 + 62000 = 62107
+external:
+   setContractManagerAddress(address):	20896
+
+======= ../contracts/manager/datamanager.sol:DataManager =======
+Gas estimation:
+construction:
+   2579 + 2403800 = 2406379
+external:
+   getAllCourses():	infinite
+   getAllTests():	infinite
+   getAssessment(uint256):	infinite
+   getCourseAssignments(uint256):	infinite
+   getCourseTests(uint256):	infinite
+   getPersonalCourses():	infinite
+   getPersonalTests():	infinite
+   getSubmissionRelatedInfo(uint256):	infinite
+   setContractManagerAddress(address):	21341
+
+======= ../contracts/manager/studentmanager.sol:StudentManager =======
+Gas estimation:
+construction:
+   3080 + 2823400 = 2826480
+external:
+   getAssignmentPerformance(uint256):	infinite
+   getAssignmentSubmissionIDs(uint256):	infinite
+   getTestPerformance(uint256):	infinite
+   getTestSubmissionIDs(uint256):	infinite
+   passedAssignment(uint256):	infinite
+   passedCourse(uint256):	infinite
+   passedTest(uint256):	infinite
+   registerForCourse(uint256):	infinite
+   registerForTest(uint256):	infinite
+   setContractManagerAddress(address):	21340
+   uploadAssignmentSubmission(string,uint256,address[]):	infinite
+   uploadTestSubmission(string,uint256):	infinite
+internal:
+   getSubmissionIDs(uint256,uint256):	infinite
+   passedCourseAssignments(uint256):	infinite
+   passedCourseTests(uint256):	infinite
+   uploadSubmission(string memory,uint256,uint256,uint256):	infinite
+
+======= ../contracts/manager/supervisormanager.sol:SupervisorManager =======
+Gas estimation:
+construction:
+   2130 + 2012800 = 2014930
+external:
+   assess(string,uint256,uint256):	infinite
+   createAssignment(string,string,uint256,uint256,uint256):	infinite
+   createCourse(string,string,uint256,address[]):	infinite
+   createTest(string,string,uint256,uint256,uint256,address[]):	infinite
+   getAssignmentSubmissionIDs(uint256):	infinite
+   getTestSubmissionIDs(uint256):	infinite
+   setContractManagerAddress(address):	21297
+internal:
+   getSubmissionIDs(uint256,uint256):	infinite
+
+======= ../contracts/utility/owned.sol:Owned =======
+Gas estimation:
+construction:
+   20452 + 37800 = 58252
+external:
+   owner():	367
