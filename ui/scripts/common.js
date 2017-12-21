@@ -4,8 +4,8 @@ var blockpass = {};
 
 // Initialise the connection to the ethereum node.
 function init3() {
-  var web3Provider = "http://localhost:8545";
-  // var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
+  // var web3Provider = "http://localhost:8545";
+  var web3Provider = "http://blockpass.cs.univie.ac.at:8545";
 
   // Use our node provided web3.
   web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
