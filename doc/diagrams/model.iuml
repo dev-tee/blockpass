@@ -1,0 +1,60 @@
+@startuml
+
+!include ./style.iuml
+
+!include ./contracts/assessmentdb.iuml
+!include ./contracts/assignmentdb.iuml
+!include ./contracts/coursedb.iuml
+!include ./contracts/courseparticipationdb.iuml
+!include ./contracts/coursesupervisiondb.iuml
+!include ./contracts/studentdb.iuml
+!include ./contracts/submissiondb.iuml
+!include ./contracts/studentsubmissiondb.iuml
+!include ./contracts/supervisorassessmentdb.iuml
+!include ./contracts/testparticipationdb.iuml
+!include ./contracts/testsupervisiondb.iuml
+
+title Model
+
+hide ManagedContract
+
+show CourseDB
+show TestDB
+show AssessmentDB
+show AssignmentDB
+show StudentDB
+show SupervisorDB
+show SubmissionDB
+
+show Course
+show Test
+Show Assessment
+show Assignment
+show Student
+show Supervisor
+show Submission
+
+show Course members
+show Test members
+show Assessment members
+show Assignment members
+show Student members
+show Supervisor members
+show Submission members
+
+hide CourseDB members
+hide TestDB members
+hide AssessmentDB members
+hide AssignmentDB members
+hide StudentDB members
+hide SupervisorDB members
+hide SubmissionDB members
+
+hide CourseParticipationDB members
+hide CourseSupervisionDB members
+hide TestParticipationDB members
+hide TestSupervisionDB members
+hide SupervisorAssessmentDB members
+hide StudentSubmissionDB members
+
+@enduml

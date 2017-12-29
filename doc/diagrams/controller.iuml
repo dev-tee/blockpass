@@ -1,0 +1,25 @@
+@startuml
+
+!include ./style.iuml
+
+!include ./contracts/accountmanager.iuml
+!include ./contracts/contractmanager.iuml
+!include ./contracts/datamanager.iuml
+!include ./contracts/studentmanager.iuml
+!include ./contracts/supervisormanager.iuml
+
+title Controller
+
+show ManagedContract
+show ContractProvider
+show ContractManager
+
+hide AccountManager members
+hide ContractManager members
+hide DataManager members
+hide StudentManager members
+hide SupervisorManager members
+hide ContractProvider members
+hide ManagedContract members
+
+@enduml
