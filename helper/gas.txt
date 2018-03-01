@@ -1,3 +1,5 @@
+//Old report.
+
 $ find ../contracts -name "*.sol" -exec solc --optimize --gas {} +
 
 ======= ../contracts/data/assessmentdb.sol:AssessmentDB =======
