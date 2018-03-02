@@ -1,6 +1,6 @@
 <?php
 
-  // This script is responsible for signing up a registered user.
+  // This script is responsible for signing up an unregistered user.
 
   include 'connect.php';
 

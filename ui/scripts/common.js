@@ -75,8 +75,8 @@ function signAndSend(data, destination, callback) {
   }, 1 * 1000);
 }
 
+// Disable the form or button on the current page to prevent duplicate transactions.
 function blockInput() {
-  // Disable the form or button on the current page to prevent duplicate transactions.
   var form = document.getElementById("form");
   if (form != null) {
     var elements = form.elements;
