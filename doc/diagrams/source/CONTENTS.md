@@ -1,6 +1,8 @@
 ## Contents
 
-(XML -> draw.io, .iuml -> plantUML)
+#### Tools used:
++ draw.io for Draft.xml
++ plantUML for all .iuml files
 
 ### contracts - folder
 Class diagrams for smart contracts.

@@ -1,5 +1,5 @@
 ## Contents
 
-Diagrams exported to svg.
+Diagrams exported to SVG.
 
-See ../source/CONTENTS.md for file descriptions.
+See [../source/CONTENTS.md](../source/CONTENTS.md) for file descriptions.
