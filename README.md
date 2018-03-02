@@ -45,24 +45,25 @@ Documentation and diagrams (source and exported).
 3. Start miner  
 `miner.start()`
 4. Set up database with correct tables  
-```sql
-CREATE TABLE ‘student‘ (
-  ‘matrikelnr‘ int(16) NOT NULL,
-  ‘address‘ varchar(42) NOT NULL,
-  ‘pwhash‘ varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-CREATE TABLE ‘supervisor‘ (
-  ‘uaccountid‘ varchar(128) NOT NULL,
-  ‘address‘ varchar(42) NOT NULL,
-  ‘pwhash‘ varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-ALTER TABLE ‘student‘
-  ADD PRIMARY KEY (‘matrikelnr‘),
-  ADD UNIQUE KEY ‘address‘ (‘address‘);
-ALTER TABLE ‘supervisor‘
-  ADD PRIMARY KEY (‘uaccountid‘),
-  ADD UNIQUE KEY ‘address‘ (‘address‘);
-```
+
+    ```sql
+    CREATE TABLE ‘student‘ (
+      ‘matrikelnr‘ int(16) NOT NULL,
+      ‘address‘ varchar(42) NOT NULL,
+      ‘pwhash‘ varchar(255) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    CREATE TABLE ‘supervisor‘ (
+      ‘uaccountid‘ varchar(128) NOT NULL,
+      ‘address‘ varchar(42) NOT NULL,
+      ‘pwhash‘ varchar(255) NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    ALTER TABLE ‘student‘
+      ADD PRIMARY KEY (‘matrikelnr‘),
+      ADD UNIQUE KEY ‘address‘ (‘address‘);
+    ALTER TABLE ‘supervisor‘
+      ADD PRIMARY KEY (‘uaccountid‘),
+      ADD UNIQUE KEY ‘address‘ (‘address‘);
+    ```
 
 5. Fill in the database’s credentials in sampleconfig.ini and rename it to .config.ini
 6. Compile solidity code with the helper script to a combined json file  
