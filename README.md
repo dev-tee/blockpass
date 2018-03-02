@@ -63,6 +63,7 @@ ALTER TABLE ‘supervisor‘
   ADD PRIMARY KEY (‘uaccountid‘),
   ADD UNIQUE KEY ‘address‘ (‘address‘);
 ```
+
 5. Fill in the database’s credentials in sampleconfig.ini and rename it to .config.ini
 6. Compile solidity code with the helper script to a combined json file  
 `./compile.sh`
