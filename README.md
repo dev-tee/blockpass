@@ -7,6 +7,9 @@ An exploration of a blockchain system for reports of academic records on the bas
 
 ## Contents
 
+Folders will usually contain CONTENTS.md files that provide an overview of the folder's contents and file descriptions.
+Additionally, source files for code used in the system have their own descriptions near the top of their files.
+
 ### ui - folder
 Files for the website.
 
