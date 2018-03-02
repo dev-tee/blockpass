@@ -1,0 +1,66 @@
+@startuml
+
+!include style.iuml
+scale .7
+
+!include ./contracts/accountmanager.iuml
+!include ./contracts/assessmentdb.iuml
+!include ./contracts/assignmentdb.iuml
+!include ./contracts/contractmanager.iuml
+!include ./contracts/contractprovider.iuml
+!include ./contracts/coursedb.iuml
+!include ./contracts/courseparticipationdb.iuml
+!include ./contracts/coursesupervisiondb.iuml
+!include ./contracts/datamanager.iuml
+!include ./contracts/managedcontract.iuml
+!include ./contracts/owned.iuml
+!include ./contracts/studentdb.iuml
+!include ./contracts/studentmanager.iuml
+!include ./contracts/studentsubmissiondb.iuml
+!include ./contracts/submissiondb.iuml
+!include ./contracts/supervisorassessmentdb.iuml
+!include ./contracts/supervisordb.iuml
+!include ./contracts/supervisormanager.iuml
+!include ./contracts/testdb.iuml
+!include ./contracts/testparticipationdb.iuml
+!include ./contracts/testsupervisiondb.iuml
+
+title Blockpass
+
+show AssessmentDB
+show AssessmentDB members
+show Assessment
+show Assessment members
+show AssignmentDB
+show AssignmentDB members
+show Assignment
+show Assignment members
+show CourseDB
+show CourseDB members
+show Course
+show Course members
+show StudentDB
+show StudentDB members
+show Student
+show Student members
+show SubmissionDB
+show SubmissionDB members
+show Submission
+show Submission members
+show SupervisorDB
+show SupervisorDB members
+show Supervisor
+show Supervisor members
+show TestDB
+show TestDB members
+show Test
+show Test members
+
+show ContractProvider
+show ContractManager
+show ContractManager members
+show ManagedContract members
+show Owned
+show Owned members
+
+@enduml
