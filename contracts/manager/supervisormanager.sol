@@ -9,6 +9,8 @@ import "../data/combined/coursesupervisiondb.sol";
 import "../data/combined/testsupervisiondb.sol";
 import "../data/combined/supervisorassessmentdb.sol";
 
+// This contract is responsible for all data
+// that can be accessed by supervisor accounts.
 
 contract SupervisorManager is ManagedContract {
 
