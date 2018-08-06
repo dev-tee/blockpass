@@ -278,11 +278,18 @@ The `web3Provider` variable needs to point to the location of your node's rpc en
 
 ## Links
 
-[Live-Website](http://homepage.univie.ac.at/a1308076/PBA/blockpass)
+<!-- [Website](http://homepage.univie.ac.at/a1308076/PBA/blockpass) -->
+Website - Currently Not Live
 
 Website provides access to the working system that was implemented in this project.
 Requires connection to the University of Vienna's data network.
 See [university data network](https://zid.univie.ac.at/en/services/services-from-a-z/u/uni-datennetz/), [eduroam](https://zid.univie.ac.at/en/wi-fi/) or [uniVPN](https://zid.univie.ac.at/vpn/).
+
+[Thesis](thesis.pdf)
+
+[Presentation](presentation.pdf)
+
+---
 
 [Ethereum](https://www.ethereum.org)
 
